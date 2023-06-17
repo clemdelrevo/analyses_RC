@@ -4,7 +4,7 @@
 #renv::install("usethis")
 #renv::snapshot() ; renv::status()
 #usethis::use_description(check_name = FALSE)
-usethis::edit_r_environ()
+#usethis::edit_r_environ()
 
 #dir.create("data")
 #dir.create("outputs")
