@@ -4,16 +4,20 @@ Version: 0.0.0.9000
 Authors@R: 
     Clément Delamare
 Description: Reef check is a world citizen survey of corals reef. 
-Because of participation of non-scientist, survey entered into the database are often non-normalize.
-This can have the effect of undermining the credibility of the method.
-The aim of the project is to homogenize data to produce same outputs 
-between Reunion and Mayotte islands surveys, transparent and reproducible results.
+             Because of participation of non-scientist, survey entered into 
+             the database are often non-normalize.
+             This can have the effect of undermining the credibility of the method.
+             The aim of the project is to homogenize data to produce same outputs 
+             between Reunion and Mayotte islands surveys, transparent and reproducible results.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.0
 Imports: 
+  forcats,
+  ggplot2,
+  ggpubr,
   qs,
   readxl,
   targets,
