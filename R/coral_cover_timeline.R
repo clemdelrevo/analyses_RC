@@ -7,6 +7,7 @@ get_mayotte_coral_cover_timeline <- function(data_line, reef_type_may) {
   
   data_line$reef_type[data_line$site %in% reef_type_may$fringing_may] <- "fringing"
   data_line$reef_type[data_line$site %in% reef_type_may$barrier_may]  <- "barrier"
+  data_line$reef_type[data_line$site %in% reef_type_may$intern_may]  <- "intern"
   
   may_coral_cover <- data_line |>
     dplyr::group_by(annee, reef_type) |>

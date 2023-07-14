@@ -6,7 +6,7 @@ import_line <- function(list_line_files) {
   
   data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
     
-    #i = "data/1-MBOUZI/12-1201/2012_mbouzi_line.xls"
+    #i = "data/12-BOA SADIA/13-1115/2013_boa_line.xlsx"
     
     file_name   <- basename(i)
     annee       <- gsub("[^0-9]", "", file_name)
@@ -25,24 +25,25 @@ import_line <- function(list_line_files) {
     segments <- segments[, c(1,2,4,6,8)]
     colnames(segments) <- c("substrat", "t1", "t2", "t3", "t4")
     
-    if(any(is.na(apply(segments[, 2:5], 2, sum)))) {
-      
+  
+    if(any(is.na(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum)))) {
+        
       if(file_format == "xls") {
-        segments <- as.data.frame(readxl::read_xls(i, range = "R52C1:R61C8", col_names = FALSE))
+          segments <- as.data.frame(readxl::read_xls(i, range = "R52C1:R61C8", col_names = FALSE))
       } else if(file_format == "xlsx") {
-        segments <- as.data.frame(readxl::read_xlsx(i, range = "R52C1:R61C8", col_names = FALSE))
+          segments <- as.data.frame(readxl::read_xlsx(i, range = "R52C1:R61C8", col_names = FALSE))
       }
-      
+        
       segments <- segments[, c(1,2,4,6,8)]
       colnames(segments) <- c("substrat", "t1", "t2", "t3", "t4")
+        
+      }
       
-    }
-    
-    if(any(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum) != 40)) {
-      stop(message(paste0("sum of PIT in one of transect during ", annee, "'s ", site, " survey is not 40")))
-      return(NULL)
-    }
-  
+      if(any(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum) != 40)) {
+        stop(message(paste0("sum of PIT in one of transect during ", annee, "'s ", site, " survey is not 40")))
+        return(NULL)
+      }
+      
     seg_gather <- tidyr::gather(segments, transect, value, -substrat)
     seg_spread <- tidyr::spread(seg_gather, substrat, value)
     
@@ -111,7 +112,7 @@ import_belt <- function(list_belt_files){
   
     }
     
-    if(any(is.na(fish[fish$fish %in% fish_name, colnames(fish)]))) {stop(message("Please check the data sheet survey of ", site, " in ", annee, ". Seem it was not properly completed"))}
+    if(any(is.na(fish[fish$fish %in% fish_name, colnames(fish)]))) {stop(message("Please check the data sheet belt survey of ", site, " in ", annee, ". Seem it was not properly completed"))}
     
     # fish ---------------------------------------------------------------------
     fish <- fish[fish$fish %in% fish_name, ]
