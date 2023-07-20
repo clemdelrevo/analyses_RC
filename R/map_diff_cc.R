@@ -12,8 +12,8 @@ get_map_diff_cc <- function(mayotte_bd, may_reef, may_cc_diff_site) {
     ggplot2::geom_sf(data = mayotte_bd, fill = "#bdb7aa")+
     ggplot2::geom_sf(data = may_cc_diff_site, ggplot2::aes(fill = reef_type, shape = etat), color = "#000000", size = 3)+
     ggplot2::scale_shape_manual(values = c(24, 21, 25), labels = c("amélioration", "stable", "dégradation"))+
-    ggplot2::scale_fill_manual(values = c("#99CCCC", "#66CCCC", "#33CCCC"), labels = c("barrière", "frangeant", "interne"),
-                               guide = ggplot2::guide_legend(override.aes = list(shape = c(15, 15, 15), color = c("#99CCCC", "#66CCCC", "#33CCCC"))))+
+    ggplot2::scale_fill_manual(values = c("#0066CC", "#336666", "#66CCFF"), labels = c("barrière", "frangeant", "interne"),
+                               guide = ggplot2::guide_legend(override.aes = list(shape = c(15, 15, 15), color = c("#006666", "#669999", "#66CCCC"))))+
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = c("#D1CECE", "#D1CECE", "#D1CECE"), colour = "#000000")))+
     ggplot2::labs(fill = "Complexe récifal", shape = "Modification du taux de \nrecouvrement depuis le dernier suivi")+
     ggplot2::xlab("")+
@@ -30,7 +30,8 @@ get_map_diff_cc <- function(mayotte_bd, may_reef, may_cc_diff_site) {
                    legend.background = ggplot2::element_blank(),
                    legend.key = ggplot2::element_rect(fill = "#FFFFFF", color = "#FFFFFF"),
                    legend.position = c(1.25, 0.2),
-                   legend.margin = ggplot2::margin(0, 0, 5, 0, "cm"))
+                   legend.margin = ggplot2::margin(0, 0, 5, 0, "cm"),
+                   plot.margin = ggplot2::margin(0, -12, 0, -20, "cm"))
   
   return(may_diff_cc_map)
   

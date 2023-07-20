@@ -6,7 +6,7 @@ import_line <- function(list_line_files) {
   
   data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
     
-    #i = "data/12-BOA SADIA/13-1115/2013_boa_line.xlsx"
+    #i = "data/8-NGOUJA/20-1104/2020_ngouja_line.xlsx"
     
     file_name   <- basename(i)
     annee       <- gsub("[^0-9]", "", file_name)
@@ -51,10 +51,13 @@ import_line <- function(list_line_files) {
     n_site     <- rep(site, nrow(seg_spread))
     
     df_line <- data.frame(cbind(site = n_site, annee = n_annee, seg_spread))
+    df_line$annee <- as.integer(df_line$annee)
+    
+    return(df_line)
     
     })))
   
-return(data_line)
+  return(data_line)
 
 }
 
@@ -151,6 +154,6 @@ import_belt <- function(list_belt_files){
       
   })))
   
-return(data_belt)
+  return(data_belt)
   
 }

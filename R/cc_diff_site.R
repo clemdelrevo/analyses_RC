@@ -75,18 +75,19 @@ get_may_diff_cc_dot<- function(may_cc_diff_site) {
   cc_devel$etat_fr[cc_devel$etat == "degradation"] <- "dégradation"
   labs <- paste0(cc_devel$etat_fr, "\n (", round(cc_devel$freq), "%)")
   cc_devel$label <- labs
-  cc_devel$ymax <- cumsum(cc_devel$freq)
-  cc_devel$ymin <- c(0, head(cc_devel$ymax, n = -1))
+  cc_devel$ymax  <- cumsum(cc_devel$freq)
+  cc_devel$ymin  <- c(0, head(cc_devel$ymax, n = -1))
   cc_devel$label_pos <- (cc_devel$ymax + cc_devel$ymin) / 2
   
   may_diff_cc_dot <- ggplot2::ggplot(cc_devel, ggplot2::aes(xmin = 2, xmax = 3, ymin = ymin, ymax = ymax, fill = etat))+
     ggplot2::geom_rect()+
     ggplot2::coord_polar(theta = "y")+
     ggplot2::theme_void()+
-    ggplot2::xlim(c(-.5, 3))+
-    ggplot2::geom_label(x = 3.5, ggplot2::aes(y = label_pos, label = label), size = 4, label.size = 0)+
+    ggplot2::xlim(c(-.5, 4.5))+
+    ggplot2::geom_label(x = 3.5, ggplot2::aes(y = label_pos, label = label), size = 14, label.size = 0.5, nudge_x = 1)+
     ggplot2::scale_fill_manual(values = c("#05A9D1", "#05D13A", "#F8F804"))+
-    ggplot2::theme(legend.position = "none")
+    ggplot2::theme(legend.position = "none",
+                   plot.margin = ggplot2::margin(0, 0, -4, -2, "cm"))
   
   return(may_diff_cc_dot)
   

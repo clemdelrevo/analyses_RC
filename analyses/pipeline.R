@@ -29,17 +29,20 @@ list(
   ,tar_target(data_line, import_line(list_line_files))
   ,tar_target(data_belt, import_belt(list_belt_files))
   
-  ## coordonates site ---
+  ## coordinates site ---
   ,tar_target(coord_site_may, get_coord_site_may())
   
   ## reef type ---
   ,tar_target(reef_type_may, get_reef_type_mayotte())
   
   ## coral_cover_timeline ---
-  ,tar_target(may_coral_cover, get_mayotte_coral_cover_timeline(data_line, reef_type_may))
+  ,tar_target(may_pourc_cc, get_mayotte_cc_timeline(data_line, reef_type_may))
   
   ## cc_timeline_graph ---
-  ,tar_target(may_graph_cc, get_may_graph_cc(may_coral_cover))
+  ,tar_target(may_graph_cc, get_may_graph_cc(may_pourc_cc))
+  ,tar_target(n_survey, get_n_survey(may_pourc_cc))
+  ,tar_target(n_survey_graph, get_n_survey_graph(n_survey))
+  
   
   ## cc_diff_site ---
   ,tar_target(may_cc_diff_site, get_may_cc_diff_site(data_line, reef_type_may, coord_site_may))
@@ -49,4 +52,7 @@ list(
   
   ## figure ---
   ,tar_target(may_diff_cc_dot, get_may_diff_cc_dot(may_cc_diff_site))
+  
+  ## export figure ---
+  ,tar_target(export_figure, get_export_figure(may_diff_cc_map, may_diff_cc_dot))
 )

@@ -1,4 +1,4 @@
-get_mayotte_coral_cover_timeline <- function(data_line, reef_type_may) {
+get_mayotte_cc_timeline <- function(data_line, reef_type_may) {
   
   #targets::tar_load(data_line)
   #targets::tar_load(reef_type_may)
@@ -9,14 +9,15 @@ get_mayotte_coral_cover_timeline <- function(data_line, reef_type_may) {
   data_line$reef_type[data_line$site %in% reef_type_may$barrier_may]  <- "barrier"
   data_line$reef_type[data_line$site %in% reef_type_may$intern_may]  <- "intern"
   
-  may_coral_cover <- data_line |>
+  data_line$pourc_hc <-  (data_line$HC * 100) / 40
+  
+  cc_line <- data_line[, names(data_line) %in% c("site", "annee", "pourc_hc", "reef_type")]
+  
+  mean_pourc_cc <- data_line |>
     dplyr::group_by(annee, reef_type) |>
-    dplyr::summarise(mean_coral_cover = mean(HC),
-                     sd_coral_cover = sd(HC))
+    dplyr::summarise(mean_cover = mean(pourc_hc),
+                     sd_cover = sd(pourc_hc))
   
-  may_coral_cover$mean_coral_cover <- (may_coral_cover$mean_coral_cover * 100) / 40
-  may_coral_cover$sd_coral_cover   <- (may_coral_cover$sd_coral_cover * 100) / 40
-  
-  return(may_coral_cover)
+  return(list(cc_line = cc_line, mean_pourc_cc = mean_pourc_cc))
   
 }
