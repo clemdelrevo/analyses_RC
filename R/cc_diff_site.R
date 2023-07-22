@@ -1,10 +1,10 @@
-get_may_cc_diff_site <- function(data_line, reef_type_may, coord_site_may) {
+get_may_cc_diff_site <- function(data_line_may, reef_type_may, coord_site_may) {
   
   #targets::tar_load(data_line)
   #targets::tar_load(reef_type_may)
   #targets::tar_load(coord_site_may)
   
-  may_cc_site <- data_line |>
+  may_cc_site <- data_line_may |>
     dplyr::group_by(annee, site) |>
     dplyr::summarise(mean_coral_cover = mean(HC),
                      sd_coral_cover = sd(HC))

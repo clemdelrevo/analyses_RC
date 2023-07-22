@@ -24,4 +24,33 @@ wrangle_may_reef <- function(millenium_reef_shp) {
   return(may_reef)
   
 }
+
+get_data_fish <- function(data_belt, reef_type_may) {
+  
+  #targets::tar_load(data_belt)
+  
+  data_fish <-  data_belt$data_fish
+  data_fish$reef_type <- NA
+  data_fish$reef_type[data_fish$site %in% reef_type_may$fringing_may] <- "fringing"
+  data_fish$reef_type[data_fish$site %in% reef_type_may$barrier_may]  <- "barrier"
+  data_fish$reef_type[data_fish$site %in% reef_type_may$intern_may]   <- "intern"
+  
+  return(data_fish)
+  
+}
+
+
+get_data_invert <- function(data_belt, reef_type_may) {
+  
+  #targets::tar_load(data_belt)
+  
+  data_invert <-  data_belt$data_invert
+  data_invert$reef_type <- NA
+  data_invert$reef_type[data_invert$site %in% reef_type_may$fringing_may] <- "fringing"
+  data_invert$reef_type[data_invert$site %in% reef_type_may$barrier_may]  <- "barrier"
+  data_invert$reef_type[data_invert$site %in% reef_type_may$intern_may]   <- "intern"
+  
+  return(data_invert)
+  
+}
   

@@ -1,8 +1,6 @@
 # This function import data cover of year_site_line.xls/xlsx files -------------
 
-import_line <- function(list_line_files) {
-  
-  #targets::tar_load(list_line_files)
+import_line_function <- function(list_line_files) {
   
   data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
     
@@ -64,15 +62,13 @@ import_line <- function(list_line_files) {
 # This function import data count of fish and benthic organisms 
 # of year_site_line.xls/xlsx files ---------------------------------------------
 
-import_belt <- function(list_belt_files){
+import_belt_function <- function(list_belt_files){
   
   data_belt <- data.frame(do.call(rbind,lapply(list_belt_files, function(i) {
    
-    #targets::tar_load(list_belt_files)
+    #i = "data/14-LONGONI/16-0613/2016b_longoni_belt.xls"
     
-    #i = "data/7-SAZILEY/18-1114/2018_saziley_belt.xls"
-    
-    fish_name <- c("Butterflyfish", "Haemulidae", "Snapper", "Barramundi cod", "Humphead wrasse", "Bumphead parrot", "Parrotfish", "Moray eel", "Grouper total")
+    fish_name   <- c("Butterflyfish", "Haemulidae", "Snapper", "Barramundi cod", "Humphead wrasse", "Bumphead parrot", "Parrotfish", "Moray eel", "Grouper total")
     invert_name <- c("Banded coral shrimp", "Diadema", "Pencil urchin", "Collector urchin", "Sea cucumber", "Crown-of-thorns", "Triton", "Lobster", "Giant clam total")
     
     file_name   <- basename(i)
@@ -115,7 +111,11 @@ import_belt <- function(list_belt_files){
   
     }
     
-    if(any(is.na(fish[fish$fish %in% fish_name, colnames(fish)]))) {stop(message("Please check the data sheet belt survey of ", site, " in ", annee, ". Seem it was not properly completed"))}
+    if(any(is.na(fish[fish$fish %in% fish_name, names(fish) %in% c("t1", "t2", "t3", "t4")]))) {
+      
+      message("Survey of ", site, " in ", annee, " was not included because of NA values")
+      return(NULL)
+      }
     
     # fish ---------------------------------------------------------------------
     fish <- fish[fish$fish %in% fish_name, ]
@@ -130,7 +130,8 @@ import_belt <- function(list_belt_files){
     n_annee    <- rep(annee, nrow(fish_spread))
     n_site     <- rep(site, nrow(fish_spread))
       
-    df_fish <- data.frame(cbind(site = n_site, annee = n_annee, fish_spread))
+    fish <- data.frame(cbind(site = n_site, annee = n_annee, fish_spread))
+    fish$annee <- as.integer(fish$annee)
       
     # invert -------------------------------------------------------------------
     
@@ -147,13 +148,48 @@ import_belt <- function(list_belt_files){
     n_annee    <- rep(annee, nrow(invert_spread))
     n_site     <- rep(site, nrow(invert_spread))
       
-    df_invert <- data.frame(cbind(site = n_site, annee = n_annee, invert_spread))
-    df_belt   <- merge(df_fish, df_invert, by = intersect(colnames(df_fish), colnames(df_invert)))
+    invert <- data.frame(cbind(site = n_site, annee = n_annee, invert_spread))
+    invert$annee <- as.integer(invert$annee)
       
-    return(df_belt)
+    return(list(fish = fish, invert = invert))
       
   })))
+  data_belt$fish <- na.omit(data_belt$fish)
+  data_fish   <- data.frame(do.call(rbind, data_belt$fish))
+  data_invert <- do.call(rbind, data_belt$invert)
   
-  return(data_belt)
+  return(list(data_fish = data_fish, data_invert = data_invert))
+  
+}
+
+import_line_may <- function(list_line_may) {
+  
+  #targets::tar_load(list_line_files)
+  
+  import_line_function(list_line_files = list_line_may)
+  
+}
+
+import_belt_may <- function(list_belt_may) {
+  
+  #targets::tar_load(list_belt_files)
+  
+  import_belt_function(list_belt_files = list_belt_may)
+  
+}
+
+import_line_run <- function(list_line_run) {
+  
+  #targets::tar_load(list_line_files)
+  
+  import_line_function(list_line_files = list_line_run)
+  
+}
+
+import_belt_run <- function(list_belt_run) {
+  
+  #targets::tar_load(list_belt_files)
+  
+  import_belt_function(list_belt_files = list_belt_run)
   
 }
