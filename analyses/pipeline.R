@@ -48,16 +48,22 @@ list(
 
   ## map_cc_diff_site ---
   ,tar_target(may_cc_diff_site, get_may_cc_diff_site(data_line_may, reef_type_may, coord_site_may))
-  ,tar_target(may_diff_cc_map, get_map_diff_cc(mayotte_bd, may_reef, may_cc_diff_site))
+  ,tar_target(may_cc_map, get_map_diff_cc(mayotte_bd, may_reef, may_cc_diff_site))
   ,tar_target(may_diff_cc_dot, get_may_diff_cc_dot(may_cc_diff_site))
   
   ## fish abondance timeline ---
   ,tar_target(fish_abondance, get_fish_abondance(data_fish))
   ,tar_target(fish_trophic_abondance, get_fish_trophic_abondance(data_fish))
-  
-  ## fish_timeline_graph --
   ,tar_target(may_graph_fish, get_may_graph_fish(fish_abondance, fish_trophic_abondance))
+  ,tar_target(may_final_fish_timeline, get_may_final_fish_timeline(may_graph_fish, survey_may_fish))
+  
+  ## station survey ---
+  ,tar_target(may_substrat_survey, substrat_may_station(data_line_may))
+  ,tar_target(may_fish_survey, get_may_fish_station(data_fish))
+  ,tar_target(may_invert_survey, get_may_invert_station(data_invert))
   
   ## export figure ---
-  ,tar_target(export_figure, get_export_figure(may_diff_cc_map, may_diff_cc_dot))
+  ,tar_target(export_figure, get_export_figure(may_cc_map, may_diff_cc_dot, 
+                                               may_final_cc_timeline, may_final_fish_timeline,
+                                               may_substrat_survey, may_fish_survey, may_invert_survey))
 )

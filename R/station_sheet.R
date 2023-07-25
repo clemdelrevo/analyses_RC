@@ -105,7 +105,7 @@ camenbert_function <- function(data, color) {
     
 }
 
-susbtrat_may_station <- function(data_line_may) {
+substrat_may_station <- function(data_line_may) {
   
   #targets::tar_load(data_line_may)
   
@@ -115,9 +115,10 @@ susbtrat_may_station <- function(data_line_may) {
   
 }
 
-fish_may_station <- function(data_fish) {
+get_may_fish_station <- function(data_fish) {
   
- stat_bar_function(data = data_fish, 
+  #targets::tar_load(data_fish)
+  stat_bar_function(data = data_fish, 
                    taxon_name = c(bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
                                   humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
                                   parrotfish = "Scarinae", snapper = "Lutjanidae"),
@@ -127,16 +128,19 @@ fish_may_station <- function(data_fish) {
                   
 }
 
-invert_may_station <- function(data_invert) {
+get_may_invert_station <- function(data_invert) {
   
+  #targets::tar_load(data_invert)
   stat_bar_function(data = data_invert,
-                    taxon_name = c(banded_coral_shrimp = "Crevette à bande", diadema_urchin = "Oursin diadème",
-                                   pencil_urchin = "Oursin crayon", collector_urchin = "Oursin collecteur", 
-                                   sea_cucumber = "Holothuroidea", crown_of_thorns = "Acanthasteridae", 
-                                   triton = "Triton", lobster = "Langouste", giant_claim = "Bénitier"),
-                    color = c(banded_coral_shrimp = "#996633", diadema_urchin = "#000000",
-                              pencil_urchin = "#993333", collector_urchin = "#660099", 
-                              sea_cucumber = "#FFCC99", crown_of_thorns = "#CC0033", 
-                              triton = "#CCCC33", lobster = "#FFCCFF", giant_claim = "#6699FF"))
+                    taxon_name = c(banded_coral_shrimp = "Crevette à bande", collector_urchin = "Oursin collecteur", 
+                                   crown_of_thorns = "Acanthasteridae", diadema_urchin = "Oursin diadème", 
+                                   giant_clam = "Bénitier", lobster = "Langouste", 
+                                   pencil_urchin = "Oursin crayon", sea_cucumber = "Holothuroidea", 
+                                   triton = "Triton"),
+                    color = c(banded_coral_shrimp = "#996633", collector_urchin = "#660099", 
+                              crown_of_thorns = "#CC0033", diadema_urchin = "#333333",
+                              giant_clam = "#6699FF", lobster = "#FFCCFF",  
+                              pencil_urchin = "#993333", sea_cucumber = "#FFCC99", 
+                              triton = "#CCCC33"))
   
 }

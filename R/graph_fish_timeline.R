@@ -65,7 +65,7 @@ get_may_graph_fish <- function(fish_abondance, fish_trophic_abondance) {
   
 }
   
-get_may_final_fish_timeline <- function(may_graph_fish) {
+get_may_final_fish_timeline <- function(may_graph_fish, survey_may_fish) {
   
   #targets::tar_load(may_graph_fish)
   #targets::tar_load(survey_may_fish)
