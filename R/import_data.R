@@ -1,8 +1,9 @@
-# This function import data cover of year_site_line.xls/xlsx files -------------
+# This function import data substrat cover of 
+# year_site_line.xls/xlsx files ------------------------------------------------
 
 import_line_function <- function(list_line_files) {
   
-  data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
+  data_line <- data.frame(do.call(rbind, parallel::mclapply(list_line_files, function(i) {
     
     #i = "data/8-NGOUJA/20-1104/2020_ngouja_line.xlsx"
     
@@ -35,12 +36,11 @@ import_line_function <- function(list_line_files) {
       segments <- segments[, c(1,2,4,6,8)]
       colnames(segments) <- c("substrat", "t1", "t2", "t3", "t4")
         
-      }
+    }
       
-      if(any(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum) != 40)) {
+    if(any(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum) != 40)) {
         stop(message(paste0("sum of PIT in one of transect during ", annee, "'s ", site, " survey is not 40")))
-        return(NULL)
-      }
+    }
       
     seg_gather <- tidyr::gather(segments, transect, value, -substrat)
     seg_spread <- tidyr::spread(seg_gather, substrat, value)
@@ -64,7 +64,7 @@ import_line_function <- function(list_line_files) {
 
 import_belt_function <- function(list_belt_files){
   
-  data_belt <- data.frame(do.call(rbind, lapply(list_belt_files, function(i) {
+  data_belt <- data.frame(do.call(rbind, parallel::mclapply(list_belt_files, function(i) {
    
     #i = "data/mayotte/14-LONGONI/16-0613/2016b_longoni_belt.xls"
     
@@ -181,6 +181,8 @@ import_belt_function <- function(list_belt_files){
   
 }
 
+# --- MAYOTTE ------------------------------------------------------------------
+
 import_line_may <- function(list_line_may) {
   
   #targets::tar_load(list_line_may)
@@ -196,6 +198,24 @@ import_belt_may <- function(list_belt_may) {
   import_belt_function(list_belt_files = list_belt_may)
   
 }
+
+import_fish_may <- function(data_belt_may) {
+  
+  #targets::tar_load(data_belt_may)
+  
+  data_belt_may$data_fish
+  
+}
+
+import_invert_may <- function(data_belt_may) {
+  
+  #targets::tar_load(data_belt_may)
+  
+  data_belt_may$data_invert
+  
+}
+
+# --- REUNION ------------------------------------------------------------------
 
 import_line_run <- function(list_line_run) {
   

@@ -115,10 +115,10 @@ substrat_may_station <- function(data_line_may) {
   
 }
 
-get_may_fish_station <- function(data_fish) {
+get_may_fish_station <- function(fish_may) {
   
-  #targets::tar_load(data_fish)
-  stat_bar_function(data = data_fish, 
+  #targets::tar_load(fish_may)
+  stat_bar_function(data = fish_may, 
                    taxon_name = c(bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
                                   humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
                                   parrotfish = "Scarinae", snapper = "Lutjanidae"),
@@ -128,10 +128,10 @@ get_may_fish_station <- function(data_fish) {
                   
 }
 
-get_may_invert_station <- function(data_invert) {
+get_may_invert_station <- function(invert_may) {
   
-  #targets::tar_load(data_invert)
-  stat_bar_function(data = data_invert,
+  #targets::tar_load(invert_may)
+  stat_bar_function(data = invert_may,
                     taxon_name = c(banded_coral_shrimp = "Crevette à bande", collector_urchin = "Oursin collecteur", 
                                    crown_of_thorns = "Acanthasteridae", diadema_urchin = "Oursin diadème", 
                                    giant_clam = "Bénitier", lobster = "Langouste", 

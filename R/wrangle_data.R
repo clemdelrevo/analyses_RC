@@ -25,32 +25,90 @@ wrangle_may_reef <- function(millenium_reef_shp) {
   
 }
 
-get_data_fish <- function(data_belt, reef_type_may) {
+wrangle_carmayotte_shp <- function(carmayotte_shp) {
   
-  #targets::tar_load(data_belt)
+  #targets::tar_load(carmayotte_shp)
   
-  data_fish <-  data_belt$data_fish
-  data_fish$reef_type <- NA
-  data_fish$reef_type[data_fish$site %in% reef_type_may$fringing_may] <- "fringing"
-  data_fish$reef_type[data_fish$site %in% reef_type_may$barrier_may]  <- "barrier"
-  data_fish$reef_type[data_fish$site %in% reef_type_may$intern_may]   <- "intern"
+  carmayotte <- sf::st_read(carmayotte_shp)
+  carmayotte <- sf::st_make_valid(carmayotte)
   
-  return(data_fish)
+  carmayotte$Geo_N3_mil[carmayotte$Geo_N3_mil == "Recif frangeant d ilots"] <- "Recif frangeant"
+  carmayotte$Geo_N3_mil[carmayotte$Geo_N3_mil == "Recif barriere ennoyee"]  <- "Recif barriere"
+  carmayotte$Geo_N3_mil[carmayotte$Geo_N3_mil == "Recif barriere immergee"] <- "Recif barriere"
+  carmayotte$Geo_N3_mil[carmayotte$Geo_N3_mil == "Lagon ennoye"] <- "Lagon"
+  
+  carmayotte <-  carmayotte[carmayotte$Geo_N3_mil != "Terre emmergee", ]
+  carmayotte <-  carmayotte[carmayotte$Geo_N3_mil != "Passe", ]
+  carmayotte <-  carmayotte[carmayotte$Geo_N3_mil != "Fond de baie", ]
+  
+  carmayotte <- carmayotte[carmayotte$surface > 5000, ]
+  carmayotte <- sf::st_transform(carmayotte, crs = sf::st_crs(4326))
+  
+  carto_union <- setNames(lapply(unique(carmayotte$Geo_N3_mil), function(geo_type) {
+    
+    #geo_type = "Recif barriere" 
+    message(geo_type)
+    geo_union <- sf::st_union(carmayotte[carmayotte$Geo_N3_mil == geo_type, ])
+    geo_union <- sf::st_make_valid(geo_union)
+    
+    return(geo_union)
+
+  }), unique(carmayotte$Geo_N3_mil))
+
+  carto_n3 <- data.frame(geometry = do.call(rbind, carto_union))
+  carto_n3$geo_n3 <- rownames(carto_n3)
+  rownames(carto_n3) <- 1:nrow(carto_n3)
+  carto_n3 <- sf::st_as_sf(carto_n3)
+  sf::st_crs(carto_n3) <- 4326
+
+  ggplot2::ggplot()+
+    ggplot2::geom_sf(data = carto_n3, ggplot2::aes(color = geo_n3, fill = geo_n3))+
+    ggplot2::scale_fill_manual(values = c("#FFFF99", "#edf8ff", "#024f14", "#FF0000", "#064d7d", "#50a5de"))+
+    ggplot2::scale_color_manual(values = c("#FFFF99", "#edf8ff", "#024f14", "#FF0000", "#064d7d", "#50a5de"))+
+    ggplot2::theme_classic()+
+    ggplot2::theme(axis.text = ggplot2::element_blank(),
+                   axis.ticks = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_blank())
+                                            
   
 }
 
+# --- MAYOTTE ------------------------------------------------------------------
 
-get_data_invert <- function(data_belt, reef_type_may) {
+get_data_line <- function(data_line_may, reef_type_may) {
   
-  #targets::tar_load(data_belt)
+  #targets::tar_load(data_line_may)
+  #targets::tar_load(reef_type_may)
   
-  data_invert <-  data_belt$data_invert
-  data_invert$reef_type <- NA
-  data_invert$reef_type[data_invert$site %in% reef_type_may$fringing_may] <- "fringing"
-  data_invert$reef_type[data_invert$site %in% reef_type_may$barrier_may]  <- "barrier"
-  data_invert$reef_type[data_invert$site %in% reef_type_may$intern_may]   <- "intern"
+  add_reef_type(data = data_line_may,
+                fringing = reef_type_may$fringing_may,
+                barrier = reef_type_may$barrier_may,
+                intern = reef_type_may$intern_may)
   
-  return(data_invert)
+}
+
+get_data_fish <- function(data_fish_may, reef_type_may) {
+  
+  #targets::tar_load(data_fish_may)
+  #targets::tar_load(reef_type_may)
+  
+ add_reef_type(data = data_fish_may,
+               fringing = reef_type_may$fringing_may,
+               barrier = reef_type_may$barrier_may,
+               intern = reef_type_may$intern_may)
+  
+}
+
+get_data_invert <- function(data_invert_may, reef_type_may) {
+  
+  #targets::tar_load(data_invert_may)
+  #targets::tar_load(reef_type_may)
+  
+  add_reef_type(data = data_invert_may,
+                fringing = reef_type_may$fringing_may,
+                barrier = reef_type_may$barrier_may,
+                intern = reef_type_may$intern_may)
+  
   
 }
   

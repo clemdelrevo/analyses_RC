@@ -1,12 +1,6 @@
-cc_timeline_function <- function(data, fringing, barrier, intern) {
+cc_timeline_function <- function(data) {
   
-  data$reef_type <- NA
-  
-  data$reef_type[data$site %in% fringing] <- "fringing"
-  data$reef_type[data$site %in% barrier]  <- "barrier"
-  data$reef_type[data$site %in% intern]   <- "intern"
-  
-  data$pourc_hc <-  (data$HC * 100) / 40
+  data$pourc_hc <- (data$HC * 100) / 40
   
   cc_line <- data[, names(data) %in% c("site", "annee", "pourc_hc", "reef_type")]
   
@@ -19,23 +13,18 @@ cc_timeline_function <- function(data, fringing, barrier, intern) {
   
 }
 
-get_mayotte_cc_timeline <- function(data_line_may, reef_type_may) {
+get_mayotte_cc_timeline <- function(line_may) {
   
-  #targets::tar_load(data_line_may)
-  #targets::tar_load(reef_type_may)
+  #targets::tar_load(line_may)
   
-  cc_timeline_function(data = data_line_may,
-                       fringing = reef_type_may$fringing_may,
-                       barrier = reef_type_may$barrier_may,
-                       intern = reef_type_may$intern_may)
+  cc_timeline_function(data = line_may)
   
 }
 
-get_reunion_cc_timeline <- function(data_line_run, reef_type_run) {
+get_reunion_cc_timeline <- function(line_run) {
   
-  #targets::tar_load(data_line_run)
-  #targets::tar_load(reef_type_run)
+  #targets::tar_load(line_run)
   
-  cc_timeline_function(data = data_line_run)
+  cc_timeline_function(data = line_run)
   
 }

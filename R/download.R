@@ -34,3 +34,19 @@ download_millenium_reef <- function(overwrite = TRUE){
   return(millenium_reef_shp)
   
 }
+
+download_carmayotte <- function() {
+  
+  carmayotte_url  <-  "https://sextant.ifremer.fr/sextant_data/data_QGIS/OCEAN_INDIEN/HYPERSPECTRALE/Carmayotte_2020_CUFR_MAREX_OFB/Carmayotte_2020_CUFR_MAREX_OFB.zip"
+  carmayotte_zip  <- "data/Carmayotte_2020_CUFR_MAREX_OFB.zip"
+  carmayotte_file_name  <- "data/carmayotte"
+  dir.create(carmayotte_file_name, showWarnings = FALSE)
+  
+  download.file(url = carmayotte_url, destfile = carmayotte_zip, method = "curl")
+  unzip(carmayotte_zip, exdir = carmayotte_file_name)
+  unlink(carmayotte_zip)
+  carmayotte_shp <- "data/carmayotte/Carmayotte_2020_CUFR_MAREX_OFB.shp"
+  
+  return(carmayotte_shp)
+  
+}

@@ -1,12 +1,12 @@
 
-get_fish_abondance <- function(data_fish) {
+get_fish_abondance <- function(fish_may) {
   
   #targets::tar_load(data_fish)
 
   fish <- c("bumphead_parrot", "butterflyfish", "grouper", "haemulidae", "humphead_wrasse", "moray_eel", "parrotfish", "snapper")
   
-  abondance     <- apply(data_fish[, names(data_fish) %in% fish], 1, sum)
-  tot_abondance <- cbind(data_fish[, names(data_fish) %in% c("site", "annee", "transect", "reef_type")], abondance)
+  abondance     <- apply(fish_may[, names(fish_may) %in% fish], 1, sum)
+  tot_abondance <- cbind(fish_may[, names(fish_may) %in% c("site", "annee", "transect", "reef_type")], abondance)
   
   mean_abondance <- tot_abondance |>
     dplyr::group_by(annee, reef_type) |>
@@ -17,25 +17,25 @@ get_fish_abondance <- function(data_fish) {
   
 }
 
-get_fish_trophic_abondance <- function(data_fish) {
+get_fish_trophic_abondance <- function(fish_may) {
   
   #targets::tar_load(data_fish)
   
-  herbivore <- data_fish[, names(data_fish) %in% c("site", "annee", "transect", "reef_type", "parrotfish")]
+  herbivore <- fish_may[, names(fish_may) %in% c("site", "annee", "transect", "reef_type", "parrotfish")]
   mean_herbivore <-  herbivore |>
     dplyr::group_by(annee, reef_type) |>
     dplyr::summarise(mean_abondance = mean(parrotfish),
                      st_error_abondance = plotrix::std.error(parrotfish))
   
   carnivore <- c("haemulidae", "moray_eel", "snapper", "grouper")
-  abondance_carnivore <- apply(data_fish[, names(data_fish) %in% carnivore], 1, sum)
-  tot_abondance_carnivore <- cbind(data_fish[, names(data_fish) %in% c("site", "annee", "transect", "reef_type")], abondance_carnivore)
+  abondance_carnivore <- apply(fish_may[, names(fish_may) %in% carnivore], 1, sum)
+  tot_abondance_carnivore <- cbind(fish_may[, names(fish_may) %in% c("site", "annee", "transect", "reef_type")], abondance_carnivore)
   mean_carnivore <- tot_abondance_carnivore |>
     dplyr::group_by(annee, reef_type) |>
     dplyr::summarise(mean_abondance = mean(abondance_carnivore),
                      st_error_abondance = plotrix::std.error(abondance_carnivore))
   
-  corallivore <- data_fish[, names(data_fish) %in% c("site", "annee", "transect", "reef_type", "butterflyfish")]
+  corallivore <- fish_may[, names(fish_may) %in% c("site", "annee", "transect", "reef_type", "butterflyfish")]
   mean_corallivore <-  corallivore |>
     dplyr::group_by(annee, reef_type) |>
     dplyr::summarise(mean_abondance = mean(butterflyfish),
