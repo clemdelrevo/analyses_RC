@@ -12,7 +12,12 @@ islands reef check surveys, transparent and reproducible results.
 
 3. Enter this URL: https://github.com/clemdelrevo/analyses_RC.git
 
-4. Synchronize the library with renv::restore()
+4. Synchronize the library with 
+
+``` r
+renv::restore()
+
+```
 
 ## Run targets
 
@@ -28,7 +33,7 @@ targets::tar_read(final_cc_timeline_may)
 If you want to load target, run :
 
 ``` r
-targets::tar_load(linemay)
+targets::tar_load(line_may)
 
 ```
 After that, you can work with the data:
