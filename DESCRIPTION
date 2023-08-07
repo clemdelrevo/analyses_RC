@@ -1,4 +1,4 @@
-Package: analyses_RC
+Package: analyse.RC
 Title: Reef Check in Reunion and Mayotte islands
 Version: 0.0.0.9000
 Authors@R: person("Clément", "Delamare", role = c("aut", "cre"), 
