@@ -1,7 +1,7 @@
 Package: analyses_RC
 Title: Reef Check in Reunion and Mayotte islands
 Version: 0.0.0.9000
-Authors@R: person("Clément Delamare", role = c("aut", "cre"), 
+Authors@R: person("Clément", "Delamare", role = c("aut", "cre"), 
             email = "clement.delamare@live.fr")
 Description: Reef check is a world citizen survey of corals reef. 
              Because of participation of non-scientist, survey entered into 
