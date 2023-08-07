@@ -51,18 +51,30 @@ n_survey_graph_function <- function(n_survey) {
   
 }
 
-get_n_survey_may_cc <- function(may_pourc_cc) {
+# --- MAYOTTE ------------------------------------------------------------------
+
+get_nb_survey_cc_may <- function(pourc_cc_may) {
   
-  #targets::tar_load(may_pourc_cc)
-  n_survey <- n_survey_function(data = may_pourc_cc$cc_line, variable = may_pourc_cc$cc_line$reef_type)
+  #targets::tar_load(pourc_cc_may)
+  n_survey <- n_survey_function(data = pourc_cc_may$cc_line, variable = pourc_cc_may$cc_line$reef_type)
   n_survey_graph_function(n_survey)
   
 }
 
-get_n_survey_may_fish <- function(fish_abondance) {
+get_nb_survey_fish_may <- function(fish_abondance_may) {
   
-  #targets::tar_load(fish_abondance)
-  n_survey <- n_survey_function(data = fish_abondance$tot_abondance, variable = fish_abondance$tot_abondance$reef_type)
+  #targets::tar_load(fish_abondance_may)
+  n_survey <- n_survey_function(data = fish_abondance_may$all$tot_abondance, variable = fish_abondance_may$all$tot_abondance$reef_type)
+  n_survey_graph_function(n_survey)
+  
+}
+
+# --- RÉUNION ------------------------------------------------------------------
+
+get_nb_survey_cc_run <- function(pourc_cc_run) {
+  
+  #targets::tar_load(pourc_cc_run)
+  n_survey <- n_survey_function(data = pourc_cc_run$cc_line, variable = pourc_cc_run$cc_line$reef_type)
   n_survey_graph_function(n_survey)
   
 }

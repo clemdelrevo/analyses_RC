@@ -9,6 +9,18 @@ wrangle_mayotte_shp <- function(mayotte_shp) {
   return(mayotte_bd)
   
 }
+
+wrangle_reunion_shp <- function(reunion_shp) {
+  
+  #targets::tar_load(reunion_shp)
+  
+  reunion_bd <- sf::read_sf(reunion_shp)
+  reunion_bd <- sf::st_transform(reunion_bd, 4326)
+  reunion_bd <- sf::st_make_valid(reunion_bd)
+  
+  return(reunion_bd)
+  
+}
   
 wrangle_may_reef <- function(millenium_reef_shp) {
   
@@ -22,6 +34,21 @@ wrangle_may_reef <- function(millenium_reef_shp) {
   may_reef <- sf::st_make_valid(may_reef)
   
   return(may_reef)
+  
+}
+
+wrangle_run_reef <- function(millenium_reef_shp) {
+  
+  #targets::tar_load(millenium_reef_shp)
+  
+  millenium_reef <- sf::read_sf(millenium_reef_shp)
+  millenium_reef <- sf::st_make_valid(millenium_reef)
+  
+  run_bbox <- sf::st_bbox(c(xmin = 55.140, xmax = 55.900, ymin = -21.420, ymax = -20.820))
+  run_reef <- sf::st_crop(millenium_reef, run_bbox)
+  run_reef <- sf::st_make_valid(run_reef)
+  
+  return(run_reef)
   
 }
 
@@ -75,40 +102,53 @@ wrangle_carmayotte_shp <- function(carmayotte_shp) {
 
 # --- MAYOTTE ------------------------------------------------------------------
 
-get_data_line <- function(data_line_may, reef_type_may) {
+get_data_line_may <- function(data_line_may, reef_type_may) {
   
   #targets::tar_load(data_line_may)
   #targets::tar_load(reef_type_may)
   
-  add_reef_type(data = data_line_may,
-                fringing = reef_type_may$fringing_may,
-                barrier = reef_type_may$barrier_may,
-                intern = reef_type_may$intern_may)
+  add_reef_type_may(data = data_line_may,
+                   fringing = reef_type_may$fringing_may,
+                   barrier = reef_type_may$barrier_may,
+                   intern = reef_type_may$intern_may)
   
 }
 
-get_data_fish <- function(data_fish_may, reef_type_may) {
+get_data_fish_may <- function(data_fish_may, reef_type_may) {
   
   #targets::tar_load(data_fish_may)
   #targets::tar_load(reef_type_may)
   
- add_reef_type(data = data_fish_may,
-               fringing = reef_type_may$fringing_may,
-               barrier = reef_type_may$barrier_may,
-               intern = reef_type_may$intern_may)
+ add_reef_type_may(data = data_fish_may,
+                   fringing = reef_type_may$fringing_may,
+                   barrier = reef_type_may$barrier_may,
+                   intern = reef_type_may$intern_may)
   
 }
 
-get_data_invert <- function(data_invert_may, reef_type_may) {
+get_data_invert_may <- function(data_invert_may, reef_type_may) {
   
   #targets::tar_load(data_invert_may)
   #targets::tar_load(reef_type_may)
   
-  add_reef_type(data = data_invert_may,
-                fringing = reef_type_may$fringing_may,
-                barrier = reef_type_may$barrier_may,
-                intern = reef_type_may$intern_may)
+  add_reef_type_may(data = data_invert_may,
+                    fringing = reef_type_may$fringing_may,
+                    barrier = reef_type_may$barrier_may,
+                    intern = reef_type_may$intern_may)
   
+  
+}
+
+# --- RÉUNION ------------------------------------------------------------------
+
+get_data_line_run <- function(data_line_run, reef_type_run) {
+  
+  #targets::tar_load(data_line_run)
+  #targets::tar_load(reef_type_run
+  
+  add_reef_type_run(data = data_line_run,
+                    slope = reef_type_run$slope_run,
+                    flat = NULL)
   
 }
   

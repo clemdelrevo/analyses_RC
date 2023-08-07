@@ -26,3 +26,15 @@ get_coord_site_may <- function() {
   return(coord_site_may)
   
 }
+
+get_coord_site_run <- function() {
+  
+  tessier.pe <- c(x = 55.247514, y = -21.110174)
+  
+  coord_site_run <- data.frame(t(cbind(tessier.pe)))
+  coord_site_run$site <- rownames(coord_site_run)
+  rownames(coord_site_run) <- 1:nrow(coord_site_run)
+  
+  return(coord_site_run)
+  
+}

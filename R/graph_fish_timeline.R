@@ -19,69 +19,107 @@ fish_timeline_graph <- function(data, x, y, color, data2, x2, y2, subtitle) {
   
 }
 
-get_may_graph_fish <- function(fish_abondance, fish_trophic_abondance) {
+get_graph_fish <- function(fish_abondance_region) {
   
-  #targets::tar_load(fish_abondance)
-  #targets::tar_load( fish_trophic_abondance)
+  graph_fish <- setNames(lapply(names(fish_abondance_region), function(level) {
+    
+    #level = "all"
+    if (level == "all") {
+      
+      subtitle = bquote("Abondance totale (nb/100"*m^2*")")
+      
+    } else if (level == "herbivore") {
+      
+      subtitle = bquote("Abondance herbivore Scarinae (nb/100"*m^2*")")
+      
+    } else if (level == "carnivore") {
+      
+      subtitle = bquote("Abondance carnassier (nb/100"*m^2*")")
+      
+    } else if (level == "corallivore") {
+      
+      subtitle = bquote("Abondance papilllons (nb/100"*m^2*")")
+      
+    }
+    
+    sub_level <- fish_abondance_region[[level]]
+    
+    setNames(lapply(unique(sub_level$tot_abondance$reef_type), function(reef_type) {
+      
+      #reef_type = "barrier"
+      tot_abondance  <- sub_level$tot_abondance[sub_level$tot_abondance$reef_type == reef_type, ]
+      mean_abondance <- sub_level$mean_abondance[sub_level$mean_abondance$reef_type == reef_type, ]
+      graph <- fish_timeline_graph(data = tot_abondance, x = "annee", y = "abondance", color = "orange", data2 = mean_abondance, x2 = "annee", y2 = "mean_abondance", subtitle = subtitle)
+      
+      if (level == "all" | level == "herbivore" | level == "carnivore") {
+        
+        return(graph + ggplot2::theme(axis.text.x = ggplot2::element_blank()))
+        
+      } else {
+        
+        return(graph)
+        
+      }
+
+    }), unique(sub_level$tot_abondance$reef_type))
+    
+  }), names(fish_abondance_region))
   
-  tot_abondance <- setNames(lapply(levels(as.factor(fish_abondance$tot_abondance$reef_type)), function(reef_type) {
+  return(graph_fish)
+  
+}
+
+get_final_fish_timeline <- function(graph_fish_region, nb_survey_fish_region) {
+  
+  final_graph <- setNames(lapply(names(graph_fish_region$all), function(reef_type) {
     
     #reef_type = "barrier"
-    tot_abondance  <- fish_abondance$tot_abondance[fish_abondance$tot_abondance$reef_type == reef_type, ]
-    mean_abondance <- fish_abondance$mean_abondance[fish_abondance$mean_abondance$reef_type == reef_type, ]
-    fish_timeline_graph(data = tot_abondance, x = "annee", y = "abondance", color = "orange", data2 = mean_abondance, x2 = "annee", y2 = "mean_abondance", subtitle = bquote("Abondance totale (nb/100"*m^2*")"))+
-      ggplot2::theme(axis.text.x = ggplot2::element_blank())
-    
-  }), levels(as.factor(fish_abondance$tot_abondance$reef_type)))
+    if (reef_type == "barrier") {
+      
+      labels = "RÉCIFS BARRIÈRES"
+      
+    } else if (reef_type == "fringing") {
+      
+      labels = "RÉCIFS FRANGEANTS"
+      
+    } else if (reef_type == "intern") {
+      
+      labels = "RÉCIFS INTERNES"
+      
+    }
   
+    cowplot::plot_grid(nb_survey_fish_region[[reef_type]],
+                       graph_fish_region$all[[reef_type]],
+                       graph_fish_region$herbivore[[reef_type]],
+                       graph_fish_region$carnivore[[reef_type]],
+                       graph_fish_region$corallivore[[reef_type]],
+                       nrow = 5, rel_heights = c(1.8, 2, 2, 2, 2), align = "hv", 
+                       labels = labels, hjust = -0.2, vjust = -0.1)+
+      ggplot2::theme(plot.margin = ggplot2::margin(t = 13, unit = "pt"))
   
-  tot_herbivore <- setNames(lapply(levels(as.factor(fish_trophic_abondance$herbivore$reef_type)), function(reef_type) {
-    
-    tot_herbivore_reef <- fish_trophic_abondance$herbivore[fish_trophic_abondance$herbivore$reef_type == reef_type, ]
-    mean_herbivore     <- fish_trophic_abondance$mean_herbivore[fish_trophic_abondance$mean_herbivore$reef_type == reef_type, ]
-    fish_timeline_graph(data = tot_herbivore_reef, x = "annee", y = "parrotfish", color = "orange", data2 = mean_herbivore, x2 = "annee", y2 = "mean_abondance", subtitle = bquote("Abondance herbivore Scarinae (nb/100"*m^2*")"))+
-      ggplot2::theme(axis.text.x = ggplot2::element_blank())
-    
-  }), levels(as.factor(fish_trophic_abondance$herbivore$reef_type)))
+  }), names(graph_fish_region$all))
   
-  tot_carnivore <- setNames(lapply(levels(as.factor(fish_trophic_abondance$carnivore$reef_type)), function(reef_type) {
-    
-    tot_carnivore_reef <- fish_trophic_abondance$carnivore[fish_trophic_abondance$carnivore$reef_type == reef_type, ]
-    mean_carnivore     <- fish_trophic_abondance$mean_carnivore[fish_trophic_abondance$mean_carnivore$reef_type == reef_type, ]
-    fish_timeline_graph(data = tot_carnivore_reef, x = "annee", y = "abondance_carnivore", color = "orange", data2 = mean_carnivore, x2 = "annee", y2 = "mean_abondance", subtitle = bquote("Abondance carnassier (nb/100"*m^2*")"))+
-      ggplot2::theme(axis.text.x = ggplot2::element_blank())
-    
-  }), levels(as.factor(fish_trophic_abondance$carnivore$reef_type)))
+  args      <- list(align = "hv", ncol = length(final_graph))
+  all_graph <- c(final_graph, args)
   
-  tot_corallivore <- setNames(lapply(levels(as.factor(fish_trophic_abondance$corallivore$reef_type)), function(reef_type) {
-    
-    tot_corallivore_reef <- fish_trophic_abondance$corallivore[fish_trophic_abondance$corallivore$reef_type == reef_type, ]
-    mean_corallivore     <- fish_trophic_abondance$mean_corallivore[fish_trophic_abondance$mean_corallivore$reef_type == reef_type, ]
-    fish_timeline_graph(data = tot_corallivore_reef, x = "annee", y = "butterflyfish", color = "orange", data2 = mean_corallivore, x2 = "annee", y2 = "mean_abondance", subtitle = bquote("Abondance papilllons (nb/100"*m^2*")"))
-    
-  }), levels(as.factor(fish_trophic_abondance$corallivore$reef_type)))
-  
-  return(list(tot_abondance = tot_abondance, tot_herbivore = tot_herbivore, tot_carnivore = tot_carnivore, tot_corallivore = tot_corallivore))
+  do.call(cowplot::plot_grid, all_graph)
   
 }
   
-get_may_final_fish_timeline <- function(may_graph_fish, survey_may_fish) {
+# --- MAYOTTE ------------------------------------------------------------------
+
+get_graph_fish_may <- function(fish_abondance_may) {
   
-  #targets::tar_load(may_graph_fish)
-  #targets::tar_load(survey_may_fish)
-  
-  fringing <- cowplot::plot_grid(survey_may_fish$fringing, may_graph_fish$tot_abondance$fringing, may_graph_fish$tot_herbivore$fringing, may_graph_fish$tot_carnivore$fringing, may_graph_fish$tot_corallivore$fringing,
-                     nrow = 5, rel_heights = c(1.8, 2, 2, 2, 2), align = "hv", labels = "RÉCIFS FRANGEANTS", hjust = -0.2, vjust = -0.1)+
-    ggplot2::theme(plot.margin = ggplot2::margin(t = 13, unit = "pt"))
-  
-  intern <- cowplot::plot_grid(survey_may_fish$intern, may_graph_fish$tot_abondance$intern, may_graph_fish$tot_herbivore$intern, may_graph_fish$tot_carnivore$intern, may_graph_fish$tot_corallivore$intern,
-                     nrow = 5, rel_heights = c(1.8, 2, 2, 2, 2), align = "hv", labels = "RÉCIFS INTERNES", hjust = -0.2, vjust = -0.1)+
-    ggplot2::theme(plot.margin = ggplot2::margin(t = 13, unit = "pt"))
-  
-  barrier <- cowplot::plot_grid(survey_may_fish$barrier, may_graph_fish$tot_abondance$barrier, may_graph_fish$tot_herbivore$barrier, may_graph_fish$tot_carnivore$barrier, may_graph_fish$tot_corallivore$barrier,
-                     nrow = 5, rel_heights = c(1.8, 2, 2, 2, 2), align = "hv", labels = "RÉCIFS BARRIÈRES", hjust = -0.2, vjust = -0.1)+
-    ggplot2::theme(plot.margin = ggplot2::margin(t = 13, unit = "pt"))
-  
-  cowplot::plot_grid(fringing, intern, barrier, ncol = 3, align = "hv")
+  #targets::tar_load(fish_abondance_may)
+  get_graph_fish(fish_abondance = fish_abondance_may)
   
 }
+
+get_final_fish_timeline_may <- function(graph_fish_may, nb_survey_fish_may) {
+  
+  #targets::tar_load(graph_fish_may)
+  #targets::tar_load(nb_survey_fish_may)
+  get_final_fish_timeline(graph_fish_region = graph_fish_may, nb_survey_fish_region = nb_survey_fish_may)
+  
+}
+ 

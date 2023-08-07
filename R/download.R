@@ -7,6 +7,15 @@ download_bd_topo_mayotte <- function() {
   
 }
 
+download_bd_topo_reunion <- function() {
+  
+  #download at : https://geoservices.ign.fr/ressource/219782
+  
+  reunion_shp <- "data/BDTOPO_3-3_TOUSTHEMES_SHP_RGR92UTM40S_R04_2023-06-15/BDTOPO/1_DONNEES_LIVRAISON_2023-06-00131/BDT_3-3_SHP_RGR92UTM40S_R04-ED2023-06-15/ADMINISTRATIF/REGION.shp"
+  reunion_shp
+  
+}
+
 # --- GLOBAL REEF LOCATION -----------------------------------------------------
 
 # download Millennium Coral Reef Mapping Project

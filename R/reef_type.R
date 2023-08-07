@@ -10,13 +10,34 @@ get_reef_type_mayotte <- function() {
   
 }
 
-add_reef_type <- function(data, fringing, barrier, intern) {
+get_reef_type_run <- function() {
+  
+  slope_run <- c("tessier.pe")
+  
+  flat_run  <- NULL
+  
+  return(list(slope_run = slope_run, flat_run = flat_run))
+  
+}
+
+add_reef_type_may <- function(data, fringing, barrier, intern) {
   
   data$reef_type <- NA
   
   data$reef_type[data$site %in% fringing] <- "fringing"
   data$reef_type[data$site %in% barrier]  <- "barrier"
   data$reef_type[data$site %in% intern]   <- "intern"
+  
+  return(data)
+  
+}
+
+add_reef_type_run <- function(data, flat, slope) {
+  
+  data$reef_type <- NA
+  
+  data$reef_type[data$site %in% flat]  <- "flat"
+  data$reef_type[data$site %in% slope] <- "slope"
   
   return(data)
   

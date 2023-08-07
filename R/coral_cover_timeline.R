@@ -13,7 +13,7 @@ cc_timeline_function <- function(data) {
   
 }
 
-get_mayotte_cc_timeline <- function(line_may) {
+get_cc_timeline_may <- function(line_may) {
   
   #targets::tar_load(line_may)
   
@@ -21,7 +21,7 @@ get_mayotte_cc_timeline <- function(line_may) {
   
 }
 
-get_reunion_cc_timeline <- function(line_run) {
+get_cc_timeline_run <- function(line_run) {
   
   #targets::tar_load(line_run)
   

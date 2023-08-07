@@ -1,11 +1,9 @@
 # Generate barplot to have an overview of fish or 
 # invert mean abondance in each station ---------------------------------------------
 
-stat_bar_function <- function(data, taxon_name, color) {
+stat_bar_function <- function(data, taxon_name) {
   
-  #targets::tar_load(data_fish)
-
-  taxon_abondance <- tidyr::gather(data = data, taxon, abondance, -site, -annee, -transect, -reef_type)
+  taxon_abondance <- tidyr::gather(data = data, taxon, abondance, -site, -annee, -transect)
   max_year        <- tapply(taxon_abondance$annee, taxon_abondance$site, max)
   taxon_abondance <- taxon_abondance[taxon_abondance$annee %in% max_year, ]
   
@@ -20,16 +18,16 @@ stat_bar_function <- function(data, taxon_name, color) {
     
     taxon_station <- taxon_station[taxon_station$mean_abondance != 0, ]
     taxon_name    <- taxon_name 
-    color         <- color 
+    #color         <- color 
     taxon_station <- taxon_station[order(taxon_station$taxon), ]
     
     taxon_station$taxon_name <- taxon_name[names(taxon_name) %in% taxon_station$taxon]
-    taxon_station$color      <- color[names(color) %in% taxon_station$taxon]
+    #taxon_station$color      <- color[names(color) %in% taxon_station$taxon]
     
     taxon_station <- taxon_station[order(taxon_station$mean_abondance), ]
-    taxon_station$color <- taxon_station$color |>
-      forcats::fct_inorder()|>
-      forcats::fct_rev()
+    #taxon_station$color <- taxon_station$color |>
+      #forcats::fct_inorder()|>
+      #forcats::fct_rev()
     taxon_station$taxon_name<- taxon_station$taxon_name |>
       forcats::fct_inorder()|>
       forcats::fct_rev()
@@ -39,7 +37,7 @@ stat_bar_function <- function(data, taxon_name, color) {
       ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = taxon_name, ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
                              linewidth = 0.5, width = 0.2)+
       ggplot2::coord_flip()+
-      ggplot2::scale_fill_manual(values = levels(as.factor(taxon_station$color)))+
+      ggplot2::scale_fill_viridis_d()+
       ggplot2::theme_bw()+
       ggplot2::ylab(bquote("Abondance moyenne (nb/100"*m^2*")"))+
       ggplot2::theme(axis.title.y = ggplot2::element_blank(), legend.position = "none",
@@ -105,7 +103,7 @@ camenbert_function <- function(data, color) {
     
 }
 
-substrat_may_station <- function(data_line_may) {
+substrat_station_may <- function(data_line_may) {
   
   #targets::tar_load(data_line_may)
   
@@ -115,32 +113,34 @@ substrat_may_station <- function(data_line_may) {
   
 }
 
-get_may_fish_station <- function(fish_may) {
+fish_station_may <- function(data_fish_may) {
   
-  #targets::tar_load(fish_may)
-  stat_bar_function(data = fish_may, 
+  #targets::tar_load(data_fish_may)
+  
+  stat_bar_function(data = data_fish_may, 
                    taxon_name = c(bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
                                   humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
-                                  parrotfish = "Scarinae", snapper = "Lutjanidae"),
-                   color =      c(bumphead_parrot = "#336633", butterflyfish ="#FFFF66", haemulidae = "#666666",
-                                  humphead_wrasse = "#66FF99", grouper = "#CC6666", moray_eel = "#6600CC",
-                                  parrotfish = "#006600", snapper = "#003366"))
+                                  parrotfish = "Scarinae", snapper = "Lutjanidae"))
+                   #color =      c(bumphead_parrot = "#336633", butterflyfish ="#FFFF66", haemulidae = "#666666",
+                                  #humphead_wrasse = "#66FF99", grouper = "#CC6666", moray_eel = "#6600CC",
+                                  #parrotfish = "#006600", snapper = "#003366"))
                   
 }
 
-get_may_invert_station <- function(invert_may) {
+invert_station_may <- function(data_invert_may) {
   
   #targets::tar_load(invert_may)
-  stat_bar_function(data = invert_may,
+  
+  stat_bar_function(data = data_invert_may,
                     taxon_name = c(banded_coral_shrimp = "Crevette à bande", collector_urchin = "Oursin collecteur", 
                                    crown_of_thorns = "Acanthasteridae", diadema_urchin = "Oursin diadème", 
                                    giant_clam = "Bénitier", lobster = "Langouste", 
                                    pencil_urchin = "Oursin crayon", sea_cucumber = "Holothuroidea", 
-                                   triton = "Triton"),
-                    color = c(banded_coral_shrimp = "#996633", collector_urchin = "#660099", 
-                              crown_of_thorns = "#CC0033", diadema_urchin = "#333333",
-                              giant_clam = "#6699FF", lobster = "#FFCCFF",  
-                              pencil_urchin = "#993333", sea_cucumber = "#FFCC99", 
-                              triton = "#CCCC33"))
+                                   triton = "Triton"))
+                    #color = c(banded_coral_shrimp = "#996633", collector_urchin = "#660099", 
+                              #crown_of_thorns = "#CC0033", diadema_urchin = "#333333",
+                              #giant_clam = "#6699FF", lobster = "#FFCCFF",  
+                              #pencil_urchin = "#993333", sea_cucumber = "#FFCC99", 
+                              #triton = "#CCCC33"))
   
 }
