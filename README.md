@@ -19,6 +19,31 @@ renv::restore()
 
 ```
 
+5. Create data and outputs folders with
+
+
+``` r
+dir.create(data)
+dir.create(outputs)
+
+```
+
+## Run the pipeline
+
+Run
+
+``` r
+targets::tar_config_set(
+store = "outputs/pipeline/",
+script = "analyses/pipeline.R"
+)
+
+targets::tar_make()
+
+```
+
+It will take just few minutes...
+
 ## Run targets
 
 All the targets are define in analyses/pipeline
