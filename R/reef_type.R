@@ -14,8 +14,8 @@ get_reef_type_run <- function() {
   
   slope_run <- c("tessier.pe")
   
-  flat_run  <- NULL
-  
+  flat_run  <- c("tessier.pl") 
+
   return(list(slope_run = slope_run, flat_run = flat_run))
   
 }

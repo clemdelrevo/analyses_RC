@@ -4,14 +4,14 @@ get_cc_evol <- function(line_region, coord_site, fringing, barrier, intern, slop
   
   cc_site <- line_region |>
     dplyr::group_by(annee, site) |>
-    dplyr::summarise(mean_coral_cover = mean(HC),
-                     sd_coral_cover = sd(HC))
+    dplyr::summarise(mean_coral_cover = (mean(HC) * 100) / 40,
+                     st_error_cc = (plotrix::std.error(HC) * 100) / 40)
   
   cc_site <- merge(cc_site, coord_site, by = "site")
   
   cc_evol <- data.frame(do.call(rbind, lapply(levels(as.factor(cc_site$site)), function(site) {
     
-    #site <- "majikavo"
+    #site = "tessier.pe"
     message(site)
     sub_site <- cc_site[cc_site$site == site, ]
     
@@ -55,7 +55,7 @@ get_cc_evol <- function(line_region, coord_site, fringing, barrier, intern, slop
 
   
   cc_evol$etat <- cc_evol$etat |>
-    forcats::fct_relevel("improvement", "stable", "degradation")
+    forcats::fct_relevel("improvement", "stable")
   
   return(cc_evol)
   
@@ -106,7 +106,7 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
     ggplot2::scale_shape_manual(values = c(24, 21, 25), labels = c("amélioration", "stable", "dégradation"))+
     ggplot2::scale_fill_manual(values = color, labels = labels,
                                guide = ggplot2::guide_legend(override.aes = list(shape = shape, color = color)))+
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = c("#D1CECE", "#D1CECE", "#D1CECE"), colour = "#000000")))+
+    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = rep("#D1CECE", length(unique(cc_evol$etat))), colour = "#000000")))+
     ggplot2::labs(fill = "Complexe récifal", shape = "Modification du taux de \nrecouvrement depuis le dernier suivi")+
     ggplot2::xlab("")+
     ggplot2::ylab("")+
@@ -169,13 +169,33 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
                              barrier = NULL,
                              intern = NULL,
                              slope = reef_type_run$slope_run,
-                             flat = NULL)
+                             flat = reef_type_run$flat_run)
+  
+  cc_evol_run$reef_type <- cc_evol_run$reef_type |>
+    forcats::fct_relevel(c("slope", "flat"))
   
   dot <- get_dot_cc_evol(cc_evol = cc_evol_run)
   
-  map <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_gilles <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                          color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
-                         shape = c(15, 15))
+                         shape = c(15, 15))+
+    ggplot2::coord_sf(xlim = c(55.2, 55.27), ylim = c(-21.01, -21.125))
+  
+  st_leu <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+                  color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
+                  shape = c(15, 15))+
+    ggplot2::coord_sf(xlim = c(55.265, 55.3), ylim = c(-21.133, -21.205))
+  
+  etang_sale <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+                  color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
+                  shape = c(15, 15))+
+    ggplot2::coord_sf(xlim = c(55.325, 55.35), ylim = c(-21.26, -21.285))
+  
+  
+  map <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+                  color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
+                  shape = c(15, 15))+
+    ggplot2::coord_sf(xlim = c(55.445, 55.49), ylim = c(-21.335, -21.36))
   
   return(list(run_dot = dot, run_map = map))
   

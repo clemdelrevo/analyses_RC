@@ -148,7 +148,7 @@ get_data_line_run <- function(data_line_run, reef_type_run) {
   
   add_reef_type_run(data = data_line_run,
                     slope = reef_type_run$slope_run,
-                    flat = NULL)
+                    flat = reef_type_run$flat_run)
   
 }
   
