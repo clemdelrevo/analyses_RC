@@ -4,45 +4,41 @@
 stat_bar_function <- function(data, taxon_name) {
   
   taxon_abondance <- tidyr::gather(data = data, taxon, abondance, -site, -annee, -transect)
-  max_year        <- tapply(taxon_abondance$annee, taxon_abondance$site, max)
-  taxon_abondance <- taxon_abondance[taxon_abondance$annee %in% max_year, ]
-  
+
   taxon_abondance <- setNames(lapply(levels(as.factor(taxon_abondance$site)), function(site) {
   
     #site = "pes.onze"
     taxon_station <- taxon_abondance[taxon_abondance$site == site, ]  
     taxon_station <-  taxon_station |>
-      dplyr::group_by(site, taxon) |>
+      dplyr::group_by( annee, taxon) |>
       dplyr::summarise(mean_abondance = mean(abondance),
                        st_error_abondance = plotrix::std.error(abondance))
     
-    taxon_station <- taxon_station[taxon_station$mean_abondance != 0, ]
-    taxon_name    <- taxon_name 
-    #color         <- color 
+    taxon_station <- as.data.frame(taxon_station[taxon_station$taxon != "barramundi_cod", ])
     taxon_station <- taxon_station[order(taxon_station$taxon), ]
-    
-    taxon_station$taxon_name <- taxon_name[names(taxon_name) %in% taxon_station$taxon]
-    #taxon_station$color      <- color[names(color) %in% taxon_station$taxon]
-    
-    taxon_station <- taxon_station[order(taxon_station$mean_abondance), ]
-    #taxon_station$color <- taxon_station$color |>
-      #forcats::fct_inorder()|>
-      #forcats::fct_rev()
-    taxon_station$taxon_name<- taxon_station$taxon_name |>
-      forcats::fct_inorder()|>
-      forcats::fct_rev()
+    taxon_station$taxon_name <- taxon_name[taxon_station$taxon]
+    tax_off <- tapply(taxon_station$mean_abondance, taxon_station$taxon, sum) == 0
+    tax_off <- names(tax_off[tax_off == TRUE])
+    taxon_station <- taxon_station[!taxon_station$taxon %in% tax_off, ]
+
     
     ggplot2::ggplot()+
-      ggplot2::geom_col(data= taxon_station, ggplot2::aes(x = taxon_name, y = mean_abondance, fill = taxon_name), linewidth = 0.7, color = "black")+
-      ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = taxon_name, ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
+      ggplot2::geom_col(data= taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance, fill = mean_abondance), linewidth = 0.7, color = "black")+
+      ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = as.factor(annee), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
                              linewidth = 0.5, width = 0.2)+
-      ggplot2::coord_flip()+
-      ggplot2::scale_fill_viridis_d()+
+      ggplot2::scale_fill_viridis_c()+
+      ggplot2::scale_x_discrete(breaks = c("2012", "2016", "2022"))+
       ggplot2::theme_bw()+
-      ggplot2::ylab(bquote("Abondance moyenne (nb/100"*m^2*")"))+
-      ggplot2::theme(axis.title.y = ggplot2::element_blank(), legend.position = "none",
-                     plot.subtitle = ggplot2::element_text(face = "bold", size = 12),
-                     axis.text = ggplot2::element_text(face = "bold", size = 12))
+      ggplot2::labs(subtitle = bquote("Abondance moyenne (nb/100"*m^2*")"))+
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(), 
+        legend.position = "none",
+        plot.subtitle = ggplot2::element_text(face = "bold", size = 12),
+        axis.text = ggplot2::element_text(face = "bold", size = 12),
+        axis.title.y = ggplot2::element_blank(),
+        strip.text = ggplot2::element_text(face = "bold", size = 12)
+        )+
+      ggplot2::facet_wrap(~taxon_name)
       
     
   }), levels(as.factor(taxon_abondance$site)))

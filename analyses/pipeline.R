@@ -1,4 +1,5 @@
 library(targets)
+library(tarchetypes)
 
 #targets options
 tar_option_set(format = "qs")
@@ -99,8 +100,11 @@ list(
     ,tar_target(invert_survey_may, invert_station_may(data_invert_may))
   
   ## export figure ---
-  ,tar_target(export_may, get_export_figure(line_may, fish_may, invert_may,
-                                            cc_evol_may, 
-                                            final_cc_timeline_may, final_fish_timeline_may,
-                                            substrat_survey_may, fish_survey_may, invert_survey_may))
+  #,tar_target(export_may, get_export_figure(line_may, fish_may, invert_may,
+                                            #cc_evol_may, 
+                                            #final_cc_timeline_may, final_fish_timeline_may,
+                                            #substrat_survey_may, fish_survey_may, invert_survey_may))
+  
+  #,tar_quarto(report, "rc_report.qmd")
+  
 )

@@ -94,12 +94,11 @@ get_dot_cc_evol<- function(cc_evol) {
 
 # Map the evolution of coral cover in area region ------------------------------
 
-get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
+get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape, border_color) {
   
   cc_evol <- na.omit(cc_evol)
   
   ggplot2::ggplot()+
-    ggplot2::theme_classic()+
     ggplot2::geom_sf(data = map_reef, fill = "#FFCC66", color = "#FFCC66")+
     ggplot2::geom_sf(data = map_land, fill = "#bdb7aa")+
     ggplot2::geom_sf(data = cc_evol, ggplot2::aes(fill = reef_type, shape = etat), color = "#000000", size = 3)+
@@ -112,7 +111,7 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
     ggplot2::ylab("")+
     ggspatial::annotation_north_arrow(location = "tr", height = ggplot2::unit(0.7, "cm"), width = ggplot2::unit(0.7, "cm"))+
     ggspatial::annotation_scale()+
-    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "#EBF5FB"),
+    ggplot2::theme(panel.background = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_blank(),
                    axis.text.y = ggplot2::element_blank(),
                    axis.ticks.x = ggplot2::element_blank(),
@@ -123,7 +122,8 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
                    legend.key = ggplot2::element_rect(fill = "#FFFFFF", color = "#FFFFFF"),
                    legend.position = c(1.25, 0.2),
                    legend.margin = ggplot2::margin(0, 0, 5, 0, "cm"),
-                   plot.margin = ggplot2::margin(0, -12, 0, -20, "cm"))
+                   plot.margin = ggplot2::margin(0, -12, 0, -20, "cm"),
+                   panel.border = ggplot2::element_rect(color = border_color, fill = NA))
   
 }
 
@@ -178,24 +178,24 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
   
   st_gilles <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                          color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
-                         shape = c(15, 15))+
+                         shape = c(15, 15), border_color = "red")+
     ggplot2::coord_sf(xlim = c(55.2, 55.27), ylim = c(-21.01, -21.125))
   
   st_leu <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
-                  shape = c(15, 15))+
+                  shape = c(15, 15), border_color = "blue")+
     ggplot2::coord_sf(xlim = c(55.265, 55.3), ylim = c(-21.133, -21.205))
   
   etang_sale <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
-                  shape = c(15, 15))+
+                  shape = c(15, 15), border_color = "green")+
     ggplot2::coord_sf(xlim = c(55.325, 55.35), ylim = c(-21.26, -21.285))
   
   
-  map <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_pierre <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
-                  shape = c(15, 15))+
-    ggplot2::coord_sf(xlim = c(55.445, 55.49), ylim = c(-21.335, -21.36))
+                  shape = c(15, 15), border_color = "yellow")+
+    ggplot2::coord_sf(xlim = c(55.44, 55.50), ylim = c(-21.33, -21.36))
   
   return(list(run_dot = dot, run_map = map))
   

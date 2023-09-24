@@ -23,6 +23,7 @@ Imports:
   qs,
   readxl,
   sf,
+  tarchetypes,
   targets,
   tidyr,
   usethis,

@@ -12,7 +12,7 @@
 #dir.create("R")
 
 #renv
-#renv::install() ; renv::snapshot(prompt = FALSE) ; renv::status()
+#renv::install() ; renv::snapshot(prompt = ) ; renv::status()
 
 #dev
 
