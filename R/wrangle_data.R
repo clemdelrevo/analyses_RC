@@ -10,15 +10,16 @@ wrangle_mayotte_shp <- function(mayotte_shp) {
   
 }
 
-wrangle_reunion_shp <- function(reunion_shp) {
+wrangle_reunion_reef_gpkg <- function(reunion_reef_gpkg) {
   
-  #targets::tar_load(reunion_shp)
+  #targets::tar_load(reunion_reef_gpkg)
   
-  reunion_bd <- sf::read_sf(reunion_shp)
-  reunion_bd <- sf::st_transform(reunion_bd, 4326)
-  reunion_bd <- sf::st_make_valid(reunion_bd)
+  reunion_reef <- sf::read_sf(reunion_reef_gpkg)
+  reunion_reef <- sf::st_make_valid(reunion_reef)
+  reunion_reef <- sf::st_as_sf(sf::st_union(reunion_reef))
+  reunion_reef <- sf::st_transform(reunion_reef, 4326)
   
-  return(reunion_bd)
+  return(reunion_reef)
   
 }
   
@@ -97,6 +98,17 @@ wrangle_carmayotte_shp <- function(carmayotte_shp) {
                    axis.ticks = ggplot2::element_blank(),
                    axis.line = ggplot2::element_blank())
                                             
+  
+}
+
+wrangle_bati_run_shp <- function(bati_run_shp) {
+  
+  #targets::tar_load(bati_run_shp)
+  bati_run <- sf::st_read(bati_run_shp)
+  bati_run <- sf::st_as_sf(sf::st_make_valid(sf::st_union(bati_run)))
+  bati_run <- sf::st_transform(bati_run, 4326)
+  
+  return(bati_run)
   
 }
 

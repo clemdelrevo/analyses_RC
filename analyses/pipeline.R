@@ -20,7 +20,8 @@ list(
     ,tar_target(mayotte_shp, download_bd_topo_mayotte(), format = "file")
     ,tar_target(carmayotte_shp, download_carmayotte(), format = "file")
     ### Réunion ---
-    ,tar_target(reunion_shp, download_bd_topo_reunion(), format = "file")
+    ,tar_target(reunion_reef_gpkg, download_reunion_reef(), format = "file")
+    ,tar_target(bati_run_shp, download_bati_run(), format = "file")
      
   ## list files ---
     ### Mayotte ---
@@ -37,10 +38,10 @@ list(
     ,tar_target(data_fish_may, import_fish_may(data_belt_may))
     ,tar_target(data_invert_may, import_invert_may(data_belt_may))
     ### Réunion ---
-    ,tar_target(data_line_run, import_line_run(list_line_run))
-    ,tar_target(data_belt_run, import_belt_run(list_belt_run))
-    ,tar_target(data_fish_run, import_fish_run(data_belt_run))
-    ,tar_target(data_invert_run, import_invert_run(data_belt_run))
+    #,tar_target(data_line_run, import_line_run(list_line_run))
+    #,tar_target(data_belt_run, import_belt_run(list_belt_run))
+    #,tar_target(data_fish_run, import_fish_run(data_belt_run))
+    #,tar_target(data_invert_run, import_invert_run(data_belt_run))
   
   ## coordinates site ---
     ### Mayotte ---
@@ -60,9 +61,9 @@ list(
     ,tar_target(fish_may, get_data_fish_may(data_fish_may, reef_type_may))
     ,tar_target(invert_may, get_data_invert_may(data_invert_may, reef_type_may))
     ### Réunion ---
-    ,tar_target(reunion_bd, wrangle_reunion_shp(reunion_shp))
-    ,tar_target(run_reef, wrangle_run_reef(millenium_reef_shp))
-    ,tar_target(line_run, get_data_line_run(data_line_run, reef_type_run))
+    ,tar_target(run_reef, wrangle_reunion_reef_gpkg(reunion_reef_gpkg))
+    ,tar_target(bati_run, wrangle_bati_run_shp(bati_run_shp))
+    #,tar_target(line_run, get_data_line_run(data_line_run, reef_type_run))
   
   ## coral cover timeline ---
     ### Mayotte ---
@@ -70,16 +71,16 @@ list(
     ,tar_target(graph_cc_may, get_graph_cc_may(pourc_cc_may))
     ,tar_target(final_cc_timeline_may, get_final_cc_timeline_may(graph_cc_may, nb_survey_cc_may))
     ### Réunion ---
-    ,tar_target(pourc_cc_run, get_cc_timeline_run(line_run))
-    ,tar_target(graph_cc_run, get_graph_cc_run(pourc_cc_run))
-    ,tar_target(final_cc_timeline_run, get_final_cc_timeline_run(graph_cc_run, nb_survey_cc_run))
+    #,tar_target(pourc_cc_run, get_cc_timeline_run(line_run))
+    #,tar_target(graph_cc_run, get_graph_cc_run(pourc_cc_run))
+    #,tar_target(final_cc_timeline_run, get_final_cc_timeline_run(graph_cc_run, nb_survey_cc_run))
   
   ## n survey timeline ---
     ### Mayotte ---
     ,tar_target(nb_survey_cc_may, get_nb_survey_cc_may(pourc_cc_may))
     ,tar_target(nb_survey_fish_may, get_nb_survey_fish_may(fish_abondance_may))
     ### Réunion ---
-    ,tar_target(nb_survey_cc_run, get_nb_survey_cc_run(pourc_cc_run))
+    #,tar_target(nb_survey_cc_run, get_nb_survey_cc_run(pourc_cc_run))
 
   ## map coral cover evolution ---
     ### Mayotte ---

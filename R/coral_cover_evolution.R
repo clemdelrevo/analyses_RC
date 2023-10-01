@@ -92,9 +92,9 @@ get_dot_cc_evol<- function(cc_evol) {
   
 }
 
-# Map the evolution of coral cover in area region ------------------------------
+# Map the evolution of coral cover in Mayotte region ---------------------------
 
-get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape, border_color) {
+get_map_cc_evol_may <- function(map_land, map_reef, cc_evol, color, labels, shape) {
   
   cc_evol <- na.omit(cc_evol)
   
@@ -122,7 +122,36 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape, b
                    legend.key = ggplot2::element_rect(fill = "#FFFFFF", color = "#FFFFFF"),
                    legend.position = c(1.25, 0.2),
                    legend.margin = ggplot2::margin(0, 0, 5, 0, "cm"),
-                   plot.margin = ggplot2::margin(0, -12, 0, -20, "cm"),
+                   plot.margin = ggplot2::margin(0, -12, 0, -20, "cm"))
+  
+}
+
+
+# Map the evolution of coral cover in Mayotte region ---------------------------
+
+get_map_cc_evol_run <- function(map_land, map_reef, cc_evol, color, labels, shape, border_color) {
+  
+  cc_evol <- na.omit(cc_evol)
+  
+  ggplot2::ggplot()+
+    ggplot2::geom_sf(data = map_reef, fill = "#FFCC66", color = "#FFCC66")+
+    ggplot2::geom_sf(data = map_land, fill = "#bdb7aa")+
+    ggplot2::geom_sf(data = cc_evol, ggplot2::aes(fill = reef_type, shape = etat), color = "#000000", size = 3)+
+    ggplot2::scale_shape_manual(values = c(24, 21, 25), labels = c("amélioration", "stable", "dégradation"))+
+    ggplot2::scale_fill_manual(values = color, labels = labels,
+                               guide = ggplot2::guide_legend(override.aes = list(shape = shape, color = color)))+
+    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = rep("#D1CECE", length(unique(cc_evol$etat))), colour = "#000000")))+
+    ggplot2::labs(fill = "Complexe récifal", shape = "Modification du taux de \nrecouvrement depuis le dernier suivi")+
+    ggplot2::xlab("")+
+    ggplot2::ylab("")+
+    ggspatial::annotation_scale()+
+    ggplot2::theme(panel.background = ggplot2::element_blank(),
+                   axis.text.x = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   axis.ticks.x = ggplot2::element_blank(),
+                   axis.ticks.y = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_blank(),
+                   legend.position = "none",
                    panel.border = ggplot2::element_rect(color = border_color, fill = NA))
   
 }
@@ -148,7 +177,7 @@ get_cc_evol_may <- function(line_may, reef_type_may, coord_site_may, mayotte_bd,
   
   map <- get_map_cc_evol(map_land = mayotte_bd, map_reef = may_reef, cc_evol = cc_evol_may,
                          color = c("#0066CC", "#336666", "#66CCFF"), labels = c("barrière", "frangeant", "interne"),
-                         shape = c(15, 15, 15))
+                         shape = c(15, 15, 15), border_color = NULL)
   
   return(list(may_dot = dot, may_map = map))
   
@@ -156,8 +185,9 @@ get_cc_evol_may <- function(line_may, reef_type_may, coord_site_may, mayotte_bd,
 
 # --- RÉUNION ------------------------------------------------------------------
 
-get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd, run_reef) {
+get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd, run_reef, bati_run) {
   
+  #targets::tar_load(bati_run)
   #targets::tar_load(line_run)
   #targets::tar_load(reef_type_run)
   #targets::tar_load(coord_site_run)
@@ -176,26 +206,95 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
   
   dot <- get_dot_cc_evol(cc_evol = cc_evol_run)
   
-  st_gilles <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_gilles <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                          color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                          shape = c(15, 15), border_color = "red")+
-    ggplot2::coord_sf(xlim = c(55.2, 55.27), ylim = c(-21.01, -21.125))
+    ggplot2::geom_sf(data = bati_run, fill = "grey")+
+    ggplot2::coord_sf(xlim = c(55.2, 55.27), ylim = c(-21.01, -21.125))+
+    ggplot2::theme(legend.position = "none")
   
-  st_leu <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_leu <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "blue")+
-    ggplot2::coord_sf(xlim = c(55.265, 55.3), ylim = c(-21.133, -21.205))
+    ggplot2::geom_sf(data = bati_run, fill = "grey")+
+    ggplot2::coord_sf(xlim = c(55.265, 55.3), ylim = c(-21.133, -21.205))+
+    ggplot2::theme(legend.position = "none")
   
-  etang_sale <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  etang_sale <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "green")+
-    ggplot2::coord_sf(xlim = c(55.325, 55.35), ylim = c(-21.26, -21.285))
+    ggplot2::geom_sf(data = bati_run, fill = "grey")+
+    ggplot2::coord_sf(xlim = c(55.322, 55.35), ylim = c(-21.26, -21.285))+
+    ggplot2::theme(legend.position = "none")
   
   
-  st_pierre <- get_map_cc_evol(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_pierre <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "yellow")+
-    ggplot2::coord_sf(xlim = c(55.44, 55.50), ylim = c(-21.33, -21.36))
+    ggplot2::geom_sf(data = bati_run, fill = "grey")+
+    ggplot2::coord_sf(xlim = c(55.44, 55.50), ylim = c(-21.33, -21.36))+
+    ggplot2::theme(legend.position = "none")
+  
+  reunion <- ggplot2::ggplot(reunion_bd) +
+    ggplot2::geom_sf(fill = "grey", color = "grey") +
+    ggspatial::annotation_north_arrow(location = "tr", height = ggplot2::unit(0.7, "cm"), width = ggplot2::unit(0.7, "cm")) +
+    ggplot2::theme(panel.background = ggplot2::element_blank(),
+                   axis.text.x = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   axis.ticks.x = ggplot2::element_blank(),
+                   axis.ticks.y = ggplot2::element_blank(),
+                   axis.line = ggplot2::element_blank()) +
+    ggplot2::geom_rect(
+      xmin = 55.2,
+      ymin = -21.01,
+      xmax = 55.27,
+      ymax = -21.125,
+      fill = NA, 
+      colour = "red",
+      linewidth = 0.3
+    ) +
+    ggplot2::geom_rect(
+      xmin = 55.265,
+      ymin = -21.133,
+      xmax = 55.3,
+      ymax = -21.205,
+      fill = NA, 
+      colour = "blue",
+      linewidth = 0.3
+    ) + 
+    ggplot2::geom_rect(
+      xmin = 55.322,
+      ymin = -21.26,
+      xmax = 55.35,
+      ymax = -21.285,
+      fill = NA, 
+      colour = "green",
+      linewidth = 0.3
+    ) +
+    ggplot2::geom_rect(
+      xmin = 55.44,
+      ymin = -21.33,
+      xmax = 55.50,
+      ymax = -21.36,
+      fill = NA, 
+      colour = "yellow",
+      linewidth = 0.3
+    )
+    
+    
+  
+  plot_assemble <- cowplot::ggdraw()+
+    cowplot::draw_plot(st_gilles, x = 0, y = 0, width = 0.5, height = 1) +
+    cowplot::draw_plot(st_leu, x = 0.5, y = 0, width = 0.5, height = 1) 
+  
+   plot_assemble2 <- cowplot::ggdraw()+
+    cowplot::draw_plot(etang_sale, x = 0, y = 0.5, width = 0.5, height = 0.5) +
+    cowplot::draw_plot(st_pierre, x = 0, y = 0, width = 1, height = 0.5) +
+    cowplot::draw_plot(reunion, x = 0.5, y = 0.5, width = 0.5, height = 0.5) 
+   
+   final_run <- cowplot::ggdraw()+
+     cowplot::draw_plot(plot_assemble, x = 0, y = 0, width = 0.5, height = 1) +
+     cowplot::draw_plot(plot_assemble2, x = 0.5, y = 0, width = 0.5, height = 1)
   
   return(list(run_dot = dot, run_map = map))
   

@@ -5,7 +5,7 @@ import_line_function <- function(list_line_files) {
   
   data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
     
-    #i = "data/reunion/TESSIER_PE/21-1119/2021_tessier.pe_line.xls"
+    #i = "data/reunion/PIT/2007_brisants.pe_pit.xls"
     
     file_name   <- basename(i)
     annee       <- gsub("[^0-9]", "", file_name)
