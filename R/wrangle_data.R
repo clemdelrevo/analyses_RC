@@ -112,14 +112,26 @@ wrangle_bati_run_shp <- function(bati_run_shp) {
   
 }
 
+wrangle_reunion_shp <- function(reunion_shp) {
+  
+  #targets::tar_load(reunion_shp)
+  
+  reunion_bd <- sf::read_sf(reunion_shp)
+  reunion_bd <- sf::st_transform(reunion_bd, 4326)
+  reunion_bd <- sf::st_make_valid(reunion_bd)
+  
+  return(reunion_bd)
+  
+}
+
 # --- MAYOTTE ------------------------------------------------------------------
 
-get_data_line_may <- function(data_line_may, reef_type_may) {
+get_data_pit_may <- function(data_pit_may, reef_type_may) {
   
-  #targets::tar_load(data_line_may)
+  #targets::tar_load(data_pit_may)
   #targets::tar_load(reef_type_may)
   
-  add_reef_type_may(data = data_line_may,
+  add_reef_type_may(data = data_pit_may,
                    fringing = reef_type_may$fringing_may,
                    barrier = reef_type_may$barrier_may,
                    intern = reef_type_may$intern_may)
@@ -153,12 +165,12 @@ get_data_invert_may <- function(data_invert_may, reef_type_may) {
 
 # --- RÉUNION ------------------------------------------------------------------
 
-get_data_line_run <- function(data_line_run, reef_type_run) {
+get_data_pit_run <- function(data_pit_run, reef_type_run) {
   
-  #targets::tar_load(data_line_run)
+  #targets::tar_load(data_pit_run)
   #targets::tar_load(reef_type_run
   
-  add_reef_type_run(data = data_line_run,
+  add_reef_type_run(data = data_pit_run,
                     slope = reef_type_run$slope_run,
                     flat = reef_type_run$flat_run)
   

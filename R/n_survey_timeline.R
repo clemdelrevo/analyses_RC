@@ -32,7 +32,7 @@ n_survey_graph_function <- function(n_survey) {
     #reef_type = "inter"
     rf_type <- n_survey[n_survey$reef_type == reef_type, ]
     
-    ggplot2::ggplot()+
+    g <- ggplot2::ggplot()+
       ggplot2::geom_col(data = rf_type, ggplot2::aes(x = as.factor(year), y = as.integer(n)))+
       ggplot2::theme_classic()+
       ggplot2::labs(subtitle = "nombre de stations")+
@@ -45,6 +45,8 @@ n_survey_graph_function <- function(n_survey) {
                      legend.text   = ggplot2::element_text(size = 12, face = "bold"),
                      plot.subtitle = ggplot2::element_text(size = 12, face = "bold"))
     
+    if(reef_type == "slope" | reef_type == "flat") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023))}
+    
   }), levels(as.factor(n_survey$reef_type)))
   
   return(n_survey_graph)
@@ -56,7 +58,7 @@ n_survey_graph_function <- function(n_survey) {
 get_nb_survey_cc_may <- function(pourc_cc_may) {
   
   #targets::tar_load(pourc_cc_may)
-  n_survey <- n_survey_function(data = pourc_cc_may$cc_line, variable = pourc_cc_may$cc_line$reef_type)
+  n_survey <- n_survey_function(data = pourc_cc_may$cc_pit, variable = pourc_cc_may$cc_pit$reef_type)
   n_survey_graph_function(n_survey)
   
 }
@@ -74,7 +76,7 @@ get_nb_survey_fish_may <- function(fish_abondance_may) {
 get_nb_survey_cc_run <- function(pourc_cc_run) {
   
   #targets::tar_load(pourc_cc_run)
-  n_survey <- n_survey_function(data = pourc_cc_run$cc_line, variable = pourc_cc_run$cc_line$reef_type)
+  n_survey <- n_survey_function(data = pourc_cc_run$cc_pit, variable = pourc_cc_run$cc_pit$reef_type)
   n_survey_graph_function(n_survey)
   
 }

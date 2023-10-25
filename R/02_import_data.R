@@ -1,14 +1,23 @@
-# This function import data substrat cover of 
-# year_site_line.xls/xlsx files ------------------------------------------------
 
-import_line_function <- function(list_line_files) {
+#' Import pit survey data ------------------------------------------------------
+#'
+#' @description
+#' This function import data substrat cover from monthday-year_site_pit.xls/xlsx files
+#' 
+#' @param list_pit_files 
+#'
+#' @return a pit survey data frame 
+#' 
+#' @export
+
+import_pit_function <- function(list_pit_files) {
   
-  data_line <- data.frame(do.call(rbind, lapply(list_line_files, function(i) {
+  data_pit <- data.frame(do.call(rbind, lapply(list_pit_files, function(i) {
     
-    #i = "data/reunion/PIT/2007_brisants.pe_pit.xls"
+    #i = "data/reunion/pit/20-1215_boucan.maharani.pe_pit.xls"
     
     file_name   <- basename(i)
-    annee       <- gsub("[^0-9]", "", file_name)
+    annee       <- as.numeric(paste0("20", sapply(strsplit(file_name, "-"), "[", 1)))
     split       <- strsplit(file_name, "_")
     site        <- sapply(split, "[", 2)
     file_format <- sapply(strsplit(sapply(split, "[", 3), "\\."), "[", 2)
@@ -34,25 +43,35 @@ import_line_function <- function(list_line_files) {
     n_annee    <- rep(annee, nrow(seg_spread))
     n_site     <- rep(site, nrow(seg_spread))
     
-    df_line <- data.frame(cbind(site = n_site, annee = n_annee, seg_spread))
-    df_line$annee <- as.integer(df_line$annee)
+    df_pit <- data.frame(cbind(site = n_site, annee = n_annee, seg_spread))
+    df_pit$annee <- as.integer(df_pit$annee)
     
-    return(df_line)
+    return(df_pit)
     
     })))
   
-  if (nrow(data_line) != length(list_line_files) * 4) {
+  if (nrow(data_pit) != length(list_pit_files) * 4) {
     
     stop("Problem during importation, length of data is not proportionnal to length of list files")
     
   }
   
-  return(data_line)
+  return(data_pit)
 
 }
 
-# This function import data count of fish and benthic organisms 
-# of year_site_line.xls/xlsx files ---------------------------------------------
+
+#' Import belt survey data -----------------------------------------------------
+#' 
+#' @description
+#' This function import data count of fish and benthic 
+#' organisms from monthday-year_site_belt.xls/xlsx files
+#' 
+#' @param list_belt_files 
+#'
+#' @return a belt survey data frame
+#' 
+#' @export
 
 import_belt_function <- function(list_belt_files){
   
@@ -153,11 +172,11 @@ import_belt_function <- function(list_belt_files){
 
 # --- MAYOTTE ------------------------------------------------------------------
 
-import_line_may <- function(list_line_may) {
+import_pit_may <- function(list_pit_may) {
   
-  #targets::tar_load(list_line_may)
+  #targets::tar_load(list_pit_may)
   
-  import_line_function(list_line_files = list_line_may)
+  import_pit_function(list_pit_files = list_pit_may)
   
 }
 
@@ -169,6 +188,8 @@ import_belt_may <- function(list_belt_may) {
   
 }
 
+# subset fish data from belt data
+
 import_fish_may <- function(data_belt_may) {
   
   #targets::tar_load(data_belt_may)
@@ -176,6 +197,8 @@ import_fish_may <- function(data_belt_may) {
   data_belt_may$data_fish
   
 }
+
+# subset invert data from belt data
 
 import_invert_may <- function(data_belt_may) {
   
@@ -187,11 +210,11 @@ import_invert_may <- function(data_belt_may) {
 
 # --- REUNION ------------------------------------------------------------------
 
-import_line_run <- function(list_line_run) {
+import_pit_run <- function(list_pit_run) {
   
-  #targets::tar_load(list_line_run)
+  #targets::tar_load(list_pit_run)
   
-  import_line_function(list_line_files = list_line_run)
+  import_pit_function(list_pit_files = list_pit_run)
   
 }
 
@@ -203,6 +226,8 @@ import_belt_run <- function(list_belt_run) {
   
 }
 
+# subset invert data from belt data
+
 import_fish_run <- function(data_belt_run) {
   
   #targets::tar_load(data_belt_run)
@@ -210,6 +235,8 @@ import_fish_run <- function(data_belt_run) {
   data_belt_run$data_fish
   
 }
+
+# subset invert data from belt data
 
 import_invert_run <- function(data_belt_run) {
   

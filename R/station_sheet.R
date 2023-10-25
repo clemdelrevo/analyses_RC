@@ -51,38 +51,38 @@ stat_bar_function <- function(data, taxon_name) {
 
 camenbert_function <- function(data, color) {
 
-  data_line <- tidyr::gather(data = data, substrat, cover, -site, -annee, -transect)
-  max_year  <- tapply(data_line$annee, data_line$site, max)
-  data_line <- data_line[data_line$annee %in% max_year, ]
-  data_line$cover <- (data_line$cover * 100) / 40
+  data_pit <- tidyr::gather(data = data, substrat, cover, -site, -annee, -transect)
+  max_year  <- tapply(data_pit$annee, data_pit$site, max)
+  data_pit <- data_pit[data_pit$annee %in% max_year, ]
+  data_pit$cover <- (data_pit$cover * 100) / 40
 
-  substrat <- setNames(lapply(levels(as.factor(data_line$site)), function(site) {
+  substrat <- setNames(lapply(levels(as.factor(data_pit$site)), function(site) {
     
     #site = "tzoundzou"
     message(site)
     
-    data_line_site <- data_line[data_line$site == site, ]
-    data_line_site <- data_line_site |>
+    data_pit_site <- data_pit[data_pit$site == site, ]
+    data_pit_site <- data_pit_site |>
       dplyr::group_by(substrat) |>
       dplyr::summarise(mean_cover = mean(cover)) |>
       dplyr::arrange(dplyr::desc(substrat))
-    data_line_site <- data_line_site[data_line_site$mean_cover != 0, ]
+    data_pit_site <- data_pit_site[data_pit_site$mean_cover != 0, ]
     
-    data_line_site$lab.ypos <- cumsum(data_line_site$mean_cover) - 0.5 * data_line_site$mean_cover 
+    data_pit_site$lab.ypos <- cumsum(data_pit_site$mean_cover) - 0.5 * data_pit_site$mean_cover 
     
     color = color
     
-    data_line_site <- data_line_site[order(data_line_site$substrat), ]
-    data_line_site$color <- color[names(color) %in% data_line_site$substrat]
-    data_line_site$color <- data_line_site$color |>
+    data_pit_site <- data_pit_site[order(data_pit_site$substrat), ]
+    data_pit_site$color <- color[names(color) %in% data_pit_site$substrat]
+    data_pit_site$color <- data_pit_site$color |>
       forcats::fct_inorder()
   
-    ggplot2::ggplot(data_line_site, ggplot2::aes(x = "", y = mean_cover, fill = substrat)) +
+    ggplot2::ggplot(data_pit_site, ggplot2::aes(x = "", y = mean_cover, fill = substrat)) +
       ggplot2::geom_bar(width = 1, stat = "identity", color = "#000000") +
       ggplot2::coord_polar("y", start = 0) +
       ggplot2::theme_classic()+
       ggplot2::labs(fill = "Substrat (%)")+
-      ggplot2::scale_fill_manual(values = as.vector(data_line_site$color))+
+      ggplot2::scale_fill_manual(values = as.vector(data_pit_site$color))+
       ggplot2::geom_text(ggplot2::aes(y = lab.ypos, label = round(mean_cover, 1)),
                          color = "black", size=5, fontface = "bold", check_overlap = TRUE)+
       ggplot2::theme(axis.text = ggplot2::element_blank(),
@@ -93,17 +93,17 @@ camenbert_function <- function(data, color) {
                      legend.title = ggplot2::element_text(face = "bold"))
     
   
-    }), levels(as.factor(data_line$site)))
+    }), levels(as.factor(data_pit$site)))
   
   return(substrat)
     
 }
 
-substrat_station_may <- function(data_line_may) {
+substrat_station_may <- function(data_pit_may) {
   
-  #targets::tar_load(data_line_may)
+  #targets::tar_load(data_pit_may)
   
-  camenbert_function(data = data_line_may, color = c(HC = "#FF6666", NIA = "#99FFCC", OT = "#333333", RB = "#CCCCCC", 
+  camenbert_function(data = data_pit_may, color = c(HC = "#FF6666", NIA = "#99FFCC", OT = "#333333", RB = "#CCCCCC", 
                                                      RC = "#CC6633", RKC = "#FFFFFF", SC = "#CC0033", SD = "#FFFF99", 
                                                      SI = "#999900", SP = "#3399CC"))
   

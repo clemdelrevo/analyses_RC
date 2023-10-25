@@ -2,29 +2,29 @@ cc_timeline_function <- function(data) {
   
   data$pourc_hc <- (data$HC * 100) / 40
   
-  cc_line <- data[, names(data) %in% c("site", "annee", "pourc_hc", "reef_type")]
+  cc_pit <- data[, names(data) %in% c("site", "annee", "pourc_hc", "reef_type")]
   
   mean_pourc_cc <- data |>
     dplyr::group_by(annee, reef_type) |>
     dplyr::summarise(mean_cover = mean(pourc_hc),
                      st_error_cover = plotrix::std.error(pourc_hc))
   
-  return(list(cc_line = cc_line, mean_pourc_cc = mean_pourc_cc))
+  return(list(cc_pit = cc_pit, mean_pourc_cc = mean_pourc_cc))
   
 }
 
-get_cc_timeline_may <- function(line_may) {
+get_cc_timeline_may <- function(pit_may) {
   
-  #targets::tar_load(line_may)
+  #targets::tar_load(pit_may)
   
-  cc_timeline_function(data = line_may)
+  cc_timeline_function(data = pit_may)
   
 }
 
-get_cc_timeline_run <- function(line_run) {
+get_cc_timeline_run <- function(pit_run) {
   
-  #targets::tar_load(line_run)
+  #targets::tar_load(pit_run)
   
-  cc_timeline_function(data = line_run)
+  cc_timeline_function(data = pit_run)
   
 }

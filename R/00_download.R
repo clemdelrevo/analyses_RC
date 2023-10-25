@@ -1,3 +1,5 @@
+# --- DOWNLOAD BD TOPO ---------------------------------------------------------
+
 download_bd_topo_mayotte <- function() {
   
   #download at : https://geoservices.ign.fr/ressource/158205
@@ -16,7 +18,7 @@ download_bd_topo_reunion <- function() {
   
 }
 
-# --- GLOBAL REEF LOCATION -----------------------------------------------------
+# --- DOWNLOAD MILLENIUM -------------------------------------------------------
 
 # download Millennium Coral Reef Mapping Project
 
@@ -44,6 +46,12 @@ download_millenium_reef <- function(overwrite = TRUE){
   
 }
 
+# --- DOWNLOAD CARMAYOTTE ------------------------------------------------------
+
+# download carmayotte mapping projet
+
+# This dataset show multilevel reef habitat in Mayotte Island
+
 download_carmayotte <- function() {
   
   carmayotte_url  <-  "https://sextant.ifremer.fr/sextant_data/data_QGIS/OCEAN_INDIEN/HYPERSPECTRALE/Carmayotte_2020_CUFR_MAREX_OFB/Carmayotte_2020_CUFR_MAREX_OFB.zip"
@@ -59,6 +67,8 @@ download_carmayotte <- function() {
   return(carmayotte_shp)
   
 }
+
+
 
 download_reunion_reef <- function() {
   

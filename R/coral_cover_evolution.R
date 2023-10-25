@@ -1,8 +1,8 @@
 # Calculate the evolution of coral cover in each station -----------------------
 
-get_cc_evol <- function(line_region, coord_site, fringing, barrier, intern, slope, flat) {
+get_cc_evol <- function(pit_region, coord_site, fringing, barrier, intern, slope, flat) {
   
-  cc_site <- line_region |>
+  cc_site <- pit_region |>
     dplyr::group_by(annee, site) |>
     dplyr::summarise(mean_coral_cover = (mean(HC) * 100) / 40,
                      st_error_cc = (plotrix::std.error(HC) * 100) / 40)
@@ -23,7 +23,8 @@ get_cc_evol <- function(line_region, coord_site, fringing, barrier, intern, slop
     }else{
       
       present_year_survey <- max(sub_site$annee)
-      last_year_survey    <- max(sub_site$annee[sub_site$annee < present_year_survey])
+      last_year_survey <- min(sub_site$annee)
+      #last_year_survey    <- max(sub_site$annee[sub_site$annee < present_year_survey])
     
       diff_cc <- sub_site$mean_coral_cover[sub_site$annee == present_year_survey] - sub_site$mean_coral_cover[sub_site$annee == last_year_survey]
   
@@ -106,7 +107,7 @@ get_map_cc_evol_may <- function(map_land, map_reef, cc_evol, color, labels, shap
     ggplot2::scale_fill_manual(values = color, labels = labels,
                                guide = ggplot2::guide_legend(override.aes = list(shape = shape, color = color)))+
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = rep("#D1CECE", length(unique(cc_evol$etat))), colour = "#000000")))+
-    ggplot2::labs(fill = "Complexe récifal", shape = "Modification du taux de \nrecouvrement depuis le dernier suivi")+
+    ggplot2::labs(fill = "Complexe récifal", shape = "Modification du taux de \nrecouvrement depuis le premier suivi")+
     ggplot2::xlab("")+
     ggplot2::ylab("")+
     ggspatial::annotation_north_arrow(location = "tr", height = ggplot2::unit(0.7, "cm"), width = ggplot2::unit(0.7, "cm"))+
@@ -127,15 +128,16 @@ get_map_cc_evol_may <- function(map_land, map_reef, cc_evol, color, labels, shap
 }
 
 
-# Map the evolution of coral cover in Mayotte region ---------------------------
+# Map the evolution of coral cover in Réunion region ---------------------------
 
-get_map_cc_evol_run <- function(map_land, map_reef, cc_evol, color, labels, shape, border_color) {
+get_map_cc_evol_run <- function(map_land, map_reef, bati, cc_evol, color, labels, shape, border_color) {
   
   cc_evol <- na.omit(cc_evol)
   
   ggplot2::ggplot()+
     ggplot2::geom_sf(data = map_reef, fill = "#FFCC66", color = "#FFCC66")+
     ggplot2::geom_sf(data = map_land, fill = "#bdb7aa")+
+    ggplot2::geom_sf(data = bati, fill = "grey")+
     ggplot2::geom_sf(data = cc_evol, ggplot2::aes(fill = reef_type, shape = etat), color = "#000000", size = 3)+
     ggplot2::scale_shape_manual(values = c(24, 21, 25), labels = c("amélioration", "stable", "dégradation"))+
     ggplot2::scale_fill_manual(values = color, labels = labels,
@@ -151,33 +153,33 @@ get_map_cc_evol_run <- function(map_land, map_reef, cc_evol, color, labels, shap
                    axis.ticks.x = ggplot2::element_blank(),
                    axis.ticks.y = ggplot2::element_blank(),
                    axis.line = ggplot2::element_blank(),
-                   legend.position = "none",
                    panel.border = ggplot2::element_rect(color = border_color, fill = NA))
   
 }
 
 # --- MAYOTTE ------------------------------------------------------------------
 
-get_cc_evol_may <- function(line_may, reef_type_may, coord_site_may, mayotte_bd, may_reef) {
+get_cc_evol_may <- function(pit_may, reef_type_may, coord_site_may, mayotte_bd, may_reef) {
   
-  #targets::tar_load(line_may)
+  #targets::tar_load(pit_may)
   #targets::tar_load(reef_type_may)
   #targets::tar_load(coord_site_may)
   #targets::tar_load(mayotte_bd)
   #targets::tar_load(may_reef)
   
-  cc_evol_may <- get_cc_evol(line_region = line_may, coord_site = coord_site_may,
+  cc_evol_may <- get_cc_evol(pit_region = pit_may, coord_site = coord_site_may,
                              fringing = reef_type_may$fringing_may,
                              barrier = reef_type_may$barrier_may,
                              intern = reef_type_may$intern_may,
                              slope = NULL,
                              flat = NULL)
   
+  
   dot <- get_dot_cc_evol(cc_evol = cc_evol_may)
   
-  map <- get_map_cc_evol(map_land = mayotte_bd, map_reef = may_reef, cc_evol = cc_evol_may,
+  map <- get_map_cc_evol_may(map_land = mayotte_bd, map_reef = may_reef, cc_evol = cc_evol_may,
                          color = c("#0066CC", "#336666", "#66CCFF"), labels = c("barrière", "frangeant", "interne"),
-                         shape = c(15, 15, 15), border_color = NULL)
+                         shape = c(15, 15, 15))
   
   return(list(may_dot = dot, may_map = map))
   
@@ -185,16 +187,16 @@ get_cc_evol_may <- function(line_may, reef_type_may, coord_site_may, mayotte_bd,
 
 # --- RÉUNION ------------------------------------------------------------------
 
-get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd, run_reef, bati_run) {
+get_cc_evol_run <- function(pit_run, reef_type_run, coord_site_run, reunion_bd, run_reef, bati_run) {
   
   #targets::tar_load(bati_run)
-  #targets::tar_load(line_run)
+  #targets::tar_load(pit_run)
   #targets::tar_load(reef_type_run)
   #targets::tar_load(coord_site_run)
   #targets::tar_load(reunion_bd)
   #targets::tar_load(run_reef)
   
-  cc_evol_run <- get_cc_evol(line_region = line_run, coord_site = coord_site_run,
+  cc_evol_run <- get_cc_evol(pit_region = pit_run, coord_site = coord_site_run,
                              fringing = NULL,
                              barrier = NULL,
                              intern = NULL,
@@ -206,37 +208,32 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
   
   dot <- get_dot_cc_evol(cc_evol = cc_evol_run)
   
-  st_gilles <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_gilles <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run, bati = bati_run,
                          color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                          shape = c(15, 15), border_color = "red")+
-    ggplot2::geom_sf(data = bati_run, fill = "grey")+
     ggplot2::coord_sf(xlim = c(55.2, 55.27), ylim = c(-21.01, -21.125))+
     ggplot2::theme(legend.position = "none")
   
-  st_leu <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_leu <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run, bati = bati_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "blue")+
-    ggplot2::geom_sf(data = bati_run, fill = "grey")+
     ggplot2::coord_sf(xlim = c(55.265, 55.3), ylim = c(-21.133, -21.205))+
     ggplot2::theme(legend.position = "none")
   
-  etang_sale <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  etang_sale <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run, bati = bati_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "green")+
-    ggplot2::geom_sf(data = bati_run, fill = "grey")+
     ggplot2::coord_sf(xlim = c(55.322, 55.35), ylim = c(-21.26, -21.285))+
     ggplot2::theme(legend.position = "none")
   
   
-  st_pierre <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run,
+  st_pierre <- get_map_cc_evol_run(map_land = reunion_bd, map_reef = run_reef, cc_evol = cc_evol_run, bati = bati_run,
                   color = c("#0066CC", "#66CCFF"), labels = c("pente externe", "platier récifal"),
                   shape = c(15, 15), border_color = "yellow")+
-    ggplot2::geom_sf(data = bati_run, fill = "grey")+
-    ggplot2::coord_sf(xlim = c(55.44, 55.50), ylim = c(-21.33, -21.36))+
-    ggplot2::theme(legend.position = "none")
+    ggplot2::coord_sf(xlim = c(55.44, 55.50), ylim = c(-21.33, -21.36))
   
   reunion <- ggplot2::ggplot(reunion_bd) +
-    ggplot2::geom_sf(fill = "grey", color = "grey") +
+    ggplot2::geom_sf(fill = "#bdb7aa", color = "#bdb7aa") +
     ggspatial::annotation_north_arrow(location = "tr", height = ggplot2::unit(0.7, "cm"), width = ggplot2::unit(0.7, "cm")) +
     ggplot2::theme(panel.background = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_blank(),
@@ -280,9 +277,7 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
       colour = "yellow",
       linewidth = 0.3
     )
-    
-    
-  
+
   plot_assemble <- cowplot::ggdraw()+
     cowplot::draw_plot(st_gilles, x = 0, y = 0, width = 0.5, height = 1) +
     cowplot::draw_plot(st_leu, x = 0.5, y = 0, width = 0.5, height = 1) 
@@ -296,6 +291,6 @@ get_cc_evol_run <- function(line_run, reef_type_run, coord_site_run, reunion_bd,
      cowplot::draw_plot(plot_assemble, x = 0, y = 0, width = 0.5, height = 1) +
      cowplot::draw_plot(plot_assemble2, x = 0.5, y = 0, width = 0.5, height = 1)
   
-  return(list(run_dot = dot, run_map = map))
+  return(list(run_dot = dot, run_map = final_run))
   
 }
