@@ -1,3 +1,7 @@
+# --- GPS COORDINATES SITES -----------------------------------------------------
+
+# get the gps coordinates used in 07_coral_cover_evolution.R file 
+
 get_coord_site_may <- function() {
   
   mbouzi       <- c(x = 45.237066, y = -12.817251)

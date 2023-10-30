@@ -1,3 +1,16 @@
+#' Percentage coral cover ------------------------------------------------------
+#'
+#' @description
+#' This function calculate the percentage coral cover 
+#' for each reef complex for each year
+#' 
+#' @param data 
+#'
+#' @return a list of two data frame with : 1- mean percentage coral cover
+#' 2- percentage coral cover in each 20m transect 
+#' 
+#' @export
+
 cc_timeline_function <- function(data) {
   
   data$pourc_hc <- (data$HC * 100) / 40
@@ -13,6 +26,8 @@ cc_timeline_function <- function(data) {
   
 }
 
+# --- MAYOTTE ------------------------------------------------------------------
+
 get_cc_timeline_may <- function(pit_may) {
   
   #targets::tar_load(pit_may)
@@ -20,6 +35,8 @@ get_cc_timeline_may <- function(pit_may) {
   cc_timeline_function(data = pit_may)
   
 }
+
+# --- REUNION ------------------------------------------------------------------
 
 get_cc_timeline_run <- function(pit_run) {
   

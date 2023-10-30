@@ -168,7 +168,7 @@ get_data_invert_may <- function(data_invert_may, reef_type_may) {
 get_data_pit_run <- function(data_pit_run, reef_type_run) {
   
   #targets::tar_load(data_pit_run)
-  #targets::tar_load(reef_type_run
+  #targets::tar_load(reef_type_run)
   
   add_reef_type_run(data = data_pit_run,
                     slope = reef_type_run$slope_run,

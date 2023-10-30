@@ -1,4 +1,15 @@
 
+#' Trophic fish abundance ------------------------------------------------------
+#'
+#' @description
+#' Calculate the mean trophic abundance for herbivore, carnivore and corallivore
+#' 
+#' @param fish_region 
+#'
+#' @return a list for each trophic level
+#' 
+#' @export
+
 get_fish_abondance <- function(fish_region) {
   
   fish           <- c("bumphead_parrot", "butterflyfish", "grouper", "haemulidae", "humphead_wrasse", "moray_eel", "parrotfish", "snapper")
@@ -37,6 +48,8 @@ get_fish_abondance <- function(fish_region) {
               corallivore = list(tot_abondance = corallivore_abondance, mean_abondance = mean_corallivore)))
   
 }
+
+# --- MAYOTTE ------------------------------------------------------------------
 
 get_fish_abondance_may <- function(fish_may) {
   

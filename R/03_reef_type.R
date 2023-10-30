@@ -1,3 +1,13 @@
+
+#' Mayotte reef type -----------------------------------------------------------
+#'
+#' @description
+#' Assigns a reef type  to the Mayotte sites
+#' 
+#' @return a list 
+#' 
+#' @export
+
 get_reef_type_mayotte <- function() {
   
   fringing_may <- c("bandrele", "mbouzi", "sakouli", "saziley", "tzoundzou", "ngouja", "tanaraki",
@@ -9,6 +19,15 @@ get_reef_type_mayotte <- function() {
   return(list(fringing_may = fringing_may, barrier_may = barrier_may, intern_may = intern_may))
   
 }
+
+#' Reunion reef type -----------------------------------------------------------
+#'
+#' @description
+#' Assigns a reef type  to the Reunion sites
+#' 
+#' @return a list
+#' 
+#' @export
 
 get_reef_type_run <- function() {
   
@@ -27,6 +46,10 @@ get_reef_type_run <- function() {
   return(list(slope_run = slope_run, flat_run = flat_run))
   
 }
+
+# Create a reef_type column and inserts the reef type for each site ------------
+
+# These functions are used in the 04_wrangle.R file 
 
 add_reef_type_may <- function(data, fringing, barrier, intern) {
   
