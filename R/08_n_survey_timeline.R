@@ -45,7 +45,10 @@ n_survey_graph_function <- function(n_survey) {
                      legend.text   = ggplot2::element_text(size = 12, face = "bold"),
                      plot.subtitle = ggplot2::element_text(size = 12, face = "bold"))
     
-    if(reef_type == "slope" | reef_type == "flat") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023))}
+    if (reef_type == "slope" | reef_type == "flat") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023)) 
+    } else {
+      return(g)
+        }
     
   }), levels(as.factor(n_survey$reef_type)))
   

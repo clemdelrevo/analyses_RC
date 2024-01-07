@@ -27,6 +27,9 @@ download_bd_topo_reunion <- function() {
 
 download_millenium_reef <- function(overwrite = TRUE){
   
+  millenium_reef_shp      <- paste0("data/millenium_reef/",
+                                    "01_Data/WCMC008_CoralReef2021_Py_v4_1.shp")
+  if(file.exists(millenium_reef_shp)) return(millenium_reef_shp)
   # download to https://data.unep-wcmc.org/datasets/1
   millenium_reef_url      <- paste0("https://datadownload-production.s3.us-east-1.",
                                     "amazonaws.com/WCMC008_CoralReefs2021_v4_1.zip")
@@ -39,8 +42,6 @@ download_millenium_reef <- function(overwrite = TRUE){
   millenium_reef_old_name <- "data/14_001_WCMC008_CoralReefs2021_v4_1"
   millenium_reef_new_name <- "data/millenium_reef"
   file.rename(millenium_reef_old_name, millenium_reef_new_name)
-  millenium_reef_shp      <- paste0("data/millenium_reef/",
-                                    "01_Data/WCMC008_CoralReef2021_Py_v4_1.shp")
   
   return(millenium_reef_shp)
   
@@ -54,6 +55,8 @@ download_millenium_reef <- function(overwrite = TRUE){
 
 download_carmayotte <- function() {
   
+  carmayotte_shp <- "data/carmayotte/Carmayotte_2020_CUFR_MAREX_OFB.shp"
+  if(file.exists(carmayotte_shp)) return(carmayotte_shp)
   carmayotte_url  <-  "https://sextant.ifremer.fr/sextant_data/data_QGIS/OCEAN_INDIEN/HYPERSPECTRALE/Carmayotte_2020_CUFR_MAREX_OFB/Carmayotte_2020_CUFR_MAREX_OFB.zip"
   carmayotte_zip  <- "data/Carmayotte_2020_CUFR_MAREX_OFB.zip"
   carmayotte_file_name  <- "data/carmayotte"
@@ -62,7 +65,6 @@ download_carmayotte <- function() {
   download.file(url = carmayotte_url, destfile = carmayotte_zip, method = "curl")
   unzip(carmayotte_zip, exdir = carmayotte_file_name)
   unlink(carmayotte_zip)
-  carmayotte_shp <- "data/carmayotte/Carmayotte_2020_CUFR_MAREX_OFB.shp"
   
   return(carmayotte_shp)
   

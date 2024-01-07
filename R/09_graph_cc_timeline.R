@@ -22,7 +22,7 @@ get_graph_cc <- function(pourc_cc_region) {
   
   graph_cc <- setNames(lapply(unique(pourc_cc_region$cc_pit$reef_type), function(reef_type) {
     
-    #reef_type = "slope"
+    #reef_type = "barrier"
     cc_pit_type <- pourc_cc_region$cc_pit[pourc_cc_region$cc_pit$reef_type == reef_type, ]
     mean_cc_type <- pourc_cc_region$mean_pourc_cc[pourc_cc_region$mean_pourc_cc$reef_type == reef_type, ]
     
@@ -50,8 +50,10 @@ get_graph_cc <- function(pourc_cc_region) {
     
     g <- cc_timeline_graph(color = color, data = cc_pit_type, x = "annee", y = "pourc_hc", data2 = mean_cc_type, x2 = "annee", y2 = "mean_cover")
     
-    if(reef_type == "flat" | reef_type == "slope") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023))}
-    
+    if (reef_type == "flat" | reef_type == "slope") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023))
+      } else {
+    return(g)
+      }
     
   }), unique(pourc_cc_region$cc_pit$reef_type))
   
