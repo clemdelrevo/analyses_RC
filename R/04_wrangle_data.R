@@ -10,46 +10,17 @@ wrangle_mayotte_shp <- function(mayotte_shp) {
   
 }
 
-wrangle_reunion_reef_gpkg <- function(reunion_reef_gpkg) {
-  
-  #targets::tar_load(reunion_reef_gpkg)
-  
-  reunion_reef <- sf::read_sf(reunion_reef_gpkg)
-  reunion_reef <- sf::st_make_valid(reunion_reef)
-  reunion_reef <- sf::st_as_sf(sf::st_union(reunion_reef))
-  reunion_reef <- sf::st_transform(reunion_reef, 4326)
-  
-  return(reunion_reef)
-  
-}
-  
 wrangle_may_reef <- function(millenium_reef_shp) {
   
   #targets::tar_load(millenium_reef_shp)
   
   millenium_reef <- sf::read_sf(millenium_reef_shp)
-  millenium_reef <- sf::st_make_valid(millenium_reef)
   
   may_bbox <- sf::st_bbox(c(xmin = 44.850, xmax = 45.350, ymin = -13.1, ymax = -12.5))
   may_reef <- sf::st_crop(millenium_reef, may_bbox)
   may_reef <- sf::st_make_valid(may_reef)
   
   return(may_reef)
-  
-}
-
-wrangle_run_reef <- function(millenium_reef_shp) {
-  
-  #targets::tar_load(millenium_reef_shp)
-  
-  millenium_reef <- sf::read_sf(millenium_reef_shp)
-  millenium_reef <- sf::st_make_valid(millenium_reef)
-  
-  run_bbox <- sf::st_bbox(c(xmin = 55.140, xmax = 55.900, ymin = -21.420, ymax = -20.820))
-  run_reef <- sf::st_crop(millenium_reef, run_bbox)
-  run_reef <- sf::st_make_valid(run_reef)
-  
-  return(run_reef)
   
 }
 
@@ -100,79 +71,3 @@ wrangle_carmayotte_shp <- function(carmayotte_shp) {
                                             
   
 }
-
-wrangle_bati_run_shp <- function(bati_run_shp) {
-  
-  #targets::tar_load(bati_run_shp)
-  bati_run <- sf::st_read(bati_run_shp)
-  bati_run <- sf::st_as_sf(sf::st_make_valid(sf::st_union(bati_run)))
-  bati_run <- sf::st_transform(bati_run, 4326)
-  
-  return(bati_run)
-  
-}
-
-wrangle_reunion_shp <- function(reunion_shp) {
-  
-  #targets::tar_load(reunion_shp)
-  
-  reunion_bd <- sf::read_sf(reunion_shp)
-  reunion_bd <- sf::st_transform(reunion_bd, 4326)
-  reunion_bd <- sf::st_make_valid(reunion_bd)
-  
-  return(reunion_bd)
-  
-}
-
-# --- MAYOTTE ------------------------------------------------------------------
-
-get_data_pit_may <- function(data_pit_may, reef_type_may) {
-  
-  #targets::tar_load(data_pit_may)
-  #targets::tar_load(reef_type_may)
-  
-  add_reef_type_may(data = data_pit_may,
-                   fringing = reef_type_may$fringing_may,
-                   barrier = reef_type_may$barrier_may,
-                   intern = reef_type_may$intern_may)
-  
-}
-
-get_data_fish_may <- function(data_fish_may, reef_type_may) {
-  
-  #targets::tar_load(data_fish_may)
-  #targets::tar_load(reef_type_may)
-  
- add_reef_type_may(data = data_fish_may,
-                   fringing = reef_type_may$fringing_may,
-                   barrier = reef_type_may$barrier_may,
-                   intern = reef_type_may$intern_may)
-  
-}
-
-get_data_invert_may <- function(data_invert_may, reef_type_may) {
-  
-  #targets::tar_load(data_invert_may)
-  #targets::tar_load(reef_type_may)
-  
-  add_reef_type_may(data = data_invert_may,
-                    fringing = reef_type_may$fringing_may,
-                    barrier = reef_type_may$barrier_may,
-                    intern = reef_type_may$intern_may)
-  
-  
-}
-
-# --- RÉUNION ------------------------------------------------------------------
-
-get_data_pit_run <- function(data_pit_run, reef_type_run) {
-  
-  #targets::tar_load(data_pit_run)
-  #targets::tar_load(reef_type_run)
-  
-  add_reef_type_run(data = data_pit_run,
-                    slope = reef_type_run$slope_run,
-                    flat = reef_type_run$flat_run)
-  
-}
-  

@@ -4,6 +4,7 @@
 stat_bar_function <- function(data, taxon_name) {
   
   taxon_abondance <- tidyr::gather(data = data, taxon, abondance, -site, -annee, -transect)
+  taxon_abondance$taxon_name <- taxon_name[taxon_abondance$taxon]
 
   taxon_abondance <- setNames(lapply(levels(as.factor(taxon_abondance$site)), function(site) {
   
@@ -20,16 +21,19 @@ stat_bar_function <- function(data, taxon_name) {
     tax_off <- tapply(taxon_station$mean_abondance, taxon_station$taxon, sum) == 0
     tax_off <- names(tax_off[tax_off == TRUE])
     taxon_station <- taxon_station[!taxon_station$taxon %in% tax_off, ]
+    #taxon_abondance_station <- taxon_abondance[taxon_abondance$site == site, ]
+    #taxon_abondance_station <- taxon_abondance_station[!taxon_abondance_station$taxon %in% tax_off, ] enlever les hashtag si besoin de modéliser
 
     
     ggplot2::ggplot()+
-      ggplot2::geom_col(data= taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance, fill = mean_abondance), linewidth = 0.7, color = "black")+
+      ggplot2::geom_col(data = taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance, fill = mean_abondance), linewidth = 0.7, color = "black")+
       ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = as.factor(annee), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
-                             linewidth = 0.5, width = 0.2)+
-      ggplot2::scale_fill_viridis_c()+
+                             linewidth = 0.5, width = 0.2) +
+      ggplot2::scale_fill_viridis_c(direction = -1) +
+      #ggplot2::geom_smooth(data = taxon_abondance_station, ggplot2::aes(x = as.factor(annee), y = abondance, group = taxon_name), method = "glm") +
       ggplot2::scale_x_discrete(breaks = c("2012", "2016", "2022"))+
-      ggplot2::theme_bw()+
-      ggplot2::labs(subtitle = bquote("Abondance moyenne (nb/100"*m^2*")"))+
+      ggplot2::theme_bw() +
+      ggplot2::labs(subtitle = bquote("Abondance moyenne (nb/100"*m^2*")")) +
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(), 
         legend.position = "none",
@@ -37,7 +41,7 @@ stat_bar_function <- function(data, taxon_name) {
         axis.text = ggplot2::element_text(face = "bold", size = 12),
         axis.title.y = ggplot2::element_blank(),
         strip.text = ggplot2::element_text(face = "bold", size = 12)
-        )+
+        ) +
       ggplot2::facet_wrap(~taxon_name)
       
     
@@ -99,44 +103,38 @@ camenbert_function <- function(data, color) {
     
 }
 
-substrat_station_may <- function(data_pit_may) {
+get_color_substrat <- function() {
   
-  #targets::tar_load(data_pit_may)
+  color_substrat <- c(HC = "#FF6666", NIA = "#99FFCC", OT = "#333333", RB = "#CCCCCC", 
+            RC = "#CC6633", RKC = "#FFFFFF", SC = "#CC0033", SD = "#FFFF99", 
+            SI = "#999900", SP = "#3399CC")
   
-  camenbert_function(data = data_pit_may, color = c(HC = "#FF6666", NIA = "#99FFCC", OT = "#333333", RB = "#CCCCCC", 
-                                                     RC = "#CC6633", RKC = "#FFFFFF", SC = "#CC0033", SD = "#FFFF99", 
-                                                     SI = "#999900", SP = "#3399CC"))
+  return(color_substrat)
   
 }
 
-fish_station_may <- function(data_fish_may) {
+get_french_fish_name <- function() {
   
-  #targets::tar_load(data_fish_may)
+  french_fish_name <- c(
+    bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
+    humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
+    parrotfish = "Scarinae", snapper = "Lutjanidae"
+    )
   
-  stat_bar_function(data = data_fish_may, 
-                   taxon_name = c(bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
-                                  humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
-                                  parrotfish = "Scarinae", snapper = "Lutjanidae"))
-                   #color =      c(bumphead_parrot = "#336633", butterflyfish ="#FFFF66", haemulidae = "#666666",
-                                  #humphead_wrasse = "#66FF99", grouper = "#CC6666", moray_eel = "#6600CC",
-                                  #parrotfish = "#006600", snapper = "#003366"))
-                  
+  return(french_fish_name)
+  
 }
 
-invert_station_may <- function(data_invert_may) {
+get_french_invert_name <- function() {
   
-  #targets::tar_load(invert_may)
+  french_invert_name <- c(
+    banded_coral_shrimp = "Crevette à bande", collector_urchin = "Oursin collecteur", 
+    crown_of_thorns = "Acanthasteridae", diadema_urchin = "Oursin diadème", 
+    giant_clam = "Bénitier", lobster = "Langouste", 
+    pencil_urchin = "Oursin crayon", sea_cucumber = "Holothuroidea", 
+    triton = "Triton"
+    )
   
-  stat_bar_function(data = data_invert_may,
-                    taxon_name = c(banded_coral_shrimp = "Crevette à bande", collector_urchin = "Oursin collecteur", 
-                                   crown_of_thorns = "Acanthasteridae", diadema_urchin = "Oursin diadème", 
-                                   giant_clam = "Bénitier", lobster = "Langouste", 
-                                   pencil_urchin = "Oursin crayon", sea_cucumber = "Holothuroidea", 
-                                   triton = "Triton"))
-                    #color = c(banded_coral_shrimp = "#996633", collector_urchin = "#660099", 
-                              #crown_of_thorns = "#CC0033", diadema_urchin = "#333333",
-                              #giant_clam = "#6699FF", lobster = "#FFCCFF",  
-                              #pencil_urchin = "#993333", sea_cucumber = "#FFCC99", 
-                              #triton = "#CCCC33"))
+  return(french_invert_name)
   
 }

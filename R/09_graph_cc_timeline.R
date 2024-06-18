@@ -99,37 +99,3 @@ get_final_cc_timeline <- function(graph_cc_region, nb_survey_cc_region) {
   do.call(cowplot::plot_grid, all_graph)
   
 }
-
-# --- MAYOTTE ------------------------------------------------------------------
-
-get_graph_cc_may <- function(pourc_cc_may) {
-  
-  #targets::tar_load(pourc_cc_may)
-  get_graph_cc(pourc_cc_region = pourc_cc_may)
-  
-}
-
-get_final_cc_timeline_may <- function(graph_cc_may, nb_survey_cc_may) {
-  
-  #targets::tar_load(graph_cc_may)
-  #targets::tar_load(nb_survey_cc_may)
-  get_final_cc_timeline(graph_cc_region = graph_cc_may, nb_survey_cc_region = nb_survey_cc_may)
-  
-}
-
-# --- RÉUNION ------------------------------------------------------------------
-
-get_graph_cc_run <- function(pourc_cc_run) {
-  
-  #targets::tar_load(pourc_cc_run)
-  get_graph_cc(pourc_cc_region = pourc_cc_run)
-  
-}
-
-get_final_cc_timeline_run <- function(graph_cc_run, nb_survey_cc_run) {
-  
-  #targets::tar_load(graph_cc_run)
-  #targets::tar_load(nb_survey_cc_run)
-  get_final_cc_timeline(graph_cc_region = graph_cc_run, nb_survey_cc_region = nb_survey_cc_run)
-  
-}

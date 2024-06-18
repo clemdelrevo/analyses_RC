@@ -48,12 +48,3 @@ get_fish_abondance <- function(fish_region) {
               corallivore = list(tot_abondance = corallivore_abondance, mean_abondance = mean_corallivore)))
   
 }
-
-# --- MAYOTTE ------------------------------------------------------------------
-
-get_fish_abondance_may <- function(fish_may) {
-  
-  #targets::tar_load(fish_may)
-  get_fish_abondance(fish_region = fish_may)
-  
-}

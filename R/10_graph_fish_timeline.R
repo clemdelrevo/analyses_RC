@@ -106,20 +106,3 @@ get_final_fish_timeline <- function(graph_fish_region, nb_survey_fish_region) {
   
 }
   
-# --- MAYOTTE ------------------------------------------------------------------
-
-get_graph_fish_may <- function(fish_abondance_may) {
-  
-  #targets::tar_load(fish_abondance_may)
-  get_graph_fish(fish_abondance = fish_abondance_may)
-  
-}
-
-get_final_fish_timeline_may <- function(graph_fish_may, nb_survey_fish_may) {
-  
-  #targets::tar_load(graph_fish_may)
-  #targets::tar_load(nb_survey_fish_may)
-  get_final_fish_timeline(graph_fish_region = graph_fish_may, nb_survey_fish_region = nb_survey_fish_may)
-  
-}
- 

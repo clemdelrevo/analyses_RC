@@ -39,13 +39,3 @@ get_cc_timeline_may <- function(pit_may) {
   cc_timeline_function(data = pit_may)
   
 }
-
-# --- REUNION ------------------------------------------------------------------
-
-get_cc_timeline_run <- function(pit_run) {
-  
-  #targets::tar_load(pit_run)
-  
-  cc_timeline_function(data = pit_run)
-  
-}

@@ -9,15 +9,6 @@ download_bd_topo_mayotte <- function() {
   
 }
 
-download_bd_topo_reunion <- function() {
-  
-  #download at : https://geoservices.ign.fr/ressource/219782
-  
-  reunion_shp <- "data/BDTOPO_3-3_TOUSTHEMES_SHP_RGR92UTM40S_R04_2023-06-15/BDTOPO/1_DONNEES_LIVRAISON_2023-06-00131/BDT_3-3_SHP_RGR92UTM40S_R04-ED2023-06-15/ADMINISTRATIF/REGION.shp"
-  reunion_shp
-  
-}
-
 # --- DOWNLOAD MILLENIUM -------------------------------------------------------
 
 # download Millennium Coral Reef Mapping Project
@@ -67,23 +58,5 @@ download_carmayotte <- function() {
   unlink(carmayotte_zip)
   
   return(carmayotte_shp)
-  
-}
-
-
-
-download_reunion_reef <- function() {
-  
-  reunion_reef_gpkg <- "data/reunion_reef/reunion_reef.gpkg"
-  
-  return(reunion_reef_gpkg)
-  
-}
-
-download_bati_run <- function() {
-  
-  bati_run_shp <- "data/BDTOPO_3-3_TOUSTHEMES_SHP_RGR92UTM40S_R04_2023-06-15/BDTOPO/1_DONNEES_LIVRAISON_2023-06-00131/BDT_3-3_SHP_RGR92UTM40S_R04-ED2023-06-15/BATI/BATIMENT.shp"
-  
-  return(bati_run_shp)
   
 }

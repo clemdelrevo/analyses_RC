@@ -73,13 +73,3 @@ get_nb_survey_fish_may <- function(fish_abondance_may) {
   n_survey_graph_function(n_survey)
   
 }
-
-# --- RÉUNION ------------------------------------------------------------------
-
-get_nb_survey_cc_run <- function(pourc_cc_run) {
-  
-  #targets::tar_load(pourc_cc_run)
-  n_survey <- n_survey_function(data = pourc_cc_run$cc_pit, variable = pourc_cc_run$cc_pit$reef_type)
-  n_survey_graph_function(n_survey)
-  
-}

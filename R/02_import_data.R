@@ -172,22 +172,6 @@ import_belt_function <- function(list_belt_files){
 
 # --- MAYOTTE ------------------------------------------------------------------
 
-import_pit_may <- function(list_pit_may) {
-  
-  #targets::tar_load(list_pit_may)
-  
-  import_pit_function(list_pit_files = list_pit_may)
-  
-}
-
-import_belt_may <- function(list_belt_may) {
-  
-  #targets::tar_load(list_belt_may)
-  
-  import_belt_function(list_belt_files = list_belt_may)
-  
-}
-
 # subset fish data from belt data
 
 import_fish_may <- function(data_belt_may) {
@@ -205,43 +189,5 @@ import_invert_may <- function(data_belt_may) {
   #targets::tar_load(data_belt_may)
   
   data_belt_may$data_invert
-  
-}
-
-# --- REUNION ------------------------------------------------------------------
-
-import_pit_run <- function(list_pit_run) {
-  
-  #targets::tar_load(list_pit_run)
-  
-  import_pit_function(list_pit_files = list_pit_run)
-  
-}
-
-import_belt_run <- function(list_belt_run) {
-  
-  #targets::tar_load(list_belt_run)
-  
-  import_belt_function(list_belt_files = list_belt_run)
-  
-}
-
-# subset invert data from belt data
-
-import_fish_run <- function(data_belt_run) {
-  
-  #targets::tar_load(data_belt_run)
-  
-  data_belt_run$data_fish
-  
-}
-
-# subset invert data from belt data
-
-import_invert_run <- function(data_belt_run) {
-  
-  #targets::tar_load(data_belt_run)
-  
-  data_belt_run$data_invert
   
 }
