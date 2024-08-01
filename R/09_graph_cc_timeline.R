@@ -5,13 +5,14 @@ cc_timeline_graph <- function(color, data, x, y, data2, x2, y2, ymin, ymax) {
     ggplot2::geom_point(data = data, ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]]), size = 0.7, color = color, alpha = 0.5) +
     ggplot2::geom_smooth(data = data, method = "loess", ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]], group = 1), fill = color, color = color, alpha = 0.4) +
     ggplot2::geom_point(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), y = .data[[y2]]), fill = color, color = color) +
-    ggplot2::geom_linerange(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), ymin = mean_cover - st_error_cover, ymax = mean_cover + st_error_cover), color = color) +
+    ggplot2::geom_linerange(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), ymin = mean_allcover - st_error, ymax = mean_allcover + st_error), color = color) +
+    ggplot2::ylim(0, 100) +
     ggplot2::theme_classic() +
     ggplot2::labs(subtitle = "Corail vivant (%)") +
     ggplot2::theme(axis.title.x  = ggplot2::element_blank(), 
                    axis.title.y  = ggplot2::element_blank(),
                    legend.title  = ggplot2::element_blank(),
-                   axis.text.x   = ggplot2::element_text(size = 12, face = "bold"),
+                   axis.text.x   = ggplot2::element_text(size = 9, face = "bold", angle = 30, vjust = 0.7),
                    axis.text.y   = ggplot2::element_text(size = 12, face = "bold"),
                    legend.text   = ggplot2::element_text(size = 12, face = "bold"),
                    plot.subtitle = ggplot2::element_text(size = 12, face = "bold"))
@@ -20,11 +21,12 @@ cc_timeline_graph <- function(color, data, x, y, data2, x2, y2, ymin, ymax) {
 
 get_graph_cc <- function(pourc_cc_region) {
   
-  graph_cc <- setNames(lapply(unique(pourc_cc_region$cc_pit$reef_type), function(reef_type) {
+  graph_cc <- setNames(lapply(c("barrier", "intern", "fringing"), function(reef_type) {
     
     #reef_type = "barrier"
-    cc_pit_type <- pourc_cc_region$cc_pit[pourc_cc_region$cc_pit$reef_type == reef_type, ]
-    mean_cc_type <- pourc_cc_region$mean_pourc_cc[pourc_cc_region$mean_pourc_cc$reef_type == reef_type, ]
+    message(reef_type)
+    mean_site_cc <- pourc_cc_region$mean_site_cc[pourc_cc_region$mean_site_cc$reef_type == reef_type, ]
+    mean_all_cc  <- pourc_cc_region$mean_all_cc[pourc_cc_region$mean_all_cc$reef_type == reef_type, ]
     
     if (reef_type == "barrier") {
       
@@ -48,14 +50,14 @@ get_graph_cc <- function(pourc_cc_region) {
       
     }
     
-    g <- cc_timeline_graph(color = color, data = cc_pit_type, x = "annee", y = "pourc_hc", data2 = mean_cc_type, x2 = "annee", y2 = "mean_cover")
+    g <- cc_timeline_graph(color = color, data = mean_site_cc, x = "annee", y = "mean_cover", data2 = mean_all_cc, x2 = "annee", y2 = "mean_allcover")
     
     if (reef_type == "flat" | reef_type == "slope") { g + ggplot2::scale_x_discrete(breaks = c(2003, 2010, 2016, 2023))
       } else {
     return(g)
       }
     
-  }), unique(pourc_cc_region$cc_pit$reef_type))
+  }), c("barrier", "intern", "fringing"))
   
   return(graph_cc)
                     

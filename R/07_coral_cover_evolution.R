@@ -29,7 +29,7 @@ get_cc_evol <- function(pit_region, coord_site, fringing, barrier, intern, slope
   
   cc_evol <- data.frame(do.call(rbind, lapply(levels(as.factor(cc_site$site)), function(site) {
     
-    #site = "tessier.pe"
+    #site = "bandrele"
     message(site)
     sub_site <- cc_site[cc_site$site == site, ]
     
@@ -42,16 +42,19 @@ get_cc_evol <- function(pit_region, coord_site, fringing, barrier, intern, slope
     } else { 
       
       present_year_survey <- max(sub_site$annee)
-      last_year_survey <- min(sub_site$annee)
-      #last_year_survey    <- max(sub_site$annee[sub_site$annee < present_year_survey])
+      #last_year_survey   <- min(sub_site$annee)
+      last_year_survey    <- max(sub_site$annee[sub_site$annee < present_year_survey])
     
+      data_test <- pit_region[pit_region$annee %in% c(present_year_survey, last_year_survey) & pit_region$site == site, ]
+      t <- wilcox.test(HC ~ annee, data = data_test)
+      
       diff_cc <- sub_site$mean_coral_cover[sub_site$annee == present_year_survey] - sub_site$mean_coral_cover[sub_site$annee == last_year_survey]
   
-      if(diff_cc > 5) { 
+      if(diff_cc > 0 & t$p.value < 0.05) { 
         
         etat <- "amélioration"
         
-      } else if (diff_cc < -5) {
+      } else if (diff_cc < 0 & t$p.value < 0.05) {
           
         etat <- "degradation"
         
@@ -91,7 +94,7 @@ get_cc_evol <- function(pit_region, coord_site, fringing, barrier, intern, slope
 #' 
 #' @export
 
-get_dot_cc_evol<- function(cc_evol) {
+get_dot_cc_evol<- function(cc_evol, color) {
   
   cc_devel <- table(cc_evol$etat)
   cc_devel <- data.frame(cc_devel)
@@ -123,16 +126,16 @@ get_dot_cc_evol<- function(cc_evol) {
     ggplot2::theme_void() +
     ggplot2::xlim(c(-.5, 4.5)) +
     ggplot2::geom_label(
-      x = 3.5, 
+      x = 4, 
       ggplot2::aes(y = label_pos, label = label), 
-      size = 14, 
+      size = 9, 
       label.size = 0.5, 
       nudge_x = 1
     ) +
-    ggplot2::scale_fill_manual(values = c("#05A9D1", "#05D13A", "#F8F804"))+
+    ggplot2::scale_fill_manual(values = color)+
     ggplot2::theme(
       legend.position = "none",
-      plot.margin = ggplot2::margin(0, 0, -4, -2, "cm")
+      plot.margin = ggplot2::margin(0, 0, 0, -2, "cm")
     )
   
 }
@@ -154,7 +157,7 @@ get_dot_cc_evol<- function(cc_evol) {
 #' 
 #' @export
 
-get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
+get_map_cc_evol <- function(map_land, map_reef, cc_evol, labels, shape) {
   
   cc_evol <- na.omit(cc_evol)
   
@@ -168,13 +171,13 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, color, labels, shape) {
       size = 3
     ) +
     ggplot2::scale_shape_manual(
-      values = c(24, 21, 25), 
-      labels = c("amélioration", "stable", "dégradation")
+      values = shape, 
+      labels = labels
     ) +
     ggplot2::scale_fill_manual(
-      values = color, 
-      labels = labels,
-      guide = ggplot2::guide_legend(override.aes = list(shape = shape, color = color))
+      values = c("#0066CC", "#336666", "#66CCFF"), 
+      labels = c("barrière", "frangeant", "interne"),
+      guide = ggplot2::guide_legend(override.aes = list(shape = c(15, 15, 15), color = c("#0066CC", "#336666", "#66CCFF")))
     ) +
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(
       fill = rep("#D1CECE", length(unique(cc_evol$etat))), 
@@ -209,16 +212,30 @@ get_cc_evol_may <- function(pit_may, reef_type_may, coord_site_may, mayotte_bd, 
     slope      = NULL,
     flat       = NULL
     )
-
-  dot <- get_dot_cc_evol(cc_evol = cc_evol_may)
+  
+  cat_recouvrement <- unique(cc_evol_may$etat)
+  
+  all_cat  <- c("amelioration", "stable", "degradation")
+  cat_name <- c("amélioration", "stable", "dégradation")
+  shape <- c(24, 21, 25)
+  names(shape) <- all_cat
+  names(cat_name) <- all_cat
+  
+  cat_plot_shape <- shape[names(shape) %in% cat_recouvrement]
+  cat_plot_name  <- cat_name[names(cat_name) %in% cat_recouvrement]
+  
+  cat_color <- c("#05A9D1", "#05D13A", "#F8F804")
+  names(cat_color) <- all_cat
+  cat_plot_color <- cat_color[names(cat_color) %in% cat_recouvrement]
+  
+  dot <- get_dot_cc_evol(cc_evol = cc_evol_may, color = cat_plot_color)
   
   map <- get_map_cc_evol(
     map_land = mayotte_bd, 
     map_reef = may_reef, 
     cc_evol = cc_evol_may,
-    color = c("#0066CC", "#336666", "#66CCFF"), 
-    labels = c("barrière", "frangeant", "interne"),
-    shape = c(15, 15, 15)
+    labels = cat_plot_name,
+    shape = cat_plot_shape
     ) +
     ggspatial::annotation_north_arrow(
       location = "tr", 

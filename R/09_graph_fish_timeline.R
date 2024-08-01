@@ -1,36 +1,16 @@
 
-fish_timeline_graph <- function(data, x, y, color, data2, x2, y2, subtitle) {
-  
-  ggplot2::ggplot()+
-    ggplot2::geom_point(data = data, ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]]), size = 0.7, alpha = 0.5, color = color)+
-    ggplot2::geom_smooth(data = data, method = "loess", ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]], group = 1), color = color, fill = color, alpha = 0.2)+
-    ggplot2::geom_point(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), y = .data[[y2]]), color = color)+
-    ggplot2::geom_linerange(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance), color = color)+
-    ggplot2::theme_classic()+
-    ggplot2::labs(subtitle = subtitle)+
-    ggplot2::scale_y_continuous(labels = scales::label_number(scale = 1, accuracy = 1))+
-    ggplot2::theme(axis.title.x  = ggplot2::element_blank(), 
-                   axis.title.y  = ggplot2::element_blank(),
-                   legend.title  = ggplot2::element_blank(),
-                   axis.text.x   = ggplot2::element_text(size = 12, face = "bold"),
-                   axis.text.y   = ggplot2::element_text(size = 12, face = "bold"),
-                   legend.text   = ggplot2::element_text(size = 12, face = "bold"),
-                   plot.subtitle = ggplot2::element_text(size = 12, face = "bold"))
-  
-}
-
 get_graph_fish <- function(fish_abondance_region) {
   
   graph_fish <- setNames(lapply(names(fish_abondance_region), function(level) {
     
-    #level = "all"
+    #level = "herbivore"
     if (level == "all") {
       
       subtitle = bquote("Abondance totale (nb/100"*m^2*")")
       
     } else if (level == "herbivore") {
       
-      subtitle = bquote("Abondance herbivore Scarinae (nb/100"*m^2*")")
+      subtitle = bquote("Abondance herbivore perroquets (nb/100"*m^2*")")
       
     } else if (level == "carnivore") {
       
@@ -43,13 +23,14 @@ get_graph_fish <- function(fish_abondance_region) {
     }
     
     sub_level <- fish_abondance_region[[level]]
+    reef <- unique(sub_level$mean_site_abondance$reef_type)
     
-    setNames(lapply(unique(sub_level$tot_abondance$reef_type), function(reef_type) {
+    setNames(lapply(reef, function(reef_type) {
       
       #reef_type = "barrier"
-      tot_abondance  <- sub_level$tot_abondance[sub_level$tot_abondance$reef_type == reef_type, ]
-      mean_abondance <- sub_level$mean_abondance[sub_level$mean_abondance$reef_type == reef_type, ]
-      graph <- fish_timeline_graph(data = tot_abondance, x = "annee", y = "abondance", color = "orange", data2 = mean_abondance, x2 = "annee", y2 = "mean_abondance", subtitle = subtitle)
+      reef_abondance  <- sub_level$mean_reef_abondance[sub_level$mean_reef_abondance$reef_type == reef_type, ]
+      site_abondance  <- sub_level$mean_site_abondance[sub_level$mean_site_abondance$reef_type == reef_type, ]
+      graph <- timeline_graph(data = site_abondance, x = "annee", y = "mean_site", color = "orange", data2 = reef_abondance, x2 = "annee", y2 = "mean_reef", subtitle = subtitle)
       
       if (level == "all" | level == "herbivore" | level == "carnivore") {
         
@@ -61,7 +42,7 @@ get_graph_fish <- function(fish_abondance_region) {
         
       }
 
-    }), unique(sub_level$tot_abondance$reef_type))
+    }), reef)
     
   }), names(fish_abondance_region))
   

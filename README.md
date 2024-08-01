@@ -1,8 +1,9 @@
 
 # analyses_RC
 
-The goal of analyses_RC is to produce same outputs between Reunion and Mayotte 
-islands reef check surveys, transparent and reproducible results.
+The goal of analyses_RC is to standardize results of Reek Check survey through years
+on Mayotte island. We have adopted a transparent and reproducible approach by creating 
+an analysis workflow.
 
 ## Installation
 

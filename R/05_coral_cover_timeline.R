@@ -16,17 +16,18 @@ cc_timeline_function <- function(data) {
   data$pourc_hc <- (data$HC * 100) / 40
   
   cc_pit <- data[, names(data) %in% c("site", "annee", "pourc_hc", "reef_type")]
-  if(any(unique(cc_pit$reef_type) == "intern")) {
-    cc_pit$annee[cc_pit$annee == "2021"] <- "2021-2022"
-    cc_pit$annee[cc_pit$annee == "2022"] <- "2021-2022"
-  }
   
-  mean_pourc_cc <- cc_pit |>
+  mean_site_cc <- cc_pit |>
+    dplyr::group_by(site, annee, reef_type) |>
+    dplyr::summarise(mean_cover = mean(pourc_hc))
+  
+  mean_all_cc <- mean_site_cc |>
     dplyr::group_by(annee, reef_type) |>
-    dplyr::summarise(mean_cover = mean(pourc_hc),
-                     st_error_cover = plotrix::std.error(pourc_hc))
+    dplyr::summarise(
+      mean_allcover = mean(mean_cover),
+      st_error = plotrix::std.error(mean_cover))
   
-  return(list(cc_pit = cc_pit, mean_pourc_cc = mean_pourc_cc))
+  return(list(mean_site_cc = mean_site_cc, mean_all_cc = mean_all_cc))
   
 }
 

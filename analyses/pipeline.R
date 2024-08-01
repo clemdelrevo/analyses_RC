@@ -87,8 +87,9 @@ list(
 
   ## n survey timeline ---
     ### Mayotte ---
-    ,tar_target(nb_survey_cc_may, get_nb_survey_cc_may(pourc_cc_may))
-    ,tar_target(nb_survey_fish_may, get_nb_survey_fish_may(fish_abondance_may))
+  ,tar_target(nb_survey_cc_may, get_nb_survey_cc_may(pourc_cc_may))
+  ,tar_target(nb_survey_fish_may, get_nb_survey_fish_may(fish_abondance_may))
+  ,tar_target(nb_survey_invert_may, get_nb_survey_invert_may(invert_abondance_may)) 
 
   ## color ---
   ,tar_target(color_substrat, get_color_substrat())
@@ -102,20 +103,32 @@ list(
   ## fish abondance timeline ---
   ### Mayotte ---
   ,tar_target(fish_abondance_may, get_fish_abondance(fish_region = fish_may))
-  ,tar_target(graph_fish_may, get_graph_fish(fish_abondance = fish_abondance_may))
+  ,tar_target(graph_fish_may, get_graph_fish(fish_abondance_region = fish_abondance_may))
   ,tar_target(
-    final_fish_timeline_may, 
+    final_fish_timeline_may,
     get_final_fish_timeline(
-      graph_fish_region = graph_fish_may, 
+      graph_fish_region = graph_fish_may,
       nb_survey_fish_region = nb_survey_fish_may
       )
     )
 
+  ## invert abondance timeline ---
+  ### Mayotte ---
+  ,tar_target(invert_abondance_may, get_invert_abondance(invert_region = invert_may))
+  ,tar_target(graph_invert_may, get_graph_invert(invert_abondance_region = invert_abondance_may))
+  ,tar_target(
+    final_invert_timeline_may,
+    get_final_invert_timeline(
+      graph_invert_region = graph_invert_may,
+      nb_survey_invert_region = nb_survey_invert_may
+    )
+  )
+  
   ## station survey ---
   ### Mayotte ---
   ,tar_target(substrat_survey_may, camenbert_function(data = data_pit_may, color = color_substrat))
-  ,tar_target(fish_survey_may, stat_bar_function(data = data_fish_may, taxon_name = french_fish_name))
-  ,tar_target(invert_survey_may, stat_bar_function(data = data_invert_may, taxon_name = french_invert_name))
+  ,tar_target(fish_survey_may, stat_bar_function(data = data_fish_may, taxon_name = french_fish_name, taxon = "fish"))
+  ,tar_target(invert_survey_may, stat_bar_function(data = data_invert_may, taxon_name = french_invert_name, taxon = "invert"))
 
 
  )

@@ -14,7 +14,7 @@ import_pit_function <- function(list_pit_files) {
   
   data_pit <- data.frame(do.call(rbind, lapply(list_pit_files, function(i) {
     
-    #i = "data/reunion/pit/20-1215_boucan.maharani.pe_pit.xls"
+    #i = "data/mayotte/pit/24-0622_tanaraki_pit.xls"
     
     file_name   <- basename(i)
     annee       <- as.numeric(paste0("20", sapply(strsplit(file_name, "-"), "[", 1)))
@@ -24,14 +24,15 @@ import_pit_function <- function(list_pit_files) {
 
     message(paste(site, annee))
   
-      if (file_format == "xls") {
-        segments <- as.data.frame(readxl::read_xls(i, range = "R52C1:R61C8", col_names = FALSE))
-      } else if (file_format == "xlsx") {
-        segments <- as.data.frame(readxl::read_xlsx(i, range = "R52C1:R61C8", col_names = FALSE))
-      }
+    if (file_format == "xls") {
+      segments <- as.data.frame(readxl::read_xls(i, range = "R52C1:R61C8", col_names = FALSE))
+    } else if (file_format == "xlsx") {
+      segments <- as.data.frame(readxl::read_xlsx(i, range = "R52C1:R61C8", col_names = FALSE))
+    }
         
-      segments <- segments[, c(1,2,4,6,8)]
-      colnames(segments) <- c("substrat", "t1", "t2", "t3", "t4")
+    
+    segments <- segments[, c(1,2,4,6,8)]
+    colnames(segments) <- c("substrat", "t1", "t2", "t3", "t4")
         
     if(any(apply(segments[, names(segments) %in% c("t1", "t2", "t3", "t4")], 2, sum) != 40)) {
         stop(paste0("sum of PIT in one of transect during ", annee, "'s ", site, " survey is not 40"))
@@ -39,12 +40,19 @@ import_pit_function <- function(list_pit_files) {
       
     seg_gather <- tidyr::gather(segments, transect, value, -substrat)
     seg_spread <- tidyr::spread(seg_gather, substrat, value)
+
+    bleaching  <- as.data.frame(readxl::read_xls(i, range = "F37:M37", col_names = FALSE))
+    seg_spread$bleaching <- bleaching[!is.na(bleaching)]
     
     n_annee    <- rep(annee, nrow(seg_spread))
     n_site     <- rep(site, nrow(seg_spread))
     
     df_pit <- data.frame(cbind(site = n_site, annee = n_annee, seg_spread))
-    df_pit$annee <- as.integer(df_pit$annee)
+    
+    df_pit$annee[df_pit$annee %in% c("2021", "2022")] <- "2021-2022"
+    df_pit$annee[df_pit$annee %in% c("2023", "2024")] <- "2023-2024"
+
+    #df_pit$annee <- as.integer(df_pit$annee)
     
     return(df_pit)
     
@@ -163,8 +171,12 @@ import_belt_function <- function(list_belt_files){
   
   data_fish   <- data.frame(do.call(rbind, data_belt$fish))
   data_fish   <- na.omit(data_fish)
+  data_fish$annee[data_fish$annee %in% c("2021", "2022")] <- "2021-2022"
+  data_fish$annee[data_fish$annee %in% c("2023", "2024")] <- "2023-2024"
   data_invert <- data.frame(do.call(rbind, data_belt$invert))
   data_invert <- na.omit(data_invert)
+  data_invert$annee[data_invert$annee %in% c("2021", "2022")] <- "2021-2022"
+  data_invert$annee[data_invert$annee %in% c("2023", "2024")] <- "2023-2024"
   
   return(list(data_fish = data_fish, data_invert = data_invert))
   

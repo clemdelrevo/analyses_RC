@@ -1,7 +1,7 @@
 # Generate barplot to have an overview of fish or 
 # invert mean abondance in each station ---------------------------------------------
 
-stat_bar_function <- function(data, taxon_name) {
+stat_bar_function <- function(data, taxon_name, taxon) {
   
   taxon_abondance <- tidyr::gather(data = data, taxon, abondance, -site, -annee, -transect)
   taxon_abondance$taxon_name <- taxon_name[taxon_abondance$taxon]
@@ -21,28 +21,27 @@ stat_bar_function <- function(data, taxon_name) {
     tax_off <- tapply(taxon_station$mean_abondance, taxon_station$taxon, sum) == 0
     tax_off <- names(tax_off[tax_off == TRUE])
     taxon_station <- taxon_station[!taxon_station$taxon %in% tax_off, ]
-    #taxon_abondance_station <- taxon_abondance[taxon_abondance$site == site, ]
-    #taxon_abondance_station <- taxon_abondance_station[!taxon_abondance_station$taxon %in% tax_off, ] enlever les hashtag si besoin de modéliser
+    # taxon_abondance_station <- taxon_abondance[taxon_abondance$site == site, ]
+    # taxon_abondance_station <- taxon_abondance_station[!taxon_abondance_station$taxon %in% tax_off, ] #enlever les hashtag si besoin de modéliser
 
+    if (taxon == "fish") color_bar <- "#FECD93" else color_bar <- "#93FEAA"
     
     ggplot2::ggplot()+
-      ggplot2::geom_col(data = taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance, fill = mean_abondance), linewidth = 0.7, color = "black")+
+      ggplot2::geom_col(data = taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance), color = color_bar, fill = color_bar)+
       ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = as.factor(annee), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
-                             linewidth = 0.5, width = 0.2) +
-      ggplot2::scale_fill_viridis_c(direction = -1) +
-      #ggplot2::geom_smooth(data = taxon_abondance_station, ggplot2::aes(x = as.factor(annee), y = abondance, group = taxon_name), method = "glm") +
-      ggplot2::scale_x_discrete(breaks = c("2012", "2016", "2022"))+
+                              linewidth = 0.5, width = 0.2) +
       ggplot2::theme_bw() +
       ggplot2::labs(subtitle = bquote("Abondance moyenne (nb/100"*m^2*")")) +
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(), 
-        legend.position = "none",
         plot.subtitle = ggplot2::element_text(face = "bold", size = 12),
-        axis.text = ggplot2::element_text(face = "bold", size = 12),
+        axis.text.x   = ggplot2::element_text(size = 9, face = "bold", angle = 30, vjust = 0.7),
         axis.title.y = ggplot2::element_blank(),
         strip.text = ggplot2::element_text(face = "bold", size = 12)
         ) +
-      ggplot2::facet_wrap(~taxon_name)
+      ggplot2::facet_wrap(
+        ~ taxon,
+        labeller = ggplot2::labeller(taxon = taxon_name))
       
     
   }), levels(as.factor(taxon_abondance$site)))
@@ -55,14 +54,14 @@ stat_bar_function <- function(data, taxon_name) {
 
 camenbert_function <- function(data, color) {
 
-  data_pit <- tidyr::gather(data = data, substrat, cover, -site, -annee, -transect)
-  max_year  <- tapply(data_pit$annee, data_pit$site, max)
+  data_pit <- tidyr::gather(data = data, substrat, cover, -site, -annee, -transect, -bleaching)
+  max_year <- tapply(data_pit$annee, data_pit$site, max)
   data_pit <- data_pit[data_pit$annee %in% max_year, ]
   data_pit$cover <- (data_pit$cover * 100) / 40
 
   substrat <- setNames(lapply(levels(as.factor(data_pit$site)), function(site) {
     
-    #site = "tzoundzou"
+    #site = "mtsangamouji"
     message(site)
     
     data_pit_site <- data_pit[data_pit$site == site, ]
@@ -82,13 +81,13 @@ camenbert_function <- function(data, color) {
       forcats::fct_inorder()
   
     ggplot2::ggplot(data_pit_site, ggplot2::aes(x = "", y = mean_cover, fill = substrat)) +
-      ggplot2::geom_bar(width = 1, stat = "identity", color = "#000000") +
+      ggplot2::geom_bar(width = 7, stat = "identity", color = "#FFFFFF") +
       ggplot2::coord_polar("y", start = 0) +
       ggplot2::theme_classic()+
       ggplot2::labs(fill = "Substrat (%)")+
       ggplot2::scale_fill_manual(values = as.vector(data_pit_site$color))+
       ggplot2::geom_text(ggplot2::aes(y = lab.ypos, label = round(mean_cover, 1)),
-                         color = "black", size=5, fontface = "bold", check_overlap = TRUE)+
+                         color = "#000000", size = 5, fontface = "bold", check_overlap = TRUE)+
       ggplot2::theme(axis.text = ggplot2::element_blank(),
                      axis.title = ggplot2::element_blank(),
                      axis.line = ggplot2::element_blank(),
@@ -105,9 +104,9 @@ camenbert_function <- function(data, color) {
 
 get_color_substrat <- function() {
   
-  color_substrat <- c(HC = "#FF6666", NIA = "#99FFCC", OT = "#333333", RB = "#CCCCCC", 
-            RC = "#CC6633", RKC = "#FFFFFF", SC = "#CC0033", SD = "#FFFF99", 
-            SI = "#999900", SP = "#3399CC")
+  color_substrat <- as.character(paletteer::paletteer_d("basetheme::brutal"))
+  names(color_substrat) <- c("SP","NIA", "HC", "SD","RC", "OT", "RB", "RKC", "SI", "SC")
+  color_substrat <- color_substrat[order(names(color_substrat))]
   
   return(color_substrat)
   
@@ -116,9 +115,9 @@ get_color_substrat <- function() {
 get_french_fish_name <- function() {
   
   french_fish_name <- c(
-    bumphead_parrot = "Perroquet à bosse", butterflyfish = "Chaetodontidae", haemulidae = "Haemulidae",
-    humphead_wrasse = "Napoléon", grouper = "Serranidae", moray_eel = "Muraenidae",
-    parrotfish = "Scarinae", snapper = "Lutjanidae"
+    bumphead_parrot = "Perroquets à bosse", butterflyfish = "Papillons", haemulidae = "Gaterins",
+    humphead_wrasse = "Napoléons", grouper = "Mérous", moray_eel = "Murènes",
+    parrotfish = "Perroquets", snapper = "Lutjans"
     )
   
   return(french_fish_name)
@@ -136,5 +135,34 @@ get_french_invert_name <- function() {
     )
   
   return(french_invert_name)
+  
+}
+
+coral_station_evolution <- function(data_pit_may) {
+  
+  #targets::tar_load(data_pit_may)
+  
+  data_pit_may$cc_pourc <- (data_pit_may$HC * 100) / 40
+  
+  setNames(lapply(unique(data_pit_may$site), function(s) {
+  
+    #s = "bandrele"
+    coral_cover <- data_pit_may[data_pit_may$site == s, ]
+    
+    ggpubr::ggboxplot(
+      data = coral_cover, 
+      x = "annee", 
+      y = "cc_pourc",
+      add = "jitter",
+      xlab = "",
+      ylab = "",
+      title = "Recouvrement corallien (%)"
+      ) +
+      ggplot2::ylim(0, 100) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(size = 9, face = "bold", angle = 30, vjust = 0.7))
+    
+    
+  }), unique(data_pit_may$site))
   
 }
