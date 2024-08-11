@@ -179,16 +179,16 @@ write_bilan <- function(export) {
       **en hausse** depuis 2018 (@fig-invert-saziley). Les **oursins diadèmes**, bien que peu abondants sur l'ensemble de la série temporelle sont absents en 2024.")
       ),
     
-    taraki = list(
+    tanaraki = list(
       cc = glue::glue("Le recouvrement benthique sur la station de Tanaraki est principalement **biotique**, pour les trois-quart occupé
-      par du **corail dur** (@fig-sub-taraki). La récupération rapide du recouvrement corallien après l'importante mortalité de 2016 suggère une **bonne résilience** dess peuplements coralliens
-      sur cette station dominés par les acropores digités (@fig-cc-taraki)."),
-      fish = glue::glue("Les peuplements de poissons sont **faiblement représentées** sur cette station, 
-      principalement constitués de **papillons** et en moindre mesure de **perroquets** en 2024 (@fig-fish-taraki).
+      par du **corail dur** (@fig-sub-tanaraki). La récupération du recouvrement corallien après l'importante mortalité de 2016 suggère une **bonne résilience** des peuplements coralliens
+      sur cette station dominée par les acropores digités (@fig-cc-tanaraki)."),
+      fish = glue::glue("Les peuplements de poissons sont **faiblement représentés** sur cette station, 
+      principalement constitués de **papillons** et en moindre mesure de **perroquets** en 2024 (@fig-fish-tanaraki).
       La densité de papillons **tend à la hausse** malgré une année 2020 marqué par leur abscence. Les autres groupes fonctionnels restent **rares**
       sur l'ensemble de la série temporelle."),
       invert = glue::glue("Les peuplements d'invertébrés sont **très faiblement représentés** en 2024 et majoritaiement par les **oursins diadèmes** sur l'ensemble de
-      la série temporelle (@fig-invert-taraki). En particulier, on observe une **importante diminution** du nombre d'oursins diadèmes depuis 2012.")
+      la série temporelle (@fig-invert-tanaraki). En particulier, on observe une **importante diminution** du nombre d'oursins diadèmes depuis 2012.")
       ),
     
     tzoundzou = list(

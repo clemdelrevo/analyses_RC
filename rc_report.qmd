@@ -1019,6 +1019,79 @@ Les peuplements d'invertébrés sont principalements constitués de **bénitiers
 
 {{< pagebreak >}}
   
+# TANARAKI
+
+:::{layout-ncol=2}
+  
+#
+  
+- Date du suivi: 22-06-2024
+- Suivi précédant: 16-04-2022
+  
+# 
+  
+- Type de récif: Frangeant
+- Pressions issues du bassin versant: Faible
+
+:::
+
+## Composition du substrat en 2024 et évolution du recouvrement en corail dur
+
+:::: {layout='[[30, -2, 30], [1]]'}
+::: {#first-column}
+Le recouvrement benthique sur la station de Tanaraki est principalement **biotique**, pour les trois-quart occupé
+par du **corail dur** (@fig-sub-tanaraki). La récupération du recouvrement corallien après l'importante mortalité de 2016 suggère une **bonne résilience** des peuplements coralliens
+sur cette station dominée par les acropores digités (@fig-cc-tanaraki).
+:::
+
+::: {#fig-sub-tanaraki}
+![](outputs/mayotte/substrat/tanaraki_substrat_survey.png){width=90%}
+
+Composition du substrat (%)
+:::
+
+::: {#fig-cc-tanaraki}
+![](outputs/mayotte/coral_cover/tanaraki_coral_cover.png){width=80%}
+
+Évolution du recouvrement en corail dur (%)
+:::
+
+::::
+
+{{< pagebreak >}}
+
+:::: {layout='[[10, -1, 20], [10, -1, 20]]' fig-pos='H'}
+
+## Communautés ichtyologiques en 2024 et évolution
+
+::: {#first-column}
+Les peuplements de poissons sont **faiblement représentés** sur cette station, 
+principalement constitués de **papillons** et en moindre mesure de **perroquets** en 2024 (@fig-fish-tanaraki).
+La densité de papillons **tend à la hausse** malgré une année 2020 marqué par leur abscence. Les autres groupes fonctionnels restent **rares**
+sur l'ensemble de la série temporelle.
+:::
+
+::: {#fig-fish-tanaraki}
+![](outputs/mayotte/fish/tanaraki_fish_survey.png)
+
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+:::
+
+## Communautés benthiques en 2024 et évolution
+::: {#first-column}
+Les peuplements d'invertébrés sont **très faiblement représentés** en 2024 et majoritaiement par les **oursins diadèmes** sur l'ensemble de
+la série temporelle (@fig-invert-tanaraki). En particulier, on observe une **importante diminution** du nombre d'oursins diadèmes depuis 2012.
+:::
+
+::: {#fig-invert-tanaraki}
+![](outputs/mayotte/invert/tanaraki_invert_survey.png)
+
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+:::
+::::
+
+{{< pagebreak >}}
+  
 # TZOUNDZOU
 
 :::{layout-ncol=2}
