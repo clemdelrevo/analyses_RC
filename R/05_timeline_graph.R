@@ -1,10 +1,10 @@
 
+# Custom function to format y-axis labels as integers
+integer_labels <- function(x) {
+  format(x, nsmall = 0, scientific = FALSE, trim = TRUE)
+}
+
 timeline_graph <- function(data, x, y, color, data2, x2, y2, subtitle) {
-  
-  # Custom function to format y-axis labels as integers
-  integer_labels <- function(x) {
-    format(x, nsmall = 0, scientific = FALSE, trim = TRUE)
-  }
   
   ggplot2::ggplot()+
     ggplot2::geom_point(data = data, ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]]), size = 1.5, alpha = 0.5, color = color) +

@@ -17,7 +17,7 @@ get_graph_invert <- function(invert_abondance_region) {
       
     } else if (level == "remarkable") {
       
-      subtitle = bquote("Abondance d'espèces remarquables (nb/100"*m^2*")")
+      subtitle = bquote("Abondance d'espèces\nremarquables (nb/100"*m^2*")")
       
     } 
     
@@ -29,7 +29,7 @@ get_graph_invert <- function(invert_abondance_region) {
       #reef_type = "barrier"
       reef_abondance  <- sub_level$mean_reef_abondance[sub_level$mean_reef_abondance$reef_type == reef_type, ]
       site_abondance  <- sub_level$mean_site_abondance[sub_level$mean_site_abondance$reef_type == reef_type, ]
-      graph <- timeline_graph(data = site_abondance, x = "annee", y = "mean_site", color = "#87e06a", data2 = reef_abondance, x2 = "annee", y2 = "mean_reef", subtitle = subtitle)
+      graph <- timeline_graph(data = site_abondance, x = "annee", y = "mean_site", color = "#b9674c", data2 = reef_abondance, x2 = "annee", y2 = "mean_reef", subtitle = subtitle)
       
       
       if (level == "all" | level == "herbivore" | level == "holothuria") {

@@ -16,11 +16,14 @@ import_pit_function <- function(list_pit_files) {
     
     #i = "data/mayotte/pit/24-0622_tanaraki_pit.xls"
     
-    file_name   <- basename(i)
-    annee       <- as.numeric(paste0("20", sapply(strsplit(file_name, "-"), "[", 1)))
-    split       <- strsplit(file_name, "_")
-    site        <- sapply(split, "[", 2)
-    file_format <- sapply(strsplit(sapply(split, "[", 3), "\\."), "[", 2)
+    file_name     <- basename(i)
+    date          <- sapply(strsplit(file_name, "_"), "[", 1)
+    change_date   <- lubridate::ymd(paste0("20", substr(date, 1, 2), substr(date, 4, 5), substr(date, 6, 7)))
+    standard_date <- format.Date(change_date, format = "%d-%m-%Y")
+    annee         <- as.numeric(paste0("20", sapply(strsplit(file_name, "-"), "[", 1)))
+    split         <- strsplit(file_name, "_")
+    site          <- sapply(split, "[", 2)
+    file_format   <- sapply(strsplit(sapply(split, "[", 3), "\\."), "[", 2)
 
     message(paste(site, annee))
   
@@ -44,10 +47,11 @@ import_pit_function <- function(list_pit_files) {
     bleaching  <- as.data.frame(readxl::read_xls(i, range = "F37:M37", col_names = FALSE))
     seg_spread$bleaching <- bleaching[!is.na(bleaching)]
     
-    n_annee    <- rep(annee, nrow(seg_spread))
-    n_site     <- rep(site, nrow(seg_spread))
+    n_annee         <- rep(annee, nrow(seg_spread))
+    n_site          <- rep(site, nrow(seg_spread))
+    n_standard_date <- rep(standard_date, nrow(seg_spread))
     
-    df_pit <- data.frame(cbind(site = n_site, annee = n_annee, seg_spread))
+    df_pit <- data.frame(cbind(site = n_site, annee = n_annee, standard_date = n_standard_date, seg_spread))
     
     df_pit$annee[df_pit$annee %in% c("2021", "2022")] <- "2021-2022"
     df_pit$annee[df_pit$annee %in% c("2023", "2024")] <- "2023-2024"

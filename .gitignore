@@ -51,5 +51,8 @@ rsconnect/
 # data
 data
 
-#outputs
+# outputs
 outputs
+
+# report
+rc_report.pdf

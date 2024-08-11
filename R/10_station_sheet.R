@@ -8,7 +8,7 @@ stat_bar_function <- function(data, taxon_name, taxon) {
 
   taxon_abondance <- setNames(lapply(levels(as.factor(taxon_abondance$site)), function(site) {
   
-    #site = "pes.onze"
+    #site = "mbouzi"
     taxon_station <- taxon_abondance[taxon_abondance$site == site, ]  
     taxon_station <-  taxon_station |>
       dplyr::group_by( annee, taxon) |>
@@ -24,18 +24,38 @@ stat_bar_function <- function(data, taxon_name, taxon) {
     # taxon_abondance_station <- taxon_abondance[taxon_abondance$site == site, ]
     # taxon_abondance_station <- taxon_abondance_station[!taxon_abondance_station$taxon %in% tax_off, ] #enlever les hashtag si besoin de modéliser
 
-    if (taxon == "fish") color_bar <- "#FECD93" else color_bar <- "#93FEAA"
+    if (taxon == "fish") color_bar <- "#4c6bb9" else color_bar <- "#b9674c"
+    
+    custom_breaks <- function(x, n = 4) {
+      if (length(unique(x)) > n) {
+        unique(x)[seq(1, length(unique(x)), length.out = n)]
+      } else {
+        unique(x)
+      }
+    }
     
     ggplot2::ggplot()+
       ggplot2::geom_col(data = taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance), color = color_bar, fill = color_bar)+
       ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = as.factor(annee), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
                               linewidth = 0.5, width = 0.2) +
+      ggplot2::geom_text(
+        data = taxon_station, 
+        ggplot2::aes(
+          x = as.factor(annee), 
+          y = mean_abondance + st_error_abondance + 1.5, 
+          label = round(mean_abondance, 1), 
+          group = taxon
+          ), 
+        size = 2
+        ) +
+      ggplot2::scale_y_continuous(breaks = scales::breaks_pretty(n = 4), labels = integer_labels) +
+      ggplot2::scale_x_discrete(breaks = if (length(unique(taxon_station$annee)) > 8) custom_breaks(taxon_station$annee) else ggplot2::waiver()) +
       ggplot2::theme_bw() +
       ggplot2::labs(subtitle = bquote("Abondance moyenne (nb/100"*m^2*")")) +
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(), 
-        plot.subtitle = ggplot2::element_text(face = "bold", size = 12),
-        axis.text.x   = ggplot2::element_text(size = 9, face = "bold", angle = 30, vjust = 0.7),
+        axis.text.y   = ggplot2::element_text(size = 9, face = "bold"),
+        axis.text.x   = ggplot2::element_text(size = 9, face = "bold", angle = 40, vjust = 0.7),
         axis.title.y = ggplot2::element_blank(),
         strip.text = ggplot2::element_text(face = "bold", size = 12)
         ) +
@@ -54,7 +74,7 @@ stat_bar_function <- function(data, taxon_name, taxon) {
 
 camenbert_function <- function(data, color) {
 
-  data_pit <- tidyr::gather(data = data, substrat, cover, -site, -annee, -transect, -bleaching)
+  data_pit <- tidyr::gather(data = data, substrat, cover, -site, -annee, -standard_date, -transect, -bleaching)
   max_year <- tapply(data_pit$annee, data_pit$site, max)
   data_pit <- data_pit[data_pit$annee %in% max_year, ]
   data_pit$cover <- (data_pit$cover * 100) / 40
@@ -81,19 +101,23 @@ camenbert_function <- function(data, color) {
       forcats::fct_inorder()
   
     ggplot2::ggplot(data_pit_site, ggplot2::aes(x = "", y = mean_cover, fill = substrat)) +
-      ggplot2::geom_bar(width = 7, stat = "identity", color = "#FFFFFF") +
+      ggplot2::geom_bar(width = 5, stat = "identity", color = "#FFFFFF") +
       ggplot2::coord_polar("y", start = 0) +
       ggplot2::theme_classic()+
       ggplot2::labs(fill = "Substrat (%)")+
       ggplot2::scale_fill_manual(values = as.vector(data_pit_site$color))+
       ggplot2::geom_text(ggplot2::aes(y = lab.ypos, label = round(mean_cover, 1)),
-                         color = "#000000", size = 5, fontface = "bold", check_overlap = TRUE)+
+                         color = "#000000", size = 7, fontface = "bold", check_overlap = TRUE)+
       ggplot2::theme(axis.text = ggplot2::element_blank(),
                      axis.title = ggplot2::element_blank(),
                      axis.line = ggplot2::element_blank(),
                      axis.ticks = ggplot2::element_blank(),
                      legend.margin = ggplot2::margin(l = -25, unit = "pt"),
-                     legend.title = ggplot2::element_text(face = "bold"))
+                     legend.title = ggplot2::element_text(face = "bold", size = 23),
+                     legend.text = ggplot2::element_text(size = 22),
+                     plot.margin = ggplot2::margin(t = -3, b = -3, l = -1, r = 0, "cm")
+                     
+                     )
     
   
     }), levels(as.factor(data_pit$site)))
@@ -138,16 +162,16 @@ get_french_invert_name <- function() {
   
 }
 
-coral_station_evolution <- function(data_pit_may) {
+coral_station_evolution <- function(data) {
   
   #targets::tar_load(data_pit_may)
   
-  data_pit_may$cc_pourc <- (data_pit_may$HC * 100) / 40
+  data$cc_pourc <- (data$HC * 100) / 40
   
-  setNames(lapply(unique(data_pit_may$site), function(s) {
+  setNames(lapply(unique(data$site), function(s) {
   
     #s = "bandrele"
-    coral_cover <- data_pit_may[data_pit_may$site == s, ]
+    coral_cover <- data[data$site == s, ]
     
     ggpubr::ggboxplot(
       data = coral_cover, 
@@ -163,6 +187,6 @@ coral_station_evolution <- function(data_pit_may) {
       ggplot2::theme(axis.text.x = ggplot2::element_text(size = 9, face = "bold", angle = 30, vjust = 0.7))
     
     
-  }), unique(data_pit_may$site))
+  }), unique(data$site))
   
 }

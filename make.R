@@ -10,9 +10,10 @@
 #dir.create("outputs")
 #dir.create("analyses")
 #dir.create("R")
+file.create()
 
 #renv
-#renv::install() ; renv::snapshot(prompt = ) ; renv::status()
+#renv::install() ; renv::snapshot(prompt = FALSE) ; renv::status()
 
 #dev
 

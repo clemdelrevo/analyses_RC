@@ -10,15 +10,15 @@ get_graph_fish <- function(fish_abondance_region) {
       
     } else if (level == "herbivore") {
       
-      subtitle = bquote("Abondance herbivore perroquets (nb/100"*m^2*")")
+      subtitle = bquote("Abondance de perroquets (nb/100"*m^2*")")
       
     } else if (level == "carnivore") {
       
-      subtitle = bquote("Abondance carnassier (nb/100"*m^2*")")
+      subtitle = bquote("Abondance de piscivores (nb/100"*m^2*")")
       
     } else if (level == "corallivore") {
       
-      subtitle = bquote("Abondance papilllons (nb/100"*m^2*")")
+      subtitle = bquote("Abondance de papilllons (nb/100"*m^2*")")
       
     }
     
@@ -30,7 +30,7 @@ get_graph_fish <- function(fish_abondance_region) {
       #reef_type = "barrier"
       reef_abondance  <- sub_level$mean_reef_abondance[sub_level$mean_reef_abondance$reef_type == reef_type, ]
       site_abondance  <- sub_level$mean_site_abondance[sub_level$mean_site_abondance$reef_type == reef_type, ]
-      graph <- timeline_graph(data = site_abondance, x = "annee", y = "mean_site", color = "orange", data2 = reef_abondance, x2 = "annee", y2 = "mean_reef", subtitle = subtitle)
+      graph <- timeline_graph(data = site_abondance, x = "annee", y = "mean_site", color = "#4c6bb9", data2 = reef_abondance, x2 = "annee", y2 = "mean_reef", subtitle = subtitle)
       
       if (level == "all" | level == "herbivore" | level == "carnivore") {
         

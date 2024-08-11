@@ -162,8 +162,8 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, labels, shape) {
   cc_evol <- na.omit(cc_evol)
   
   ggplot2::ggplot()+
-    ggplot2::geom_sf(data = map_reef, fill = "#FFCC66", color = "#FFCC66") +
-    ggplot2::geom_sf(data = map_land, fill = "#bdb7aa") +
+    ggplot2::geom_sf(data = map_reef, fill = "#f1eaf4", color = "#f1eaf4") +
+    ggplot2::geom_sf(data = map_land, fill = "#e1e1e1") +
     ggplot2::geom_sf(
       data = cc_evol, 
       ggplot2::aes(fill = reef_type, shape = etat), 
@@ -175,9 +175,9 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, labels, shape) {
       labels = labels
     ) +
     ggplot2::scale_fill_manual(
-      values = c("#0066CC", "#336666", "#66CCFF"), 
+      values = c("#90d587", "#7fc3df", "#fcd1a3"), 
       labels = c("barrière", "frangeant", "interne"),
-      guide = ggplot2::guide_legend(override.aes = list(shape = c(15, 15, 15), color = c("#0066CC", "#336666", "#66CCFF")))
+      guide = ggplot2::guide_legend(override.aes = list(shape = c(15, 15, 15), color = c("#90d587", "#7fc3df", "#fcd1a3")))
     ) +
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(
       fill = rep("#D1CECE", length(unique(cc_evol$etat))), 
@@ -185,7 +185,7 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, labels, shape) {
       )) +
     ggplot2::labs(
       fill = "Complexe récifal", 
-      shape = "Modification du taux de \nrecouvrement depuis le premier suivi"
+      shape = "Modification du taux de \nrecouvrement depuis le dernier suivi"
     ) +
     ggplot2::xlab("") +
     ggplot2::ylab("") +
@@ -249,10 +249,11 @@ get_cc_evol_may <- function(pit_may, reef_type_may, coord_site_may, mayotte_bd, 
       axis.ticks.x = ggplot2::element_blank(),
       axis.ticks.y = ggplot2::element_blank(),
       axis.line = ggplot2::element_blank(),
-      legend.title = ggplot2::element_text(size = 9, face = "bold"),
+      legend.title = ggplot2::element_text(size = 11, face = "bold"),
+      legend.text = ggplot2::element_text(size = 10),
       legend.background = ggplot2::element_blank(),
       legend.key = ggplot2::element_rect(fill = "#FFFFFF", color = "#FFFFFF"),
-      legend.position = c(1.25, 0.2),
+      legend.position = c(1.25, 0.4),
       legend.margin = ggplot2::margin(0, 0, 5, 0, "cm"),
       plot.margin = ggplot2::margin(0, -12, 0, -20, "cm")
       )

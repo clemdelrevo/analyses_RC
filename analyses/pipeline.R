@@ -129,6 +129,28 @@ list(
   ,tar_target(substrat_survey_may, camenbert_function(data = data_pit_may, color = color_substrat))
   ,tar_target(fish_survey_may, stat_bar_function(data = data_fish_may, taxon_name = french_fish_name, taxon = "fish"))
   ,tar_target(invert_survey_may, stat_bar_function(data = data_invert_may, taxon_name = french_invert_name, taxon = "invert"))
+  ,tar_target(cc_survey_may, coral_station_evolution(data = data_pit_may))
 
+  ## export figures ---
+  ,tar_target(
+    export, 
+    get_export_figure(
+      cc_evol_may,
+      final_cc_timeline_may,
+      final_fish_timeline_may,
+      final_invert_timeline_may,
+      cc_survey_may,
+      substrat_survey_may,
+      fish_survey_may,
+      invert_survey_may
+      ), 
+    format = "file"
+    )
+  
+  ## Create "bilan des station Reef Check"
+  ,tar_target(bilan_station, write_bilan(export))
+  ,tar_target(quarto_report, write_quarto(bilan_station, data_pit_may))
+  ,tar_quarto(rc_report, "rc_report.qmd", execute_params = list(your_param = quarto_report))
+  
 
  )

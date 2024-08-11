@@ -2,7 +2,7 @@
 cc_timeline_graph <- function(color, data, x, y, data2, x2, y2, ymin, ymax) {
     
     ggplot2::ggplot() +
-    ggplot2::geom_point(data = data, ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]]), size = 0.7, color = color, alpha = 0.5) +
+    ggplot2::geom_point(data = data, ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]]), size = 0.7, color = color, alpha = 0.8) +
     ggplot2::geom_smooth(data = data, method = "loess", ggplot2::aes(x = as.factor(.data[[x]]), y = .data[[y]], group = 1), fill = color, color = color, alpha = 0.4) +
     ggplot2::geom_point(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), y = .data[[y2]]), fill = color, color = color) +
     ggplot2::geom_linerange(data = data2, ggplot2::aes(x = as.factor(.data[[x2]]), ymin = mean_allcover - st_error, ymax = mean_allcover + st_error), color = color) +
@@ -30,15 +30,15 @@ get_graph_cc <- function(pourc_cc_region) {
     
     if (reef_type == "barrier") {
       
-      color = "#0066CC"
+      color = "#90d587"
       
     } else if (reef_type == "fringing") {
       
-      color = "#336666"
+      color = "#7fc3df"
       
     } else if (reef_type == "intern") {
       
-      color = "#66CCFF"
+      color = "#fcd1a3"
       
     } else if (reef_type == "slope") {
       
