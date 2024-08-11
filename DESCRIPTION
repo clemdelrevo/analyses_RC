@@ -9,8 +9,7 @@ Description: Reef check is a world citizen survey of corals reef.
              This can undermine the credibility of the method.
              The aim of the project is to homogenize the data in order to produce 
              the same transparent and reproducible results between years on the island of Mayotte.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.0
@@ -36,4 +35,3 @@ Imports:
   tidyr,
   usethis,
   visNetwork
-  
