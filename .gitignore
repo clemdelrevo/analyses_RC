@@ -55,4 +55,5 @@ data
 outputs
 
 # report
+rc_report.qmd
 rc_report.pdf

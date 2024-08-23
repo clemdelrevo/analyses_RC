@@ -11,14 +11,11 @@ Raw data are the property of the data producers, with the exception of data obta
 
 ## Installation
 
+1. Create a new git version control project in RStudio
 
-1. Go to [GitHub](https://github.com/clemdelrevo/analyses_RC)
+2. Enter this URL: https://github.com/clemdelrevo/analyses_RC.git
 
-2. Create a new git version control project in RStudio
-
-3. Enter this URL: https://github.com/clemdelrevo/analyses_RC.git
-
-4. Set up your environment with the make.R file place at the root of the project
+3. Set up your environment with the make.R file place at the root of the project
 
 ``` r
 dir.create("data")
