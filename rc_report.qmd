@@ -1,52 +1,43 @@
 ---
-title: 'Bilan des stations'
-subtitle: 'Reef Check 2023-2024'
-format: 
-    pdf:
-      include-in-header: 
-        text: |
-          \usepackage{scrlayer-scrpage}
-          \rohead{Service de Plongée Scientifique}
-editor: visual
+title: 'Bilan des stations Reef Check'
+subtitle: 'Mayotte 2023-2024'
+format:
+  pdf: default
 echo: FALSE
 geometry: 
   - top=16mm
   - left=15mm
   - right=15mm
-  - bottom=18mm
+  - bottom=20mm
 ---
 
-:::{layout-ncol=3}
-
-![](sps_logo.jpg){width=100 fig-align='left'}
-
-![](rc_mayotte.jpeg){width=100 fig-align='center'}
-
-![](rc_france.png){width=100 fig-align='right'}
-
-:::
-
-# Auteurs
+# [Auteurs]{.underline}
 
 Clément Delamare: Service de Plongée Scientifique  
 Sebastien Quaglietti: Service de Plongée Scientifique
 
-# Contributeurs
+# [Contributeurs]{.underline}
 
-Flavien Foncin  
-François Élie-Paute  
-Charles Le Bozec  
-Léa Bernagou  
-Anna Roger  
-Annabelle Lapostolle
+Flavien Foncin, Francois-Elie Paute, Léa Bernagou, Anna Roger, Charles Le Bozec, Annabelle Lapostolle, Dimitri Theuerkauff, Clémentine Cardon.
 
-# Financeur
+# [Financeur]{.underline}
 
-![](deal.png){width=400 fig-pos='H'}
+**Direction de l’Environnement, de l’Aménagement, du Logement et de la Mer de Mayotte (DEALM)**  
+Terre-plein de M'tsapéré  
+97600 Mamoudzou  
+<deal-mayotte@developpement-durable.gouv.fr>
 
-# Accès des données
+# [Accès des données]{.underline}
 
 Le code reproduisant les analyses est disponible à l'adresse suivante: <https://github.com/clemdelrevo/analyses_RC.git>. PDF généré avec [Quarto](https://quarto.org).
+
+::: {layout-ncol='3'}
+![](rc_mayotte.jpeg){width='100' fig-align='left'}
+
+![](rc_france.jpeg){width='200' fig-align='center'}
+
+![](deal.png){width='100' fig-align='right'}
+:::
 
 {{< pagebreak >}}
   
@@ -68,12 +59,12 @@ Le code reproduisant les analyses est disponible à l'adresse suivante: <https:/
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Bandrélé est principalement 
 **biotique** et largement représenté par le **corail dur** (@fig-sub-bandrele). 
 L’évolution du recouvrement corallien montre une importante mortalité corallienne en 2016, 
-certainement causé par la vague de chaleur du phénomène El Nino (@fig-cc-bandrele). 
+causé par la vague de chaleur du phénomène El Nino (@fig-cc-bandrele). 
 Le retour à un taux de recouvrement semblable à celui de 2012 observé en 2022 montre 
 une bonne résilience des peuplements coralliens sur cette station. La couverture corallienne moyenne 
 ne semble pas diminuer en 2024 sur la station mais est plus hétérogène entre les différents transects 
@@ -83,16 +74,17 @@ que lors du suivi précédant.
 ::: {#fig-sub-bandrele}
 ![](outputs/mayotte/substrat/bandrele_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-bandrele}
+
+
+::: {#fig-cc-bandrele fig-pos='H'}
 ![](outputs/mayotte/coral_cover/bandrele_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -102,31 +94,31 @@ Composition du substrat (%)
 
 ::: {#first-column}
 La principale famille ichtyologique représenté en 2024 sur la station
-de Bandrélé est celle des poissons papillons et la densité de ces poissons 
+de Bandrélé est celle des poissons **papillons**, dont la densité 
 reste stable par rapport aux précédentes années, probablement en lien avec 
-l’important taux de recouvrement en corail dur sur cette station (@fig-fish-bandrele). Les densités 
-de poissons perroquets (herbivores) sont très faibles dès 2012 et ne 
-montrent pas de variation entre 2012 et 2024. Aucune espèce piscivore n’a été 
+l’important taux de recouvrement en **corail dur** sur cette station (@fig-fish-bandrele). Les densités 
+de poissons **perroquets** sont très faibles dès 2012 et ne 
+montrent pas de variation entre 2012 et 2024. Aucune espèce **piscivore** n’a été 
 observée depuis la reprise des suivis en 2022 sur cette station.
 :::
 
 ::: {#fig-fish-bandrele}
 ![](outputs/mayotte/fish/bandrele_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Les principaux taxons benthiques suivis par le réseau Reef Check 
 sont très peu représentés sur cette station en 2024 (@fig-invert-bandrele). 
-Une réduction importante de la densité d’oursins diadèmes est observé entre 2012 et 2022.
+On observe une réduction significative de la densité des oursins diadèmes entre 2012 et 2022.
 :::
 
 ::: {#fig-invert-bandrele}
 ![](outputs/mayotte/invert/bandrele_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -150,30 +142,31 @@ Une réduction importante de la densité d’oursins diadèmes est observé entr
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Boa est principalement **abiotique**, 
 composé de **roche, de débris et de sable** (@fig-sub-boa). Après une progression du taux de recouvrement 
 en corail dur entre 2011 et 2015, celui ci entame un déclin continue entre 2016 et 2020 (@fig-cc-boa). 
-Aucune augmentation 'significative' du recouvrement en corail dur est observé depuis
-la reprise des suivis par le SPS. Le suivi régulier sur cette station montre une résilience 
-médiocre des peuplements coralliens sur ce site de récif interne, probablement en lien avec les 
+Aucune augmentation 'significative' du recouvrement en corail dur n'est observée depuis
+la reprise des suivis par le SPS. Le suivi régulier sur cette station montre une **résilience 
+médiocre** des peuplements coralliens sur ce site de récif interne, probablement en lien avec les 
 fortes pressions issues du bassin versant^[Ifrecor (2020) État de santé des récifs coralliens et écosystèmes associés des outre-mer français.]
 :::
 
 ::: {#fig-sub-boa}
 ![](outputs/mayotte/substrat/boa_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-boa}
+
+
+::: {#fig-cc-boa fig-pos='H'}
 ![](outputs/mayotte/coral_cover/boa_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -193,7 +186,7 @@ depuis 2020.
 ::: {#fig-fish-boa}
 ![](outputs/mayotte/fish/boa_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -205,7 +198,7 @@ l'entièreté de la série temporelle et aucune tendance d'évolution ne se dém
 ::: {#fig-invert-boa}
 ![](outputs/mayotte/invert/boa_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -229,7 +222,7 @@ l'entièreté de la série temporelle et aucune tendance d'évolution ne se dém
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le substrat sur la station de Boueni est partagé entre le recouvrement par 
 le **corail dur** et la **roche** (@fig-sub-boueni). Les peuplements coralliens ont montré
@@ -241,16 +234,17 @@ l'absence de suivi avant la reprise du réseau par le SPS ne permet pas de mettr
 ::: {#fig-sub-boueni}
 ![](outputs/mayotte/substrat/boueni_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-boueni}
+
+
+::: {#fig-cc-boueni fig-pos='H'}
 ![](outputs/mayotte/coral_cover/boueni_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -268,19 +262,19 @@ en 2024.
 ::: {#fig-fish-boueni}
 ![](outputs/mayotte/fish/boueni_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Les **bénitiers**, en augmentation, sont les seuls invertébrés observés 
-sur la série temporelle hormis l'observation d'une seule holothurie en 2012 (@fig-invert-boueni).
+sur la série temporelle, hormis l'observation d'une seule holothurie en 2012 (@fig-invert-boueni).
 :::
 
 ::: {#fig-invert-boueni}
 ![](outputs/mayotte/invert/boueni_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -304,13 +298,13 @@ sur la série temporelle hormis l'observation d'une seule holothurie en 2012 (@f
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Dzoumogne est principalement **abiotique**,
-représenté majoritairemeent par du **sable et de la roche**, tandis que la **couverture corallienne** ne représente 
+représenté majoritairement par du **sable et de la roche**, tandis que la **couverture corallienne** ne représente 
 qu'**un tiers** de la station (@fig-sub-dzoumogne). Le peu de données temporelles sur la trajectoire
-des peuplements coralliens de cette station ne permet pas d'émettre d'hypothèses sur leur capacité de résilience.
-Néanmoins, au regard de la période de suivi de cette station par rapport au phénomène de blachissement global intervenu courant 2024,
+de la couverture corallienne ne permet pas d'émettre d'hypothèses sur la capacité de résilience des peuplements coralliens de cette station.
+Néanmoins, au regard de la période de suivi de cette station par rapport au phénomène de blanchissement global intervenu courant 2024,
 la dégradation du taux de recouvrement corallien suggère plutôt un **impact anthropique local** sur ce récif frangeant, 
 certainement en relation avec les activités portuaires à proximité (@fig-cc-dzoumogne).
 :::
@@ -318,16 +312,17 @@ certainement en relation avec les activités portuaires à proximité (@fig-cc-d
 ::: {#fig-sub-dzoumogne}
 ![](outputs/mayotte/substrat/dzoumogne_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-dzoumogne}
+
+
+::: {#fig-cc-dzoumogne fig-pos='H'}
 ![](outputs/mayotte/coral_cover/dzoumogne_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -344,7 +339,7 @@ en 2012 ou en 2021-2022 sont totalement absent en 2023-2024.
 ::: {#fig-fish-dzoumogne}
 ![](outputs/mayotte/fish/dzoumogne_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -357,7 +352,7 @@ observés très ocasionnellement.
 ::: {#fig-invert-dzoumogne}
 ![](outputs/mayotte/invert/dzoumogne_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -381,30 +376,31 @@ observés très ocasionnellement.
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Longoni est principalement **abiotique**, composé principalement
 de **roche et de débris** (@fig-sub-longoni). Le **recouvrement corallien** représente environ **un tiers** de la station tandis que les macroalgues couvrent
 une part substancielle du substrat. L'évolution du taux de recouvrement montre 
 une **stabilisation du recouvrement** en corail dur depuis 2020, après que les peuplements coralliens aient 
-progressivement récupéré d'une mortalité intense entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' 
-pré-perturbation, qui semble plafonner entre **30 et 40%**, temoignant probablement d'un **stress chronique** sur cette station à proximité du seul port
+progressivement récupéré d'une mortalité intense survenue entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' 
+pré-perturbation, qui semble plafonner entre **30 et 40%**, temoignant d'un stade climax à taux de recouvrement intermédiaire ou d'un **stress chronique** sur cette station à proximité du seul port
 commercial de Mayotte.
 :::
 
 ::: {#fig-sub-longoni}
 ![](outputs/mayotte/substrat/longoni_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-longoni}
+
+
+::: {#fig-cc-longoni fig-pos='H'}
 ![](outputs/mayotte/coral_cover/longoni_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -421,23 +417,23 @@ jusqu'en 2018, probablement en lien avec la mortalité corallienne et décalée 
 ::: {#fig-fish-longoni}
 ![](outputs/mayotte/fish/longoni_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Seuls **4 oursins diadèmes** ont été observés en 2024 sur la station (@fig-invert-longoni). Malgré tout, ce taxon semble en progression depuis 2016.
-Si l'observation de macroalgues n'est pas avéré précédemment, la mortalité corallienne à probablement permis la colonisation des squelettes 
+Si l'observation de macroalgues n'est pas avéré précédemment, la mortalité corallienne a probablement permis la colonisation des squelettes 
 de carbonate de calcium par du turf algual, ce qui expliquerait l'augmentation des oursins herbivores à partir de 2016. La présence d'oursins
 remplissant la fonction d'herbivorie en l'abscence des poissons montre une certaine capacité de résilience de l'écosystème sur cette station.
-La présence de macroalgues en 2024 sur cette station couplé à la forte diminution des oursins, ainsi que la forte dégradation de 
+La présence de macroalgues en 2024 sur cette station couplé à la forte diminution des oursins et la dégradation de la couverture corallienne sur
 la station proche de Dzoumogne suggère un épisode de stress important dans la zone.
 :::
 
 ::: {#fig-invert-longoni}
 ![](outputs/mayotte/invert/longoni_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -461,7 +457,7 @@ la station proche de Dzoumogne suggère un épisode de stress important dans la 
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Majikavo est principalement **biotique**, majoritairement du **corail dur**
 tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-majikavo). Le recouvrement en corail dur est en augmentation (@fig-cc-majikavo).
@@ -470,16 +466,17 @@ tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig
 ::: {#fig-sub-majikavo}
 ![](outputs/mayotte/substrat/majikavo_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-majikavo}
+
+
+::: {#fig-cc-majikavo fig-pos='H'}
 ![](outputs/mayotte/coral_cover/majikavo_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -488,26 +485,26 @@ Composition du substrat (%)
 ## Communautés ichtyologiques en 2024 et évolution
 
 ::: {#first-column}
-Les poissons **papillons** représentent la quasi exclusivité des poissons sur cette station hormis l'observation 
+Les poissons **papillons** représentent la quasi exclusivité des poissons sur cette station, hormis l'observation 
 d'un gaterin lors du dernier suivi (@fig-fish-majikavo).
 :::
 
 ::: {#fig-fish-majikavo}
 ![](outputs/mayotte/fish/majikavo_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
-L'observation d'****un bénitier représente la seule observation d'invertébré indicateur cette année, en baisse par rapport
+L'observation d'**un bénitier** représente la seule observation d'invertébré indicateur cette année, en baisse par rapport
 à la dernière campagne (@fig-invert-majikavo).
 :::
 
 ::: {#fig-invert-majikavo}
 ![](outputs/mayotte/invert/majikavo_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -531,7 +528,7 @@ L'observation d'****un bénitier représente la seule observation d'invertébré
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de M'bouzi est principalement **abiotique**, composé principalement de 
 **roche, débris et sable** (@fig-sub-mbouzi). Le recouvrement **biotique** est principalement partagé entre le **corail dur et le corail mou**.
@@ -542,16 +539,17 @@ forte sédimentation et un envasement du substrat favorisant probablement la pr�
 ::: {#fig-sub-mbouzi}
 ![](outputs/mayotte/substrat/mbouzi_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-mbouzi}
+
+
+::: {#fig-cc-mbouzi fig-pos='H'}
 ![](outputs/mayotte/coral_cover/mbouzi_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -560,26 +558,26 @@ Composition du substrat (%)
 ## Communautés ichtyologiques en 2024 et évolution
 
 ::: {#first-column}
-Les **papillons** sont les seuls poissons observés en 2024 et dont la densité semble diminuer depuis 2013. L'observation de poissons perroquets
+Les **papillons** sont les seuls poissons observés en 2024, dont la densité diminue depuis 2013. L'observation de poissons **perroquets**
 parait plus aléatoire sur la série temporelle (@fig-fish-mbouzi). Les poissons **piscivores** marquent par leur abscence depuis la reprise des suivis.
 :::
 
 ::: {#fig-fish-mbouzi}
 ![](outputs/mayotte/fish/mbouzi_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Les densités d'invertébrés indicateurs sont globalement faibles sur l'ensemble de la série temporelle, hormis pour les 
-**oursins diadèmes** dont l'abondance est divisé par 5 entre 2012 et 2013 (@fig-invert-mbouzi).
+**oursins diadèmes** dont l'abondance est divisée par 5 entre 2012 et 2013 (@fig-invert-mbouzi).
 :::
 
 ::: {#fig-invert-mbouzi}
 ![](outputs/mayotte/invert/mbouzi_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -603,26 +601,27 @@ Les densités d'invertébrés indicateurs sont globalement faibles sur l'ensembl
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de M'tsangamouji est principalement **biotique**, composé de **corail dur**
-tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji). La couverture corallienne est légèrement plus importante qu'en
-2012 mais en baisse depuis la dernière campagne de suivi (@fig-cc-mtsangamouji).
+tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji). La couverture corallienne est légèrement plus importante en 2024 qu'en
+2012 mais en baisse depuis la précédante campagne de suivi (@fig-cc-mtsangamouji).
 :::
 
 ::: {#fig-sub-mtsangamouji}
 ![](outputs/mayotte/substrat/mtsangamouji_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-mtsangamouji}
+
+
+::: {#fig-cc-mtsangamouji fig-pos='H'}
 ![](outputs/mayotte/coral_cover/mtsangamouji_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -631,7 +630,7 @@ Composition du substrat (%)
 ## Communautés ichtyologiques en 2024 et évolution
 
 ::: {#first-column}
-Les **papillons** représentent la principale famille de poisson observé en 2024 (@fig-fish-mtsangamouji). Cette famille est en augmentation depuis 2012,
+Les **papillons** représentent la principale famille de poisson observée en 2024 (@fig-fish-mtsangamouji). Cette famille est en augmentation depuis 2012,
 peut être en lien avec l'augmentation du recouvrement en corail dur. Les poissons **piscivores** restent rares et les poissons **perroquets** n'ont jamais
 été observés.
 :::
@@ -639,7 +638,7 @@ peut être en lien avec l'augmentation du recouvrement en corail dur. Les poisso
 ::: {#fig-fish-mtsangamouji}
 ![](outputs/mayotte/fish/mtsangamouji_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -651,7 +650,7 @@ peut être en lien avec l'augmentation du recouvrement en corail dur. Les poisso
 ::: {#fig-invert-mtsangamouji}
 ![](outputs/mayotte/invert/mtsangamouji_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -675,7 +674,7 @@ peut être en lien avec l'augmentation du recouvrement en corail dur. Les poisso
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de N'gouja est principalement **biotique**, composé majoritairement de **corail dur**
 tandis que les **macroalgues** occupent une part substancielle du substrat (@fig-sub-ngouja). La trajectoire à la baisse continue du recouvrement en corail dur sur 
@@ -685,16 +684,17 @@ l'ensemble de la série temporelle suggère une **mauvaise résilience** des peu
 ::: {#fig-sub-ngouja}
 ![](outputs/mayotte/substrat/ngouja_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-ngouja}
+
+
+::: {#fig-cc-ngouja fig-pos='H'}
 ![](outputs/mayotte/coral_cover/ngouja_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -711,7 +711,7 @@ les années précedantes.
 ::: {#fig-fish-ngouja}
 ![](outputs/mayotte/fish/ngouja_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -724,7 +724,7 @@ mais tendent à la baisse depuis.
 ::: {#fig-invert-ngouja}
 ![](outputs/mayotte/invert/ngouja_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -748,28 +748,29 @@ mais tendent à la baisse depuis.
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de la bouée 2 de la passe en S est principalement **abiotique**, composé principalement
-de **sable et de débris**, conditions plutôt normales sur cette station localisé en bordure de passe à épandage détritique (@fig-sub-pes.deux). Le recouvrement en corail dur ne représente 
+de **sable et de débris**, conditions plutôt normales sur cette station localisée en bordure de passe à épandage détritique (@fig-sub-pes.deux). Le recouvrement en corail dur ne représente 
 qu'un tiers de la station. L'évolution du recouvrement corallien montre l'importante mortalité suite au stress thermique de 2016 sur cette station 
 de récif barrière, dont les peuplements sont à la base principalement constitués d'espèces branchus et tabulaires (@fig-cc-pes.deux).
-L'amélioration mitigé de la part du recouvrement corallien suggère une **résilience médiocre** de ces peuplements thermiquement sensibles.
+L'amélioration mitigée de la part du recouvrement corallien suggère une **résilience médiocre** de ces peuplements thermiquement sensibles.
 :::
 
 ::: {#fig-sub-pes.deux}
 ![](outputs/mayotte/substrat/pes.deux_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-pes.deux}
+
+
+::: {#fig-cc-pes.deux fig-pos='H'}
 ![](outputs/mayotte/coral_cover/pes.deux_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -779,26 +780,26 @@ Composition du substrat (%)
 
 ::: {#first-column}
 Les peuplements de poissons sont **faiblement représentés** en 2024 et les densité des principaux groupes fonctionnels **tendent à la baisse** sur l'ensemble
-de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être lié à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
-suggère d'autres types de pressions tel que la pêche sur cette station classé en réserve de pêche.
+de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être principalement lié à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
+suggère l'action d'autres types de pressions agissant en synergie avec la perte d'habitat sur cette station classé en réserve.
 :::
 
 ::: {#fig-fish-pes.deux}
 ![](outputs/mayotte/fish/pes.deux_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
-Les invértébrés sont **faiblement représentés** sur cette station en 2024 (@fig-invert-pes.deux). En particulier, on note une tandance à la baisse des **holothuries**, espèces d'interêts
+Les invértébrés sont **faiblement représentés** sur cette station en 2024 (@fig-invert-pes.deux). En particulier, on note une tendance à la baisse des **holothuries**, espèces d'interêts
 écologiques et sensibles aux pressions d'origines anthropiques. Aucun commerce d'holothurie n'est pourtant recensé sur Mayotte.
 :::
 
 ::: {#fig-invert-pes.deux}
 ![](outputs/mayotte/invert/pes.deux_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -822,7 +823,7 @@ Les invértébrés sont **faiblement représentés** sur cette station en 2024 (
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de la bouée 11 de la passe en S est principalement **biotique**, composé majoritairement de **corail dur** (@fig-sub-pes.onze).
 L'évolution du recouvrement corallien montre une **dégradation continue** entre 2016 et 2020, compensé en deux ans par une **remarquable amélioration**, probablement au profit
@@ -832,16 +833,17 @@ d'espèces digités à fort taux de croissance sur cette station de bordure de p
 ::: {#fig-sub-pes.onze}
 ![](outputs/mayotte/substrat/pes.onze_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-pes.onze}
+
+
+::: {#fig-cc-pes.onze fig-pos='H'}
 ![](outputs/mayotte/coral_cover/pes.onze_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -857,7 +859,7 @@ une tendance à la baisse des **perroquets** et la rareté des **piscivores** da
 ::: {#fig-fish-pes.onze}
 ![](outputs/mayotte/fish/pes.onze_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -869,7 +871,7 @@ d'holothuries** (@fig-invert-pes.onze). L'évolution de la densité de **béniti
 ::: {#fig-invert-pes.onze}
 ![](outputs/mayotte/invert/pes.onze_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -893,26 +895,27 @@ d'holothuries** (@fig-invert-pes.onze). L'évolution de la densité de **béniti
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Sakouli est principalement **biotique**, en grande partie occupé par du **corail dur** (@fig-sub-sakouli).
 L'évolution du recouvrement corallien montre une **bonne résilience** des peuplements coralliens sur Sakouli, avec un impact modéré du stress
-thermique de 2016 sur le recouvrement et un retour proche du stade probablement 'climax' constaté depuis la reprise de suivis pas le SPS (@fig-cc-sakouli).
+thermique de 2016 sur le recouvrement et un retour au stade probablement 'climax' constaté depuis la reprise de suivis pas le SPS (@fig-cc-sakouli).
 :::
 
 ::: {#fig-sub-sakouli}
 ![](outputs/mayotte/substrat/sakouli_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-sakouli}
+
+
+::: {#fig-cc-sakouli fig-pos='H'}
 ![](outputs/mayotte/coral_cover/sakouli_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -928,7 +931,7 @@ poissons **piscivores** restent absents si l'on occulte la présence du seul mé
 ::: {#fig-fish-sakouli}
 ![](outputs/mayotte/fish/sakouli_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -941,7 +944,7 @@ en 2012.
 ::: {#fig-invert-sakouli}
 ![](outputs/mayotte/invert/sakouli_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -965,7 +968,7 @@ en 2012.
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Saziley est principalement **abiotique** et largement représenté par les **débris et la roche** (@fig-sub-saziley).
 Le **corail dur** n'occupe qu'un tiers de la station. L'évolution du recouvrement en corail dur montre une **amélioration entre 2016 et 2019** mais 
@@ -975,16 +978,17 @@ une **importante dégradation** d'environ 40% depuis la reprise des suivis (@fig
 ::: {#fig-sub-saziley}
 ![](outputs/mayotte/substrat/saziley_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-saziley}
+
+
+::: {#fig-cc-saziley fig-pos='H'}
 ![](outputs/mayotte/coral_cover/saziley_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -1001,19 +1005,19 @@ restent **très rares** sur cette station.
 ::: {#fig-fish-saziley}
 ![](outputs/mayotte/fish/saziley_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Les peuplements d'invertébrés sont principalements constitués de **bénitiers** en 2024, famille dont l'abondance semble
-**en hausse** depuis 2018 (@fig-invert-saziley). Les **oursins diadèmes**, bien que peu abondants sur l'ensemble de la série temporelle sont absents en 2024.
+**en hausse** (@fig-invert-saziley). Les **oursins diadèmes**, peu abondants sur l'ensemble de la série temporelle sont absents en 2024.
 :::
 
 ::: {#fig-invert-saziley}
 ![](outputs/mayotte/invert/saziley_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -1037,7 +1041,7 @@ Les peuplements d'invertébrés sont principalements constitués de **bénitiers
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Tanaraki est principalement **biotique**, pour les trois-quart occupé
 par du **corail dur** (@fig-sub-tanaraki). La récupération du recouvrement corallien après l'importante mortalité de 2016 suggère une **bonne résilience** des peuplements coralliens
@@ -1047,16 +1051,17 @@ sur cette station dominée par les acropores digités (@fig-cc-tanaraki).
 ::: {#fig-sub-tanaraki}
 ![](outputs/mayotte/substrat/tanaraki_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-tanaraki}
+
+
+::: {#fig-cc-tanaraki fig-pos='H'}
 ![](outputs/mayotte/coral_cover/tanaraki_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -1074,19 +1079,19 @@ sur l'ensemble de la série temporelle.
 ::: {#fig-fish-tanaraki}
 ![](outputs/mayotte/fish/tanaraki_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
-Les peuplements d'invertébrés sont **très faiblement représentés** en 2024 et majoritaiement par les **oursins diadèmes** sur l'ensemble de
+Les peuplements d'invertébrés sont **très faiblement représentés** en 2024 et majoritairement par les **oursins diadèmes** sur l'ensemble de
 la série temporelle (@fig-invert-tanaraki). En particulier, on observe une **importante diminution** du nombre d'oursins diadèmes depuis 2012.
 :::
 
 ::: {#fig-invert-tanaraki}
 ![](outputs/mayotte/invert/tanaraki_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 
@@ -1110,7 +1115,7 @@ la série temporelle (@fig-invert-tanaraki). En particulier, on observe une **im
 
 ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
 
-:::: {layout='[[30, -2, 30], [1]]'}
+:::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Tzoundzou est principalement **abiotique**, majoritairement de la **roche** (@fig-sub-tzoundzou).
 Le recouvrement corallien représente environ un tiers de la station sur l'ensemble de la série temporelle et est en augmentation
@@ -1120,16 +1125,17 @@ depuis la dernière campagne de suivi (@fig-cc-tzoundzou).
 ::: {#fig-sub-tzoundzou}
 ![](outputs/mayotte/substrat/tzoundzou_substrat_survey.png){width=90%}
 
-Composition du substrat (%)
+Composition du substrat (% moyen)
 :::
+::::
 
-::: {#fig-cc-tzoundzou}
+
+
+::: {#fig-cc-tzoundzou fig-pos='H'}
 ![](outputs/mayotte/coral_cover/tzoundzou_coral_cover.png){width=80%}
 
-Évolution du recouvrement en corail dur (%)
+Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
 :::
-
-::::
 
 {{< pagebreak >}}
 
@@ -1145,7 +1151,7 @@ de quelques **perroquets** en 2012 (@fig-fish-tzoundzou). Les **piscivores**, à
 ::: {#fig-fish-tzoundzou}
 ![](outputs/mayotte/fish/tzoundzou_fish_survey.png)
 
-Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
 :::
 
 ## Communautés benthiques en 2024 et évolution
@@ -1157,7 +1163,7 @@ malgré le comptage de **quelques oursins diadèmes** en 2021-2022 (@fig-invert-
 ::: {#fig-invert-tzoundzou}
 ![](outputs/mayotte/invert/tzoundzou_invert_survey.png)
 
-Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
 :::
 ::::
 

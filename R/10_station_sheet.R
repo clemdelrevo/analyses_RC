@@ -34,20 +34,10 @@ stat_bar_function <- function(data, taxon_name, taxon) {
       }
     }
     
-    ggplot2::ggplot()+
+    p <- ggplot2::ggplot()+
       ggplot2::geom_col(data = taxon_station, ggplot2::aes(x = as.factor(annee), y = mean_abondance), color = color_bar, fill = color_bar)+
       ggplot2::geom_errorbar(data = taxon_station, ggplot2::aes(x = as.factor(annee), ymin = mean_abondance - st_error_abondance, ymax = mean_abondance + st_error_abondance),
                               linewidth = 0.5, width = 0.2) +
-      ggplot2::geom_text(
-        data = taxon_station, 
-        ggplot2::aes(
-          x = as.factor(annee), 
-          y = mean_abondance + st_error_abondance + 1.5, 
-          label = round(mean_abondance, 1), 
-          group = taxon
-          ), 
-        size = 2
-        ) +
       ggplot2::scale_y_continuous(breaks = scales::breaks_pretty(n = 4), labels = integer_labels) +
       ggplot2::scale_x_discrete(breaks = if (length(unique(taxon_station$annee)) > 8) custom_breaks(taxon_station$annee) else ggplot2::waiver()) +
       ggplot2::theme_bw() +
@@ -62,8 +52,19 @@ stat_bar_function <- function(data, taxon_name, taxon) {
       ggplot2::facet_wrap(
         ~ taxon,
         labeller = ggplot2::labeller(taxon = taxon_name))
-      
     
+    if (all(taxon_station$mean_abondance < 12)) p else p + 
+      ggplot2::geom_text(
+      data = taxon_station, 
+      ggplot2::aes(
+        x = as.factor(annee), 
+        y = mean_abondance + st_error_abondance + 1.5, 
+        label = round(mean_abondance, 1), 
+        group = taxon
+      ), 
+      size = 2
+    )
+      
   }), levels(as.factor(taxon_abondance$site)))
 
   return(taxon_abondance)

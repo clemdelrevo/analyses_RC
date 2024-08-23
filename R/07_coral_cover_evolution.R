@@ -162,7 +162,7 @@ get_map_cc_evol <- function(map_land, map_reef, cc_evol, labels, shape) {
   cc_evol <- na.omit(cc_evol)
   
   ggplot2::ggplot()+
-    ggplot2::geom_sf(data = map_reef, fill = "#f1eaf4", color = "#f1eaf4") +
+    ggplot2::geom_sf(data = map_reef, fill = "#8ca1de", color = "#8ca1de") +
     ggplot2::geom_sf(data = map_land, fill = "#e1e1e1") +
     ggplot2::geom_sf(
       data = cc_evol, 

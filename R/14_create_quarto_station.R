@@ -39,57 +39,48 @@ write_quarto <- function(bilan_station, data_pit_may) {
   
   yaml <- glue::glue(
   "---
-  title: 'Bilan des stations'
-  subtitle: 'Reef Check 2023-2024'
-  format: 
-      pdf:
-        include-in-header: 
-          text: |
-            \\usepackage{scrlayer-scrpage}
-            \\rohead{Service de Plongée Scientifique}
-  editor: visual
+  title: 'Bilan des stations Reef Check'
+  subtitle: 'Mayotte 2023-2024'
+  format:
+    pdf: default
   echo: FALSE
   geometry: 
     - top=16mm
     - left=15mm
     - right=15mm
-    - bottom=18mm
+    - bottom=20mm
   ---
-  
-  :::{layout-ncol=3}
-  
-  ![](sps_logo.jpg){width=100 fig-align='left'}
-  
-  ![](rc_mayotte.jpeg){width=100 fig-align='center'}
-  
-  ![](rc_france.png){width=100 fig-align='right'}
-  
-  :::
-  
-  # Auteurs
+
+  # [Auteurs]{.underline}
   
   Clément Delamare: Service de Plongée Scientifique  
   Sebastien Quaglietti: Service de Plongée Scientifique
   
-  # Contributeurs
+  # [Contributeurs]{.underline}
   
-  Flavien Foncin  
-  François Élie-Paute  
-  Charles Le Bozec  
-  Léa Bernagou  
-  Anna Roger  
-  Annabelle Lapostolle
+  Flavien Foncin, Francois-Elie Paute, Léa Bernagou, Anna Roger, Charles Le Bozec, Annabelle Lapostolle, Dimitri Theuerkauff, Clémentine Cardon.
   
-  # Financeur
+  # [Financeur]{.underline}
   
-  ![](deal.png){width=400 fig-pos='H'}
+  **Direction de l’Environnement, de l’Aménagement, du Logement et de la Mer de Mayotte (DEALM)**  
+  Terre-plein de M'tsapéré  
+  97600 Mamoudzou  
+  <deal-mayotte@developpement-durable.gouv.fr>
   
-  # Accès des données
+  # [Accès des données]{.underline}
   
   Le code reproduisant les analyses est disponible à l'adresse suivante: <https://github.com/clemdelrevo/analyses_RC.git>. PDF généré avec [Quarto](https://quarto.org).
   
-  {{< pagebreak >}}
+  ::: {layout-ncol='3'}
+  ![](rc_mayotte.jpeg){width='100' fig-align='left'}
   
+  ![](rc_france.jpeg){width='200' fig-align='center'}
+  
+  ![](deal.png){width='100' fig-align='right'}
+  :::
+  
+  {{< pagebreak >}}
+
   ",
   .open = "<<", .close = ">>"
   )
@@ -126,7 +117,7 @@ write_quarto <- function(bilan_station, data_pit_may) {
     
     ## Composition du substrat en 2024 et évolution du recouvrement en corail dur
     
-    :::: {layout='[[30, -2, 30], [1]]'}
+    :::: {layout='[30, -2, 30]' fig-pos='H'}
     ::: {#first-column}
     <<bilan$cc>>
     :::
@@ -134,17 +125,18 @@ write_quarto <- function(bilan_station, data_pit_may) {
     ::: {#fig-sub-<<i>>}
     ![](outputs/mayotte/substrat/<<i>>_substrat_survey.png){width=90%}
     
-    Composition du substrat (%)
+    Composition du substrat (% moyen)
     :::
-    
-    ::: {#fig-cc-<<i>>}
-    ![](outputs/mayotte/coral_cover/<<i>>_coral_cover.png){width=80%}
-    
-    Évolution du recouvrement en corail dur (%)
-    :::
-    
     ::::
     
+    \
+    
+    ::: {#fig-cc-<<i>> fig-pos='H'}
+    ![](outputs/mayotte/coral_cover/<<i>>_coral_cover.png){width=80%}
+    
+    Évolution du recouvrement en corail dur (%). Les points représentent le % de recouvrement en corail dur de chaque transect.
+    :::
+
     {{< pagebreak >}}
     
     :::: {layout='[[10, -1, 20], [10, -1, 20]]' fig-pos='H'}
@@ -158,7 +150,7 @@ write_quarto <- function(bilan_station, data_pit_may) {
     ::: {#fig-fish-<<i>>}
     ![](outputs/mayotte/fish/<<i>>_fish_survey.png)
     
-    Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard
+    Évolution de la densité de poissons indicateurs. Barres d'erreurs = erreur standard.
     :::
 
     ## Communautés benthiques en 2024 et évolution
@@ -169,7 +161,7 @@ write_quarto <- function(bilan_station, data_pit_may) {
     ::: {#fig-invert-<<i>>}
     ![](outputs/mayotte/invert/<<i>>_invert_survey.png)
     
-    Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard
+    Évolution de la densité d'invertébrés indicateurs. Barres d'erreurs = erreur standard.
     :::
     ::::
     

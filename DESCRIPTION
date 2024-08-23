@@ -34,4 +34,5 @@ Imports:
   targets,
   tidyr,
   usethis,
-  visNetwork
+  visNetwork,
+  yaml
