@@ -58,11 +58,11 @@ stat_bar_function <- function(data, taxon_name, taxon) {
       data = taxon_station, 
       ggplot2::aes(
         x = as.factor(annee), 
-        y = mean_abondance + st_error_abondance + 1.5, 
+        y = mean_abondance + st_error_abondance + 3, 
         label = round(mean_abondance, 1), 
         group = taxon
       ), 
-      size = 2
+      size = 3.5
     )
       
   }), levels(as.factor(taxon_abondance$site)))

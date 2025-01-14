@@ -14,6 +14,7 @@
 
 # renv
 # renv::install() ; renv::snapshot(prompt = FALSE) ; renv::status()
+# renv::install("igraph", type = "binary")
 
 # dev
 

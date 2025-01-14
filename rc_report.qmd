@@ -9,6 +9,7 @@ geometry:
   - left=15mm
   - right=15mm
   - bottom=20mm
+
 ---
 
 # [Auteurs]{.underline}
@@ -27,7 +28,7 @@ Terre-plein de M'tsapéré
 97600 Mamoudzou  
 <deal-mayotte@developpement-durable.gouv.fr>
 
-# [Accès des données]{.underline}
+# [Accès aux données]{.underline}
 
 Le code reproduisant les analyses est disponible à l'adresse suivante: <https://github.com/clemdelrevo/analyses_RC.git>. PDF généré avec [Quarto](https://quarto.org).
 
@@ -38,6 +39,10 @@ Le code reproduisant les analyses est disponible à l'adresse suivante: <https:/
 
 ![](deal.png){width='100' fig-align='right'}
 :::
+
+{{< pagebreak >}}
+
+![](outputs/mayotte/first_page_carto.jpg){fig-align='center' width=110% heigth=110%}
 
 {{< pagebreak >}}
   
@@ -74,7 +79,7 @@ que lors du suivi précédant.
 ::: {#fig-sub-bandrele}
 ![](outputs/mayotte/substrat/bandrele_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -147,16 +152,16 @@ On observe une réduction significative de la densité des oursins diadèmes ent
 Le recouvrement benthique sur la station de Boa est principalement **abiotique**, 
 composé de **roche, de débris et de sable** (@fig-sub-boa). Après une progression du taux de recouvrement 
 en corail dur entre 2011 et 2015, celui ci entame un déclin continue entre 2016 et 2020 (@fig-cc-boa). 
-Aucune augmentation 'significative' du recouvrement en corail dur n'est observée depuis
-la reprise des suivis par le SPS. Le suivi régulier sur cette station montre une **résilience 
-médiocre** des peuplements coralliens sur ce site de récif interne, probablement en lien avec les 
+Aucune augmentation 'significative' du recouvrement en corail dur n'est observée depuis 2020. 
+Le suivi régulier sur cette station montre une **résilience 
+médiocre** des peuplements coralliens du fait d'une stabilité du taux de recouvrement en corail dur sur ce site de récif interne, probablement en lien avec les 
 fortes pressions issues du bassin versant^[Ifrecor (2020) État de santé des récifs coralliens et écosystèmes associés des outre-mer français.]
 :::
 
 ::: {#fig-sub-boa}
 ![](outputs/mayotte/substrat/boa_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -234,7 +239,7 @@ l'absence de suivi avant la reprise du réseau par le SPS ne permet pas de mettr
 ::: {#fig-sub-boueni}
 ![](outputs/mayotte/substrat/boueni_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -306,13 +311,13 @@ qu'**un tiers** de la station (@fig-sub-dzoumogne). Le peu de données temporell
 de la couverture corallienne ne permet pas d'émettre d'hypothèses sur la capacité de résilience des peuplements coralliens de cette station.
 Néanmoins, au regard de la période de suivi de cette station par rapport au phénomène de blanchissement global intervenu courant 2024,
 la dégradation du taux de recouvrement corallien suggère plutôt un **impact anthropique local** sur ce récif frangeant, 
-certainement en relation avec les activités portuaires à proximité (@fig-cc-dzoumogne).
+dont l'origine reste à expliquer (@fig-cc-dzoumogne).
 :::
 
 ::: {#fig-sub-dzoumogne}
 ![](outputs/mayotte/substrat/dzoumogne_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -345,7 +350,7 @@ en 2012 ou en 2021-2022 sont totalement absent en 2023-2024.
 ## Communautés benthiques en 2024 et évolution
 ::: {#first-column}
 Les invertébrés benthiques indicateurs recensés sont principalement des **oursins diadèmes** et sont en
-**forte augmentation** depuis la reprise des suivis par rapport à 2012 (@fig-invert-dzoumogne). Les **bénitiers et les holothuries** sont également
+**forte augmentation** depuis 2022 par rapport à 2012 (@fig-invert-dzoumogne). Les **bénitiers et les holothuries** sont également
 observés très ocasionnellement.
 :::
 
@@ -380,9 +385,9 @@ observés très ocasionnellement.
 ::: {#first-column}
 Le recouvrement benthique sur la station de Longoni est principalement **abiotique**, composé principalement
 de **roche et de débris** (@fig-sub-longoni). Le **recouvrement corallien** représente environ **un tiers** de la station tandis que les macroalgues couvrent
-une part substancielle du substrat. L'évolution du taux de recouvrement montre 
+une part substancielle du substrat (voir @fig-warning-alga). L'évolution du taux de recouvrement montre 
 une **stabilisation du recouvrement** en corail dur depuis 2020, après que les peuplements coralliens aient 
-progressivement récupéré d'une mortalité intense survenue entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' 
+progressivement récupéré d'une mortalité intense survenue entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' (2012)
 pré-perturbation, qui semble plafonner entre **30 et 40%**, temoignant d'un stade climax à taux de recouvrement intermédiaire ou d'un **stress chronique** sur cette station à proximité du seul port
 commercial de Mayotte.
 :::
@@ -390,7 +395,7 @@ commercial de Mayotte.
 ::: {#fig-sub-longoni}
 ![](outputs/mayotte/substrat/longoni_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -460,13 +465,13 @@ la station proche de Dzoumogne suggère un épisode de stress important dans la 
 :::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de Majikavo est principalement **biotique**, majoritairement du **corail dur**
-tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-majikavo). Le recouvrement en corail dur est en augmentation (@fig-cc-majikavo).
+tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-majikavo, voir aussi @fig-warning-alga). Le recouvrement en corail dur est en augmentation (@fig-cc-majikavo).
 :::
 
 ::: {#fig-sub-majikavo}
 ![](outputs/mayotte/substrat/majikavo_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -539,7 +544,7 @@ forte sédimentation et un envasement du substrat favorisant probablement la pr�
 ::: {#fig-sub-mbouzi}
 ![](outputs/mayotte/substrat/mbouzi_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -604,14 +609,14 @@ Les densités d'invertébrés indicateurs sont globalement faibles sur l'ensembl
 :::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de M'tsangamouji est principalement **biotique**, composé de **corail dur**
-tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji). La couverture corallienne est légèrement plus importante en 2024 qu'en
+tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji, voir aussi @fig-warning-alga). La couverture corallienne est légèrement plus importante en 2024 qu'en
 2012 mais en baisse depuis la précédante campagne de suivi (@fig-cc-mtsangamouji).
 :::
 
 ::: {#fig-sub-mtsangamouji}
 ![](outputs/mayotte/substrat/mtsangamouji_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -677,14 +682,14 @@ peut être en lien avec l'augmentation du recouvrement en corail dur. Les poisso
 :::: {layout='[30, -2, 30]' fig-pos='H'}
 ::: {#first-column}
 Le recouvrement benthique sur la station de N'gouja est principalement **biotique**, composé majoritairement de **corail dur**
-tandis que les **macroalgues** occupent une part substancielle du substrat (@fig-sub-ngouja). La trajectoire à la baisse continue du recouvrement en corail dur sur 
+tandis que les **macroalgues** occupent une part substancielle du substrat (@fig-sub-ngouja, voir aussi @fig-warning-alga). La trajectoire à la baisse continue du recouvrement en corail dur sur 
 l'ensemble de la série temporelle suggère une **mauvaise résilience** des peuplements coralliens sur cette station de récif frangeant à l'afflux touristique important (@fig-cc-ngouja).
 :::
 
 ::: {#fig-sub-ngouja}
 ![](outputs/mayotte/substrat/ngouja_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -754,13 +759,13 @@ Le recouvrement benthique sur la station de la bouée 2 de la passe en S est pri
 de **sable et de débris**, conditions plutôt normales sur cette station localisée en bordure de passe à épandage détritique (@fig-sub-pes.deux). Le recouvrement en corail dur ne représente 
 qu'un tiers de la station. L'évolution du recouvrement corallien montre l'importante mortalité suite au stress thermique de 2016 sur cette station 
 de récif barrière, dont les peuplements sont à la base principalement constitués d'espèces branchus et tabulaires (@fig-cc-pes.deux).
-L'amélioration mitigée de la part du recouvrement corallien suggère une **résilience médiocre** de ces peuplements thermiquement sensibles.
+L'amélioration mitigée de la part du recouvrement corallien suggère une **résilience assez faible** de ces peuplements thermiquement sensibles par rapport à ce qu'on peut observer sur d'autres stations.
 :::
 
 ::: {#fig-sub-pes.deux}
 ![](outputs/mayotte/substrat/pes.deux_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -780,7 +785,7 @@ Composition du substrat (% moyen)
 
 ::: {#first-column}
 Les peuplements de poissons sont **faiblement représentés** en 2024 et les densité des principaux groupes fonctionnels **tendent à la baisse** sur l'ensemble
-de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être principalement lié à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
+de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être principalement liée à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
 suggère l'action d'autres types de pressions agissant en synergie avec la perte d'habitat sur cette station classé en réserve.
 :::
 
@@ -833,7 +838,7 @@ d'espèces digités à fort taux de croissance sur cette station de bordure de p
 ::: {#fig-sub-pes.onze}
 ![](outputs/mayotte/substrat/pes.onze_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -899,13 +904,13 @@ d'holothuries** (@fig-invert-pes.onze). L'évolution de la densité de **béniti
 ::: {#first-column}
 Le recouvrement benthique sur la station de Sakouli est principalement **biotique**, en grande partie occupé par du **corail dur** (@fig-sub-sakouli).
 L'évolution du recouvrement corallien montre une **bonne résilience** des peuplements coralliens sur Sakouli, avec un impact modéré du stress
-thermique de 2016 sur le recouvrement et un retour au stade probablement 'climax' constaté depuis la reprise de suivis pas le SPS (@fig-cc-sakouli).
+thermique de 2016 sur le recouvrement et un retour au stade probablement 'climax' constaté en 2022 (@fig-cc-sakouli).
 :::
 
 ::: {#fig-sub-sakouli}
 ![](outputs/mayotte/substrat/sakouli_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -972,13 +977,13 @@ en 2012.
 ::: {#first-column}
 Le recouvrement benthique sur la station de Saziley est principalement **abiotique** et largement représenté par les **débris et la roche** (@fig-sub-saziley).
 Le **corail dur** n'occupe qu'un tiers de la station. L'évolution du recouvrement en corail dur montre une **amélioration entre 2016 et 2019** mais 
-une **importante dégradation** d'environ 40% depuis la reprise des suivis (@fig-cc-saziley).
+une **importante dégradation** d'environ 40% entre 2019 et 2022 (@fig-cc-saziley).
 :::
 
 ::: {#fig-sub-saziley}
 ![](outputs/mayotte/substrat/saziley_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -1051,7 +1056,7 @@ sur cette station dominée par les acropores digités (@fig-cc-tanaraki).
 ::: {#fig-sub-tanaraki}
 ![](outputs/mayotte/substrat/tanaraki_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -1125,7 +1130,7 @@ depuis la dernière campagne de suivi (@fig-cc-tzoundzou).
 ::: {#fig-sub-tzoundzou}
 ![](outputs/mayotte/substrat/tzoundzou_substrat_survey.png){width=90%}
 
-Composition du substrat (% moyen)
+Composition du substrat en 2024 (% moyen)
 :::
 ::::
 
@@ -1168,4 +1173,23 @@ malgré le comptage de **quelques oursins diadèmes** en 2021-2022 (@fig-invert-
 ::::
 
 {{< pagebreak >}}
+
+# Remarques
+
+::: {.callout-warning}
+
+## Alerte prolifération d'algues
+
+La campagne 2023-2024 du suivi des stations Reef Check met en avant une augmentation
+importante du taux de recouvrement en macroalgues sur certains sites. L'augmentation de la
+part d'algues dréssées est souvent un marqueur d'eutrophisation et indique la présence d'apports azotés
+et phosphatés dans les eaux de ruissellement venant du bassin versant. Les sites concernés 
+doivent faire l'attention d'un suivi attentif et continus afin d'observer 
+la trajectoire environnementale que prend l'écosystème récifal.
+
+:::
+
+<br>
+
+![Évolution du recouvrement en macroalgues sur les stations Reef Check de Mayotte. Les boxplot rouges montrent le recouvrement en algues recensé lors de la dernière campagne de suivis.](outputs/mayotte/nia_cover.png){#fig-warning-alga}
 

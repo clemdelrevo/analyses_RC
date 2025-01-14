@@ -6,7 +6,8 @@ get_export_figure <- function(
     cc_survey_may,
     substrat_survey_may,
     fish_survey_may,
-    invert_survey_may
+    invert_survey_may,
+    nia_cover
     ) {
   
   #targets::tar_load(cc_evol_may)
@@ -17,6 +18,7 @@ get_export_figure <- function(
   #targets::tar_load(cc_survey_may)
   #targets::tar_load(fish_survey_may)
   #targets::tar_load(invert_survey_may)
+  #targets::tar_load(nia_cover)
   
   dir.create(here::here("outputs/mayotte/"), showWarnings = FALSE)
   dir.create(here::here("outputs/mayotte/substrat"), showWarnings = FALSE)
@@ -59,7 +61,7 @@ get_export_figure <- function(
                     width = 8, height = 4.5)
   }
   
-  message(cli::rule(center = "export des figures de d'évolutions de densité de poissons", col = "blue"))
+  message(cli::rule(center = "export des figures d'évolutions de densité de poissons", col = "blue"))
   
   for (i in names(fish_survey_may)) {
     #i = "bandrele"
@@ -68,7 +70,7 @@ get_export_figure <- function(
                     width = 8, height = 6)
   }
   
-  message(cli::rule(center = "export des figures de d'évolutions de densité d'invertébrés", col = "green"))
+  message(cli::rule(center = "export des figures d'évolutions de densité d'invertébrés", col = "green"))
   
   for (i in names(invert_survey_may)) {
     #i = "bandrele"
@@ -76,6 +78,8 @@ get_export_figure <- function(
     ggplot2::ggsave(paste0("outputs/mayotte/invert/", i, "_invert_survey.png"), plot = plot, dpi = 400,
                     width = 8, height = 6)
   }
+  
+  ggplot2::ggsave(here::here("outputs/mayotte/nia_cover.png"), plot = nia_cover, dpi = 400, width = 8, height = 7)
   
 }
   

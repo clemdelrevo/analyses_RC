@@ -28,9 +28,9 @@ write_bilan <- function(export) {
       cc = glue::glue("Le recouvrement benthique sur la station de Boa est principalement **abiotique**, 
       composé de **roche, de débris et de sable** (@fig-sub-boa). Après une progression du taux de recouvrement 
       en corail dur entre 2011 et 2015, celui ci entame un déclin continue entre 2016 et 2020 (@fig-cc-boa). 
-      Aucune augmentation 'significative' du recouvrement en corail dur n'est observée depuis
-      la reprise des suivis par le SPS. Le suivi régulier sur cette station montre une **résilience 
-      médiocre** des peuplements coralliens sur ce site de récif interne, probablement en lien avec les 
+      Aucune augmentation 'significative' du recouvrement en corail dur n'est observée depuis 2020. 
+      Le suivi régulier sur cette station montre une **résilience 
+      médiocre** des peuplements coralliens du fait d'une stabilité du taux de recouvrement en corail dur sur ce site de récif interne, probablement en lien avec les 
       fortes pressions issues du bassin versant^[Ifrecor (2020) État de santé des récifs coralliens et écosystèmes associés des outre-mer français.]"),
       fish = glue::glue("Les **papillons et perroquets** représentent les seuls familles observées
       en 2024, avec très peu d'individus (@fig-fish-boa). L'évolution de la densité
@@ -63,21 +63,21 @@ write_bilan <- function(export) {
       de la couverture corallienne ne permet pas d'émettre d'hypothèses sur la capacité de résilience des peuplements coralliens de cette station.
       Néanmoins, au regard de la période de suivi de cette station par rapport au phénomène de blanchissement global intervenu courant 2024,
       la dégradation du taux de recouvrement corallien suggère plutôt un **impact anthropique local** sur ce récif frangeant, 
-      certainement en relation avec les activités portuaires à proximité (@fig-cc-dzoumogne)."),
+      dont l'origine reste à expliquer (@fig-cc-dzoumogne)."),
       fish = glue::glue("Les **papillons** représentent la majorité des observations de poissons indicateurs 
       sur la série temporelle, couplés à quelques observations de **perroquets** (@fig-fish-dzoumogne). Les **poissons piscivores**, très rarement comptés
       en 2012 ou en 2021-2022 sont totalement absent en 2023-2024."),
       invert = glue::glue("Les invertébrés benthiques indicateurs recensés sont principalement des **oursins diadèmes** et sont en
-      **forte augmentation** depuis la reprise des suivis par rapport à 2012 (@fig-invert-dzoumogne). Les **bénitiers et les holothuries** sont également
+      **forte augmentation** depuis 2022 par rapport à 2012 (@fig-invert-dzoumogne). Les **bénitiers et les holothuries** sont également
       observés très ocasionnellement.")
       ),
     
     longoni = list(
       cc = glue::glue("Le recouvrement benthique sur la station de Longoni est principalement **abiotique**, composé principalement
       de **roche et de débris** (@fig-sub-longoni). Le **recouvrement corallien** représente environ **un tiers** de la station tandis que les macroalgues couvrent
-      une part substancielle du substrat. L'évolution du taux de recouvrement montre 
+      une part substancielle du substrat (voir @fig-warning-alga). L'évolution du taux de recouvrement montre 
       une **stabilisation du recouvrement** en corail dur depuis 2020, après que les peuplements coralliens aient 
-      progressivement récupéré d'une mortalité intense survenue entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' 
+      progressivement récupéré d'une mortalité intense survenue entre 2015 et 2016 (@fig-cc-longoni). Le taux de recouvrement est revenu à son niveau 'historique' (2012)
       pré-perturbation, qui semble plafonner entre **30 et 40%**, temoignant d'un stade climax à taux de recouvrement intermédiaire ou d'un **stress chronique** sur cette station à proximité du seul port
       commercial de Mayotte."),
       fish = glue::glue("Les poissons indicateurs sont exclusivement représentés par les **papillons** en 2024 (@fig-fish-longoni). Cette famille semble en progression, après un déclin
@@ -93,7 +93,7 @@ write_bilan <- function(export) {
     
     majikavo = list(
       cc = glue::glue("Le recouvrement benthique sur la station de Majikavo est principalement **biotique**, majoritairement du **corail dur**
-      tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-majikavo). Le recouvrement en corail dur est en augmentation (@fig-cc-majikavo)."),
+      tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-majikavo, voir aussi @fig-warning-alga). Le recouvrement en corail dur est en augmentation (@fig-cc-majikavo)."),
       fish = glue::glue("Les poissons **papillons** représentent la quasi exclusivité des poissons sur cette station, hormis l'observation 
       d'un gaterin lors du dernier suivi (@fig-fish-majikavo)."),
       invert = glue::glue("L'observation d'**un bénitier** représente la seule observation d'invertébré indicateur cette année, en baisse par rapport
@@ -113,7 +113,7 @@ write_bilan <- function(export) {
     
     mtsangamouji = list(
       cc = glue::glue("Le recouvrement benthique sur la station de M'tsangamouji est principalement **biotique**, composé de **corail dur**
-      tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji). La couverture corallienne est légèrement plus importante en 2024 qu'en
+      tandis que les **macroalgues** couvrent une part substancielle du substrat (@fig-sub-mtsangamouji, voir aussi @fig-warning-alga). La couverture corallienne est légèrement plus importante en 2024 qu'en
       2012 mais en baisse depuis la précédante campagne de suivi (@fig-cc-mtsangamouji)."),
       fish = glue::glue("Les **papillons** représentent la principale famille de poisson observée en 2024 (@fig-fish-mtsangamouji). Cette famille est en augmentation depuis 2012,
       peut être en lien avec l'augmentation du recouvrement en corail dur. Les poissons **piscivores** restent rares et les poissons **perroquets** n'ont jamais
@@ -124,7 +124,7 @@ write_bilan <- function(export) {
     
     ngouja = list(
       cc = glue::glue("Le recouvrement benthique sur la station de N'gouja est principalement **biotique**, composé majoritairement de **corail dur**
-      tandis que les **macroalgues** occupent une part substancielle du substrat (@fig-sub-ngouja). La trajectoire à la baisse continue du recouvrement en corail dur sur 
+      tandis que les **macroalgues** occupent une part substancielle du substrat (@fig-sub-ngouja, voir aussi @fig-warning-alga). La trajectoire à la baisse continue du recouvrement en corail dur sur 
       l'ensemble de la série temporelle suggère une **mauvaise résilience** des peuplements coralliens sur cette station de récif frangeant à l'afflux touristique important (@fig-cc-ngouja)."),
       fish = glue::glue("Les **papillons** représentent la principale famille de poisson observée en 2024 avec seulement 4 individus (@fig-fish-ngouja). La diminution de la densité de poissons de cette famille
       est certainement à mettre en lien avec la diminution constante en corail dur. **Perroquets et piscivores** sont absents depuis 2 campagnes de suivis et restaient très occasionnellement observés
@@ -139,9 +139,9 @@ write_bilan <- function(export) {
       de **sable et de débris**, conditions plutôt normales sur cette station localisée en bordure de passe à épandage détritique (@fig-sub-pes.deux). Le recouvrement en corail dur ne représente 
       qu'un tiers de la station. L'évolution du recouvrement corallien montre l'importante mortalité suite au stress thermique de 2016 sur cette station 
       de récif barrière, dont les peuplements sont à la base principalement constitués d'espèces branchus et tabulaires (@fig-cc-pes.deux).
-      L'amélioration mitigée de la part du recouvrement corallien suggère une **résilience médiocre** de ces peuplements thermiquement sensibles."),
+      L'amélioration mitigée de la part du recouvrement corallien suggère une **résilience assez faible** de ces peuplements thermiquement sensibles par rapport à ce qu'on peut observer sur d'autres stations."),
       fish = glue::glue("Les peuplements de poissons sont **faiblement représentés** en 2024 et les densité des principaux groupes fonctionnels **tendent à la baisse** sur l'ensemble
-      de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être principalement lié à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
+      de la série temporelle (@fig-fish-pes.deux). Si la trajectoire des **papillons** peut être principalement liée à la diminution du recouvrement en corail dur, celle des **perroquets et piscivores**
       suggère l'action d'autres types de pressions agissant en synergie avec la perte d'habitat sur cette station classé en réserve."),
       invert = glue::glue("Les invértébrés sont **faiblement représentés** sur cette station en 2024 (@fig-invert-pes.deux). En particulier, on note une tendance à la baisse des **holothuries**, espèces d'interêts
       écologiques et sensibles aux pressions d'origines anthropiques. Aucun commerce d'holothurie n'est pourtant recensé sur Mayotte.")
@@ -160,7 +160,7 @@ write_bilan <- function(export) {
     sakouli = list(
       cc = glue::glue("Le recouvrement benthique sur la station de Sakouli est principalement **biotique**, en grande partie occupé par du **corail dur** (@fig-sub-sakouli).
       L'évolution du recouvrement corallien montre une **bonne résilience** des peuplements coralliens sur Sakouli, avec un impact modéré du stress
-      thermique de 2016 sur le recouvrement et un retour au stade probablement 'climax' constaté depuis la reprise de suivis pas le SPS (@fig-cc-sakouli)."),
+      thermique de 2016 sur le recouvrement et un retour au stade probablement 'climax' constaté en 2022 (@fig-cc-sakouli)."),
       fish = glue::glue("Les peuplements de poissons sont principalements constitués de **papillons** et en moindre mesure de **perroquets** en 2024 (@fig-fish-sakouli). Les 
       poissons **piscivores** restent absents si l'on occulte la présence du seul mérou observé en 2021-2022."),
       invert = glue::glue("La présence de **deux bénitiers** constitue les seuls observations d'invertébrés benthiques en 2024 (@fig-invert-sakouli). Les peuplements 
@@ -171,7 +171,7 @@ write_bilan <- function(export) {
     saziley = list(
       cc = glue::glue("Le recouvrement benthique sur la station de Saziley est principalement **abiotique** et largement représenté par les **débris et la roche** (@fig-sub-saziley).
       Le **corail dur** n'occupe qu'un tiers de la station. L'évolution du recouvrement en corail dur montre une **amélioration entre 2016 et 2019** mais 
-      une **importante dégradation** d'environ 40% depuis la reprise des suivis (@fig-cc-saziley)."),
+      une **importante dégradation** d'environ 40% entre 2019 et 2022 (@fig-cc-saziley)."),
       fish = glue::glue("Les peuplements de poissons sont principalements constitués de **papillons** et en moindre mesure de **perroquets** en 2024 (@fig-fish-saziley).
       Les papillons semblent en augmentation depuis 2018 tandis que la trajectoire des perroquets ne montre pas de variation claires. Les **piscivores**
       restent **très rares** sur cette station."),

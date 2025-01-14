@@ -130,6 +130,9 @@ list(
   ,tar_target(fish_survey_may, stat_bar_function(data = data_fish_may, taxon_name = french_fish_name, taxon = "fish"))
   ,tar_target(invert_survey_may, stat_bar_function(data = data_invert_may, taxon_name = french_invert_name, taxon = "invert"))
   ,tar_target(cc_survey_may, coral_station_evolution(data = data_pit_may))
+  
+  ## Warning ---
+  ,tar_target(nia_cover, get_nia_cover(data_pit_may))
 
   ## export figures ---
   ,tar_target(
@@ -142,14 +145,16 @@ list(
       cc_survey_may,
       substrat_survey_may,
       fish_survey_may,
-      invert_survey_may
+      invert_survey_may,
+      nia_cover
       ), 
     format = "file"
     )
   
   ## Create "bilan des station Reef Check"
   ,tar_target(bilan_station, write_bilan(export))
-  ,tar_target(quarto_report, write_quarto(bilan_station, data_pit_may))
+  ,tar_target(fist_page_carto, create_fist_page_carto(mayotte_bd, may_reef, pit_may, reef_type_may, coord_site_may))
+  ,tar_target(quarto_report, write_quarto(bilan_station, data_pit_may, fist_page_carto, warning = TRUE))
   ,tar_quarto(rc_report, "rc_report.qmd", execute_params = list(your_param = quarto_report))
   
 
